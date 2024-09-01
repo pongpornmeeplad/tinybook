@@ -13,6 +13,8 @@ function All() {
         navigate('/Album');
     };
 
+
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -26,7 +28,9 @@ function All() {
 
         fetchUsers();
     }, []);
-
+    const handleProfile = (userId) => {
+        navigate(`/Profile/${userId}`);
+      };
     return (
         <div style={{
             width: "100vw",
@@ -78,7 +82,7 @@ function All() {
             }}>
                 {users.map((item) => (
                     <div key={item.id}>
-                        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }} onClick={() => handleProfile(item.id)}>
                             <div style={{
                                 width: '2rem',
                                 height: '2rem',
