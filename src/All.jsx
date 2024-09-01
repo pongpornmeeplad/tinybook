@@ -2,7 +2,7 @@ import React from 'react';
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { PiBookBookmarkFill } from "react-icons/pi";
-import { getUsers } from './AlbumPage';
+import { Users } from "./friend";
 
 function All() {
 
@@ -75,7 +75,7 @@ function All() {
                 overflow: "scroll"
             }}>
 
-                {getUsers.map((item, index) => (
+                {Users.map((item, index) => (
                     <div key={item.id}>
                         <div style={{                       //บล็อกรายชื่อ
                             display: "flex",
