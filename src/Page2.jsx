@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
-
 const firebaseConfig = {
     apiKey: "AIzaSyC4dCrV6B5GYraqkFm16oQlqMwU8LMNh3E",
     authDomain: "ybregister.firebaseapp.com",
@@ -14,16 +13,10 @@ const firebaseConfig = {
     measurementId: "G-PGV59ZJ7WM"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function Page2() {
-    // const [inputValues, setInputValues] = useState({
-    //     field1: '',
-    //     field2: '',
-    //     field3: '',
-    // });
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -37,6 +30,8 @@ function Page2() {
         field1: '',
         field2: '',
         field3: '',
+        lineId: '',
+        picpic: ''
     });
 
     const handleInputChange = (e, field) => {
@@ -48,7 +43,7 @@ function Page2() {
 
     const handleNextClick = async () => {
         try {
-            // บันทึกข้อมูลลงใน Firestore
+            // Save data to Firestore
             await addDoc(collection(db, "users"), {
                 Service: inputValues.Service,
                 Name: inputValues.Name,
@@ -56,11 +51,13 @@ function Page2() {
                 Tel: inputValues.Tel,
                 Position: inputValues.field1,
                 Workplace: inputValues.field2,
-                Business: inputValues.field3
+                Business: inputValues.field3,
+                LineId: inputValues.lineId,
+                Picpic: inputValues.picpic
             });
             console.log("Document successfully written!");
 
-            // ไปยังหน้า Page3 หลังจากบันทึกสำเร็จ
+            // Navigate to Register page after saving
             navigate('/Register');
         } catch (error) {
             console.error("Error adding document: ", error);
@@ -83,35 +80,35 @@ function Page2() {
             alignItems:"center"
         }}>
             
+            <div style={{
+                marginLeft:"1rem",
+                justifyContent:"left",
+                color: '#FFFFFF',
+                fontSize: '30px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                maxWidth:"1000px",
+                width:"100%"
+            }}>
+                กรอกข้อมูล
                 <div style={{
-                    marginLeft:"1rem",
-                    justifyContent:"left",
-                    color: '#FFFFFF',
-                    fontSize: '30px',
+                    width: '35px',
+                    height: '35px',
+                    backgroundColor: 'white',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '10px',
-                    maxWidth:"1000px",
-                    width:"100%"
+                    justifyContent: 'center',
+                    borderRadius: '5px',
                 }}>
-                    กรอกข้อมูล
-                    <div style={{
-                        width: '35px',
-                        height: '35px',
-                        backgroundColor: 'white',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: '5px',
-                    }}>
-                        <span style={{
-                            color: '#510808',
-                            fontSize: '18px',
-                            fontWeight: 'bold',
-                            fontFamily: "'Kanit', sans-serif",
-                        }}>2</span>
-                    </div>
+                    <span style={{
+                        color: '#510808',
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        fontFamily: "'Kanit', sans-serif",
+                    }}>2</span>
                 </div>
+            </div>
             
             <div style={{
                 width: "100vw",
@@ -154,7 +151,6 @@ function Page2() {
                         />
                     </div>
 
-
                     <div>
                         <div style={{
                             color: "#510808",
@@ -178,7 +174,6 @@ function Page2() {
                         onChange={(e) => handleInputChange(e, 'field2')}/>
                     </div>
 
-
                     <div>
                         <div style={{
                             color: "#510808",
@@ -200,6 +195,52 @@ function Page2() {
                         }} type="text" placeholder='ร้านอาหาร...' 
                         value={inputValues.field3}
                         onChange={(e) => handleInputChange(e, 'field3')}/>
+                    </div>
+
+                    <div>
+                        <div style={{
+                            color: "#510808",
+                            fontSize: "1.2rem",
+                            marginBottom: "0.2rem"
+                        }}>Line ID</div>
+                        <input style={{
+                            background: "#EAEAEA",
+                            width: "100%",
+                            color: "black",
+                            borderRadius: "10px",
+                            boxSizing: "border-box",
+                            height: "2rem",
+                            fontSize: "1rem",
+                            border: "1px solid #ccc",
+                            padding: "10px",
+                            marginBottom: "0.2rem",
+                            fontFamily: "'Kanit', sans-serif",
+                        }} type="text" placeholder='ไอดีไลน์....' 
+                        value={inputValues.lineId}
+                        onChange={(e) => handleInputChange(e, 'lineId')}/>
+                    </div>
+
+                    <div>
+                        <div style={{
+                            color: "#510808",
+                            fontSize: "1.2rem",
+                            marginBottom: "0.2rem"
+                        }}>Picture URL</div>
+                        <input style={{
+                            background: "#EAEAEA",
+                            width: "100%",
+                            color: "black",
+                            borderRadius: "10px",
+                            boxSizing: "border-box",
+                            height: "2rem",
+                            fontSize: "1rem",
+                            border: "1px solid #ccc",
+                            padding: "10px",
+                            marginBottom: "0.2rem",
+                            fontFamily: "'Kanit', sans-serif",
+                        }} type="text" placeholder='ลิงค์รูป....' 
+                        value={inputValues.picpic}
+                        onChange={(e) => handleInputChange(e, 'picpic')}/>
                     </div>
                 </div>
 
