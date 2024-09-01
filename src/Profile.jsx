@@ -96,7 +96,7 @@ function Profile() {
                     padding: '0 20px',
                     width: "100%",
                     maxWidth: "1000px",
-                    alignSelf:"center"
+                    
                 }}>
                     <div style={{ margin: '5px 0', textAlign: "right", width: "97%", maxWidth: "1000px", marginRight: "3rem" }}>{user.Service}</div>
                     <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
@@ -201,12 +201,12 @@ function Profile() {
                             gap: "10px"
                         }}>
                             <div style={{ marginTop: "3px" }}><MdOutlineHomeRepairService /></div>
-                            <div>สาขา</div>
+                            <div>สถานที่ทำงาน</div>
                         </div>
-                        <div>{user.Department}</div>
+                        <div>{user.Workplace}</div>
                     </div>
 
-                    <div style={{
+                    {/* <div style={{
                         display: "flex",
                         justifyContent: "space-between",
                         backgroundColor: "#831818",
@@ -223,9 +223,9 @@ function Profile() {
                             <div>สถานะ</div>
                         </div>
                         <div>{user.Status}</div>
-                    </div>
+                    </div> */}
 
-                    <div style={{
+                    {/* <div style={{
                         display: "flex",
                         justifyContent: "space-between",
                         backgroundColor: "#831818",
@@ -242,7 +242,75 @@ function Profile() {
                             <div>หมายเหตุ</div>
                         </div>
                         <div>{user.Note}</div>
+                    </div> */}
+                     <div style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    //marginBottom:"10px"
+                    marginLeft: "15px",
+                    marginRight: "15px",
+                    padding: "10px"
+                }}>
+                    <div>ข้อมูลอื่นๆ</div>
+                    <div style={{
+                        display: "flex",
+                        gap: "10px"
+                    }}>
+
+                        <div style={{
+                            color: "#BB6969"
+                        }}><RiEdit2Line /></div>
+                        <div style={{
+                            color: "#BB6969"
+                        }}>แก้ไข</div>
                     </div>
+                </div>
+                <div style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    backgroundColor: "#831818",
+                    marginBottom: "5px",
+                    marginLeft: "15px",
+                    marginRight: "15px",
+                    borderRadius: "14px 14px 0px 0px",
+                    padding: "10px"
+                }}>
+                    <div style={{
+                        display: "flex",
+                        gap: "10px"
+
+                    }}>
+                        <div style={{
+                            marginTop: "3px"
+                        }}><FaRegQuestionCircle /></div>
+                        <div>ฉายา</div>
+                    </div>
+
+                    <div>{user.Name}</div>
+                </div>
+                <div style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    backgroundColor: "#831818",
+                    marginBottom: "5px",
+                    marginLeft: "15px",
+                    marginRight: "15px",
+                    borderRadius: "0px 0px 14px 14px",
+                    padding: "10px"
+
+                }}>
+                    <div style={{
+                        display: "flex",
+                        gap: "10px"
+                    }}>
+                        <div style={{
+                            marginTop: "3px"
+                        }}><FaRegListAlt /></div>
+                        <div>รายละเอียด</div>
+                    </div>
+                    <div >{user.Detail}</div>
+                </div>
+
                 </div>
             </div>
         </div>
