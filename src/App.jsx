@@ -14,13 +14,14 @@ import Profile from './Profile';
 
 
 
-const liff = window.liff;
+// const liff = window.liff;
 
 
 
 function App() {
+  const liff = window.liff;
   console.log(liff)
-
+  const [isLiffReady, setIsLiffReady] = useState(false);
   const [inputValues, setInputValues] = useState({
     Service: '',
     Name: '',
@@ -30,21 +31,26 @@ function App() {
   useEffect(() => {
     const initializeLiff = async () => {
       try {
-        await liff.init({ liffId: '2005857013-rP966d6R' });
-        if (liff.isLoggedIn()) {
-          const profile = await liff.getProfile();
+        if (!window.liff) throw new Error('LIFF SDK is not loaded');
+        await window.liff.init({ liffId: '2005857013-rP966d6R' });
+        if (window.liff.isLoggedIn()) {
+          const profile = await window.liff.getProfile();
           console.log('profile', profile)
         } else {
-          liff.login();
+          window.liff.login();
         }
+        setIsLiffReady(true);
       } catch (err) {
-        console.error(err);
+        console.error('Error initializing LIFF:', err);
       }
     };
 
     initializeLiff();
   }, []);
 
+  if (!isLiffReady){
+    return <div>Loading ...</div>;
+  }
   return (
     <Router>
       <Routes>
