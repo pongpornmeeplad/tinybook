@@ -40,7 +40,8 @@ function Profile() {
         }}>
             {users.map((user) => (
                 <div style={{
-                    width:"100%"
+                    width:"100%",
+                    justifyContent:"center"
                 }}key={user.id}>
                     <div style={{
                         width: "100%",
