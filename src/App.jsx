@@ -1,7 +1,5 @@
-
-
-import React, { useState ,useEffect} from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Page1 from './Page1';
 import Page2 from './Page2';
 import './App.css';
@@ -11,23 +9,19 @@ import List from './List';
 import All from './All';
 import Profile from './Profile';
 
-
-
-
-// const liff = window.liff;
-
-
-
 function App() {
   const liff = window.liff;
-  console.log(liff)
+  console.log(liff);
   const [isLiffReady, setIsLiffReady] = useState(false);
   const [inputValues, setInputValues] = useState({
     Service: '',
     Name: '',
     Nickname: '',
-    Tel: ''
+    Tel: '',
+    LineId: '',
+    picpic: '',
   });
+
   useEffect(() => {
     const initializeLiff = async () => {
       try {
@@ -35,7 +29,12 @@ function App() {
         await window.liff.init({ liffId: '2005857013-rP966d6R' });
         if (window.liff.isLoggedIn()) {
           const profile = await window.liff.getProfile();
-          console.log('profile', profile)
+          console.log('profile', profile);
+          setInputValues((prevValues) => ({
+            ...prevValues,
+            LineId: profile.userId,  //ใช้ profile.userId แทน LineId
+            picpic: profile.pictureUrl,
+          }));
         } else {
           window.liff.login();
         }
@@ -48,9 +47,10 @@ function App() {
     initializeLiff();
   }, []);
 
-  if (!isLiffReady){
+  if (!isLiffReady) {
     return <div>Loading ...</div>;
   }
+
   return (
     <Router>
       <Routes>
@@ -62,8 +62,6 @@ function App() {
         <Route path="/All" element={<All />} />
         <Route path="/List" element={<List />} />
         <Route path="/Profile" element={<Profile />} />
-
-
       </Routes>
     </Router>
   );
