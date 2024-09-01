@@ -2,8 +2,8 @@ import React from 'react';
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { PiBookBookmarkFill } from "react-icons/pi";
-import { Users } from './friend';
-import {users} from './AlbumPage';
+import { getUsers } from './AlbumPage';
+
 function All() {
 
     const navigate = useNavigate();
@@ -75,7 +75,7 @@ function All() {
                 overflow: "scroll"
             }}>
 
-                {users.map((item, index) => (
+                {getUsers.map((item, index) => (
                     <div key={item.id}>
                         <div style={{                       //บล็อกรายชื่อ
                             display: "flex",
@@ -105,11 +105,11 @@ function All() {
                                     display: "flex",
                                     justifyContent: "space-between"
                                 }}>
-                                    <div>{item.name}</div>
+                                    <div>{item.Name}</div>
                                     
                                     <div style={{
                                         color: "#bb6969"
-                                    }}>{item.nickname}</div>
+                                    }}>{item.Nickname}</div>
                                 </div>
 
                                 <div style={{

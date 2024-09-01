@@ -39,6 +39,11 @@ function AlbumPage() {
     fetchUsers();
   }, []);
 
+  const getUsers = () => {
+    return users;
+  };
+
+  
   const handleCancleClick = () => {
     setShowList(false); // Hide list on cancel
   };
@@ -225,4 +230,5 @@ function AlbumPage() {
   );
 }
 
+export const getUsers = AlbumPage().getUsers;
 export default AlbumPage;
