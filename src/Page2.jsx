@@ -203,7 +203,7 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                     </div>
 
                     {/* Line ID Field */}
-                    <div>
+                    {/* <div>
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
@@ -229,10 +229,10 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                             onChange={(e) => handleInputChange(e, 'LineId')}
                             readOnly  // If LineId should not be editable
                         />
-                    </div>
+                    </div> */}
 
                     {/* Picture URL Field */}
-                    <div>
+                    {/* <div>
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
@@ -258,7 +258,7 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                             onChange={(e) => handleInputChange(e, 'picpic')}
                             readOnly  // If picpic should not be editable
                         />
-                    </div>
+                    </div> */}
                 </div>
 
                 <div style={{
