@@ -39,9 +39,9 @@ function AlbumPage() {
     fetchUsers();
   }, []);
 
-  // const getUsers = () => {
-  //   return users;
-  // };
+  const getUsers = () => {
+    return users;
+  };
 
   
   const handleCancleClick = () => {
@@ -230,5 +230,5 @@ function AlbumPage() {
   );
 }
 
-// export const getUsers = AlbumPage().getUsers;
+export const getUsers = AlbumPage().getUsers;
 export default AlbumPage;
