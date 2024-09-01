@@ -86,7 +86,7 @@ function All() {
                                 border: '3px solid white',
                                 overflow: 'hidden',
                             }}>
-                                <img src={item.icpic} alt="Profile" style={{
+                                <img src={item.Picpic} alt="Profile" style={{
                                     width: '100%',
                                     height: '100%',
                                     objectFit: 'cover'
