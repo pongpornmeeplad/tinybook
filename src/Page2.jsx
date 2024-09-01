@@ -272,7 +272,8 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                             height: "3rem",  // Added height for better UX
                             color: "white",
                             fontSize: "1.2rem",
-                            cursor: "pointer"
+                            cursor: "pointer",
+                            color:"#ffffff",
                         }}
                         onClick={handleNextClick}
                     >

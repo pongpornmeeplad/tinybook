@@ -209,6 +209,7 @@ function Page1({inputValues, setInputValues}) {
                     borderRadius: "30px"
                 }}>
                     <button style={{
+                        color:"#ffffff",
                         backgroundColor: "#510808",
                         borderRadius: "30px",
                         width: "15rem"
