@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
+// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyC4dCrV6B5GYraqkFm16oQlqMwU8LMNh3E",
     authDomain: "ybregister.firebaseapp.com",
@@ -13,27 +14,14 @@ const firebaseConfig = {
     measurementId: "G-PGV59ZJ7WM"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-function Page2() {
-    const location = useLocation();
+function Page2({ inputValues, setInputValues }) {  // Receive props
     const navigate = useNavigate();
 
-    const initialValues = location.state?.inputValues || {};
-
-    const [inputValues, setInputValues] = useState({
-        Service: initialValues.Service || '',
-        Name: initialValues.Name || '',
-        Nickname: initialValues.Nickname || '',
-        Tel: initialValues.Tel || '',
-        field1: '',
-        field2: '',
-        field3: '',
-        lineId: '',
-        picpic: ''
-    });
-
+    // Handle input changes
     const handleInputChange = (e, field) => {
         setInputValues({
             ...inputValues,
@@ -41,6 +29,7 @@ function Page2() {
         });
     };
 
+    // Handle form submission
     const handleNextClick = async () => {
         try {
             // Save data to Firestore
@@ -52,7 +41,7 @@ function Page2() {
                 Position: inputValues.field1,
                 Workplace: inputValues.field2,
                 Business: inputValues.field3,
-                LineId: inputValues.lineId,
+                LineId: inputValues.LineId,  // Ensure consistent casing
                 Picpic: inputValues.picpic
             });
             console.log("Document successfully written!");
@@ -126,6 +115,7 @@ function Page2() {
                 maxWidth:"1000px"
             }}>
                 <div>
+                    {/* Position Field */}
                     <div>
                         <div style={{
                             color: "#510808",
@@ -133,114 +123,139 @@ function Page2() {
                             marginBottom: "0.2rem",
                             fontFamily: "'Kanit', sans-serif",
                         }}>ตำแหน่ง สังกัด</div>
-                        <input style={{
-                            background: "#EAEAEA",
-                            width: "100%",
-                            color: "black",
-                            borderRadius: "10px",
-                            boxSizing: "border-box",
-                            height: "2rem",
-                            fontSize: "1rem",
-                            border: "1px solid #ccc",
-                            padding: "10px",
-                            marginBottom: "0.2rem",
-                            fontFamily: "'Kanit', sans-serif",
-                        }} type="text" placeholder='ผบ......'
-                        value={inputValues.field1}
-                        onChange={(e) => handleInputChange(e, 'field1')}
+                        <input
+                            style={{
+                                background: "#EAEAEA",
+                                width: "100%",
+                                color: "black",
+                                borderRadius: "10px",
+                                boxSizing: "border-box",
+                                height: "2rem",
+                                fontSize: "1rem",
+                                border: "1px solid #ccc",
+                                padding: "10px",
+                                marginBottom: "0.2rem",
+                                fontFamily: "'Kanit', sans-serif",
+                            }}
+                            type="text"
+                            placeholder='ผบ......'
+                            value={inputValues.field1}
+                            onChange={(e) => handleInputChange(e, 'field1')}
                         />
                     </div>
 
+                    {/* Workplace Field */}
                     <div>
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem"
                         }}>สถานที่ทำงาน</div>
-                        <input style={{
-                            background: "#EAEAEA",
-                            width: "100%",
-                            color: "black",
-                            borderRadius: "10px",
-                            boxSizing: "border-box",
-                            height: "2rem",
-                            fontSize: "1rem",
-                            border: "1px solid #ccc",
-                            padding: "10px",
-                            marginBottom: "0.2rem",
-                            fontFamily: "'Kanit', sans-serif",
-                        }} type="text" placeholder='โรงเรียน....' 
-                        value={inputValues.field2}
-                        onChange={(e) => handleInputChange(e, 'field2')}/>
+                        <input
+                            style={{
+                                background: "#EAEAEA",
+                                width: "100%",
+                                color: "black",
+                                borderRadius: "10px",
+                                boxSizing: "border-box",
+                                height: "2rem",
+                                fontSize: "1rem",
+                                border: "1px solid #ccc",
+                                padding: "10px",
+                                marginBottom: "0.2rem",
+                                fontFamily: "'Kanit', sans-serif",
+                            }}
+                            type="text"
+                            placeholder='โรงเรียน....'
+                            value={inputValues.field2}
+                            onChange={(e) => handleInputChange(e, 'field2')}
+                        />
                     </div>
 
+                    {/* Business Field */}
                     <div>
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem"
                         }}>ธุรกิจส่วนตัว</div>
-                        <input style={{
-                            background: "#EAEAEA",
-                            width: "100%",
-                            color: "black",
-                            borderRadius: "10px",
-                            boxSizing: "border-box",
-                            height: "5rem",
-                            fontSize: "1rem",
-                            border: "1px solid #ccc",
-                            padding: "10px",
-                            marginBottom: "0.2rem",
-                            fontFamily: "'Kanit', sans-serif",
-                        }} type="text" placeholder='ร้านอาหาร...' 
-                        value={inputValues.field3}
-                        onChange={(e) => handleInputChange(e, 'field3')}/>
+                        <input
+                            style={{
+                                background: "#EAEAEA",
+                                width: "100%",
+                                color: "black",
+                                borderRadius: "10px",
+                                boxSizing: "border-box",
+                                height: "5rem",
+                                fontSize: "1rem",
+                                border: "1px solid #ccc",
+                                padding: "10px",
+                                marginBottom: "0.2rem",
+                                fontFamily: "'Kanit', sans-serif",
+                            }}
+                            type="text"
+                            placeholder='ร้านอาหาร...'
+                            value={inputValues.field3}
+                            onChange={(e) => handleInputChange(e, 'field3')}
+                        />
                     </div>
 
+                    {/* Line ID Field */}
                     <div>
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem"
                         }}>Line ID</div>
-                        <input style={{
-                            background: "#EAEAEA",
-                            width: "100%",
-                            color: "black",
-                            borderRadius: "10px",
-                            boxSizing: "border-box",
-                            height: "2rem",
-                            fontSize: "1rem",
-                            border: "1px solid #ccc",
-                            padding: "10px",
-                            marginBottom: "0.2rem",
-                            fontFamily: "'Kanit', sans-serif",
-                        }} type="text" placeholder='ไอดีไลน์....' 
-                        value={inputValues.lineId}
-                        onChange={(e) => handleInputChange(e, 'lineId')}/>
+                        <input
+                            style={{
+                                background: "#EAEAEA",
+                                width: "100%",
+                                color: "black",
+                                borderRadius: "10px",
+                                boxSizing: "border-box",
+                                height: "2rem",
+                                fontSize: "1rem",
+                                border: "1px solid #ccc",
+                                padding: "10px",
+                                marginBottom: "0.2rem",
+                                fontFamily: "'Kanit', sans-serif",
+                            }}
+                            type="text"
+                            placeholder='ไอดีไลน์....'
+                            value={inputValues.LineId}  // Ensure consistent casing
+                            onChange={(e) => handleInputChange(e, 'LineId')}
+                            readOnly  // If LineId should not be editable
+                        />
                     </div>
 
+                    {/* Picture URL Field */}
                     <div>
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem"
                         }}>Picture URL</div>
-                        <input style={{
-                            background: "#EAEAEA",
-                            width: "100%",
-                            color: "black",
-                            borderRadius: "10px",
-                            boxSizing: "border-box",
-                            height: "2rem",
-                            fontSize: "1rem",
-                            border: "1px solid #ccc",
-                            padding: "10px",
-                            marginBottom: "0.2rem",
-                            fontFamily: "'Kanit', sans-serif",
-                        }} type="text" placeholder='ลิงค์รูป....' 
-                        value={inputValues.picpic}
-                        onChange={(e) => handleInputChange(e, 'picpic')}/>
+                        <input
+                            style={{
+                                background: "#EAEAEA",
+                                width: "100%",
+                                color: "black",
+                                borderRadius: "10px",
+                                boxSizing: "border-box",
+                                height: "2rem",
+                                fontSize: "1rem",
+                                border: "1px solid #ccc",
+                                padding: "10px",
+                                marginBottom: "0.2rem",
+                                fontFamily: "'Kanit', sans-serif",
+                            }}
+                            type="text"
+                            placeholder='ลิงค์รูป....'
+                            value={inputValues.picpic}
+                            onChange={(e) => handleInputChange(e, 'picpic')}
+                            readOnly  // If picpic should not be editable
+                        />
                     </div>
                 </div>
 
@@ -248,16 +263,23 @@ function Page2() {
                     alignSelf: "center",
                     marginTop: "20px",
                     borderRadius: "30px"
-
                 }}>
-                    <button style={{
-                        backgroundColor: "#510808",
-                        borderRadius: "30px",
-                        width: "15rem"
-                    }} onClick={handleNextClick}>ต่อไป</button>
+                    <button
+                        style={{
+                            backgroundColor: "#510808",
+                            borderRadius: "30px",
+                            width: "15rem",
+                            height: "3rem",  // Added height for better UX
+                            color: "white",
+                            fontSize: "1.2rem",
+                            cursor: "pointer"
+                        }}
+                        onClick={handleNextClick}
+                    >
+                        ต่อไป
+                    </button>
                 </div>
             </div>
-
         </div>
     );
 }
