@@ -65,7 +65,8 @@ function App() {
         <Route path="/Album" element={<AlbumPage />} />
         <Route path="/All" element={<All />} />
         <Route path="/List" element={<List />} />
-        <Route path="/Profile" element={<Profile />} />
+        {/* Dynamic route for Profile based on LineId */}
+        <Route path="/Profile/:lineId" element={<Profile />} />
       </Routes>
     </Router>
   );

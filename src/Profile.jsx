@@ -1,29 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line } from "react-icons/ri";
 import { MdOutlineHomeRepairService } from "react-icons/md";
 import { FaRegQuestionCircle, FaRegListAlt } from "react-icons/fa";
-import { RiEdit2Line } from "react-icons/ri";
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, query, where } from 'firebase/firestore';
 import { db } from './Firebase';
 
 function Profile() {
-    const [users, setUsers] = useState([]);
+    const { lineId } = useParams();  // Get the lineId from the URL
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchUser = async () => {
             try {
-                const querySnapshot = await getDocs(collection(db, "users"));
-                const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setUsers(usersList);
+                const q = query(collection(db, "users"), where("LineId", "==", lineId));
+                const querySnapshot = await getDocs(q);
+                const userData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))[0];
+                setUser(userData);
             } catch (error) {
-                console.error("Error fetching users: ", error);
+                console.error("Error fetching user: ", error);
             }
         };
 
-        fetchUsers();
-    }, []);
+        fetchUser();
+    }, [lineId]);
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div style={{
@@ -37,220 +43,194 @@ function Profile() {
             overflow: 'hidden',
             position: 'relative',
             alignItems: "center",
-            justifyContent:"center"
+            
         }}>
-            {users.map((user) => (
+            <div style={{
+                width:"100%",
+                justifyContent:"center"
+            }}>
                 <div style={{
-                    width:"100%",
-                    justifyContent:"center"
-                }}key={user.id}>
+                    width: "100%",
+                    height: "35vh",
+                    backgroundImage: 'url("https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    position: 'relative'
+                }}>
                     <div style={{
-                        width: "100%",
-                        height: "35vh",
-                        backgroundImage: 'url("https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg")',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        position: 'relative'
+                        position: 'absolute',
+                        bottom: '-50px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '100px',
+                        height: '100px',
+                        borderRadius: '50%',
+                        overflow: 'hidden',
+                        border: '5px solid white',
+                        backgroundColor: 'white'
                     }}>
-                        <div style={{
-                            position: 'absolute',
-                            bottom: '-50px',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            width: '100px',
-                            height: '100px',
-                            borderRadius: '50%',
-                            overflow: 'hidden',
-                            border: '5px solid white',
-                            backgroundColor: 'white'
-                        }}>
-                            <img src={user.Picpic} alt="Profile" style={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'cover'
-                            }} />
-                        </div>
-                    </div>
-
-                    <div style={{
-                        textAlign: 'center',
-                        marginTop: '35px',
-                        padding: '0 20px',
-                        width: "100%",
-                        maxWidth: "1000px",
-                        alignSelf:"center"
-                    }}>
-                        <div style={{ margin: '5px 0', textAlign: "right", width: "97%", maxWidth: "1000px", marginRight: "3rem" }}>{user.Service}</div>
-                        <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
-                        <p style={{ margin: '5px 0' }}>{user.Position}</p>
-                    </div>
-
-                    <div style={{
-                        width: "100%",
-                        maxWidth: "1000px"
-                    }}>
-                        <div style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            marginLeft: "15px",
-                            marginRight: "15px",
-                            padding: "10px"
-                        }}>
-                            <div>ข้อมูลพื้นฐาน</div>
-                            <div style={{
-                                display: "flex",
-                                gap: "10px"
-                            }}>
-                                <div style={{
-                                    color: "#BB6969"
-                                }}><RiEdit2Line /></div>
-                                <div style={{
-                                    color: "#BB6969"
-                                }}>แก้ไข</div>
-                            </div>
-                        </div>
-
-                        <div style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            backgroundColor: "#831818",
-                            marginBottom: "5px",
-                            marginLeft: "15px",
-                            marginRight: "15px",
-                            borderRadius: "14px 14px 0px 0px",
-                            padding: "10px"
-                        }}>
-                            <div style={{
-                                display: "flex",
-                                gap: "10px"
-                            }}>
-                                <div style={{ marginTop: "3px" }}><CiFaceSmile /></div>
-                                <div>ชื่อเล่น</div>
-                            </div>
-                            <div>{user.Nickname}</div>
-                        </div>
-
-                        <div style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            backgroundColor: "#831818",
-                            marginBottom: "5px",
-                            marginLeft: "15px",
-                            marginRight: "15px",
-                            padding: "10px"
-                        }}>
-                            <div style={{
-                                display: "flex",
-                                gap: "10px"
-                            }}>
-                                <div style={{ marginTop: "3px" }}><BsTelephone /></div>
-                                <div>เบอร์โทร</div>
-                            </div>
-                            <div>{user.Tel}</div>
-                        </div>
-
-                        <div style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            backgroundColor: "#831818",
-                            marginBottom: "5px",
-                            marginLeft: "15px",
-                            marginRight: "15px",
-                            padding: "10px"
-                        }}>
-                            <div style={{
-                                display: "flex",
-                                gap: "10px"
-                            }}>
-                                <div style={{ marginTop: "3px" }}><RiHome8Line /></div>
-                                <div>ที่อยู่</div>
-                            </div>
-                            <div>{user.Address}</div>
-                        </div>
-
-                        <div style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            backgroundColor: "#831818",
-                            marginBottom: "5px",
-                            marginLeft: "15px",
-                            marginRight: "15px",
-                            borderRadius: "0px 0px 14px 14px",
-                            padding: "10px"
-                        }}>
-                            <div style={{
-                                display: "flex",
-                                gap: "10px"
-                            }}>
-                                <div style={{ marginTop: "3px" }}><MdOutlineHomeRepairService /></div>
-                                <div>สถานที่ทำงาน</div>
-                            </div>
-                            <div>{user.Workplace}</div>
-                        </div>
-
-                        <div style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            marginLeft: "15px",
-                            marginRight: "15px",
-                            padding: "10px"
-                        }}>
-                            <div>ข้อมูลอื่นๆ</div>
-                            <div style={{
-                                display: "flex",
-                                gap: "10px"
-                            }}>
-                                <div style={{
-                                    color: "#BB6969"
-                                }}><RiEdit2Line /></div>
-                                <div style={{
-                                    color: "#BB6969"
-                                }}>แก้ไข</div>
-                            </div>
-                        </div>
-
-                        <div style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            backgroundColor: "#831818",
-                            marginBottom: "5px",
-                            marginLeft: "15px",
-                            marginRight: "15px",
-                            borderRadius: "14px 14px 0px 0px",
-                            padding: "10px"
-                        }}>
-                            <div style={{
-                                display: "flex",
-                                gap: "10px"
-                            }}>
-                                <div style={{ marginTop: "3px" }}><FaRegQuestionCircle /></div>
-                                <div>ฉายา</div>
-                            </div>
-                            <div>{user.Nickname}</div>
-                        </div>
-
-                        <div style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            backgroundColor: "#831818",
-                            marginBottom: "5px",
-                            marginLeft: "15px",
-                            marginRight: "15px",
-                            borderRadius: "0px 0px 14px 14px",
-                            padding: "10px"
-                        }}>
-                            <div style={{
-                                display: "flex",
-                                gap: "10px"
-                            }}>
-                                <div style={{ marginTop: "3px" }}><FaRegListAlt /></div>
-                                <div>รายละเอียด</div>
-                            </div>
-                            <div>{user.Detail}</div>
-                        </div>
+                        <img src={user.Picpic} alt="Profile" style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                        }} />
                     </div>
                 </div>
-            ))}
+
+                <div style={{
+                    textAlign: 'center',
+                    marginTop: '35px',
+                    padding: '0 20px',
+                    width: "100%",
+                    maxWidth: "1000px",
+                    alignSelf:"center"
+                }}>
+                    <div style={{ margin: '5px 0', textAlign: "right", width: "97%", maxWidth: "1000px", marginRight: "3rem" }}>{user.Service}</div>
+                    <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
+                    <p style={{ margin: '5px 0' }}>{user.Position}</p>
+                </div>
+
+                <div style={{
+                    width: "100%",
+                    maxWidth: "1000px"
+                }}>
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginLeft: "15px",
+                        marginRight: "15px",
+                        padding: "10px"
+                    }}>
+                        <div>ข้อมูลพื้นฐาน</div>
+                        <div style={{
+                            display: "flex",
+                            gap: "10px"
+                        }}>
+                            <div style={{
+                                color: "#BB6969"
+                            }}><RiEdit2Line /></div>
+                            <div style={{
+                                color: "#BB6969"
+                            }}>แก้ไข</div>
+                        </div>
+                    </div>
+
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        backgroundColor: "#831818",
+                        marginBottom: "5px",
+                        marginLeft: "15px",
+                        marginRight: "15px",
+                        borderRadius: "14px 14px 0px 0px",
+                        padding: "10px"
+                    }}>
+                        <div style={{
+                            display: "flex",
+                            gap: "10px"
+                        }}>
+                            <div style={{ marginTop: "3px" }}><CiFaceSmile /></div>
+                            <div>ชื่อเล่น</div>
+                        </div>
+                        <div>{user.Nickname}</div>
+                    </div>
+
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        backgroundColor: "#831818",
+                        marginBottom: "5px",
+                        marginLeft: "15px",
+                        marginRight: "15px",
+                        padding: "10px"
+                    }}>
+                        <div style={{
+                            display: "flex",
+                            gap: "10px"
+                        }}>
+                            <div style={{ marginTop: "3px" }}><BsTelephone /></div>
+                            <div>เบอร์โทร</div>
+                        </div>
+                        <div>{user.Tel}</div>
+                    </div>
+
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        backgroundColor: "#831818",
+                        marginBottom: "5px",
+                        marginLeft: "15px",
+                        marginRight: "15px",
+                        padding: "10px"
+                    }}>
+                        <div style={{
+                            display: "flex",
+                            gap: "10px"
+                        }}>
+                            <div style={{ marginTop: "3px" }}><RiHome8Line /></div>
+                            <div>ที่อยู่</div>
+                        </div>
+                        <div>{user.Address}</div>
+                    </div>
+
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        backgroundColor: "#831818",
+                        marginBottom: "5px",
+                        marginLeft: "15px",
+                        marginRight: "15px",
+                        padding: "10px"
+                    }}>
+                        <div style={{
+                            display: "flex",
+                            gap: "10px"
+                        }}>
+                            <div style={{ marginTop: "3px" }}><MdOutlineHomeRepairService /></div>
+                            <div>สาขา</div>
+                        </div>
+                        <div>{user.Department}</div>
+                    </div>
+
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        backgroundColor: "#831818",
+                        marginBottom: "5px",
+                        marginLeft: "15px",
+                        marginRight: "15px",
+                        padding: "10px"
+                    }}>
+                        <div style={{
+                            display: "flex",
+                            gap: "10px"
+                        }}>
+                            <div style={{ marginTop: "3px" }}><FaRegQuestionCircle /></div>
+                            <div>สถานะ</div>
+                        </div>
+                        <div>{user.Status}</div>
+                    </div>
+
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        backgroundColor: "#831818",
+                        marginLeft: "15px",
+                        marginRight: "15px",
+                        padding: "10px",
+                        borderRadius: "0px 0px 14px 14px"
+                    }}>
+                        <div style={{
+                            display: "flex",
+                            gap: "10px"
+                        }}>
+                            <div style={{ marginTop: "3px" }}><FaRegListAlt /></div>
+                            <div>หมายเหตุ</div>
+                        </div>
+                        <div>{user.Note}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
