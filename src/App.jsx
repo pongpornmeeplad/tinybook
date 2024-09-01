@@ -10,6 +10,8 @@ import All from './All';
 import Profile from './Profile';
 
 function App() {
+  const liff = window.liff;
+  console.log(liff);
   const [isLiffReady, setIsLiffReady] = useState(false);
   const [inputValues, setInputValues] = useState({
     Service: '',
@@ -30,7 +32,7 @@ function App() {
           console.log('profile', profile);
           setInputValues((prevValues) => ({
             ...prevValues,
-            LineId: profile.userId,  // Ensure consistent casing
+            LineId: profile.userId,  //ใช้ profile.userId แทน LineId
             picpic: profile.pictureUrl,
           }));
         } else {
@@ -53,14 +55,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Navigate to="/page1" />} />
-        <Route
-          path="/page1"
-          element={<Page1 inputValues={inputValues} setInputValues={setInputValues} />}
-        />
-        <Route
-          path="/page2"
-          element={<Page2 inputValues={inputValues} setInputValues={setInputValues} />}
-        />
+        <Route path="/page1" element={<Page1 inputValues={inputValues} setInputValues={setInputValues} />} />
+        <Route path="/page2" element={<Page2 inputValues={inputValues} setInputValues={setInputValues} />} />
         <Route path="/Register" element={<Registerpage />} />
         <Route path="/Album" element={<AlbumPage />} />
         <Route path="/All" element={<All />} />
