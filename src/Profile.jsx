@@ -58,10 +58,10 @@ function Profile() {
             alignItems: "center",
             
         }}>
-            <div style={{
+            {/* <div style={{
                 width:"100%",
                 justifyContent:"center"
-            }}>
+            }}> */}
                 <div style={{
                     width: "100%",
                     height: "35vh",
@@ -312,7 +312,7 @@ function Profile() {
                 </div>
 
                 </div>
-            </div>
+            {/* </div> */}
         </div>
     );
 }
