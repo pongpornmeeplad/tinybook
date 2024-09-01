@@ -75,7 +75,8 @@ function Profile() {
                         marginTop: '35px',
                         padding: '0 20px',
                         width: "100%",
-                        maxWidth: "1000px"
+                        maxWidth: "1000px",
+                        alignSelf:"center"
                     }}>
                         <div style={{ margin: '5px 0', textAlign: "right", width: "97%", maxWidth: "1000px", marginRight: "3rem" }}>{user.Service}</div>
                         <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
