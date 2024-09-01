@@ -243,7 +243,7 @@ function Profile() {
                                 <div style={{ marginTop: "3px" }}><FaRegListAlt /></div>
                                 <div>รายละเอียด</div>
                             </div>
-                            <div>{user.Details}</div>
+                            <div>{user.Detail}</div>
                         </div>
                     </div>
                 </div>
