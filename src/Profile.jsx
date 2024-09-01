@@ -39,7 +39,9 @@ function Profile() {
             alignItems: "center"
         }}>
             {users.map((user) => (
-                <div key={user.id}>
+                <div style={{
+                    width:"100%"
+                }}key={user.id}>
                     <div style={{
                         width: "100%",
                         height: "35vh",
