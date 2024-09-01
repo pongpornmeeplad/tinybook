@@ -42,6 +42,7 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                 Position: inputValues.field1,
                 Workplace: inputValues.field2,
                 Business: inputValues.field3,
+                Detail: inputValues.field4,
                 LineId: inputValues.LineId,  // Ensure consistent casing
                 Picpic: inputValues.picpic
 
@@ -199,6 +200,32 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                             placeholder='ร้านอาหาร...'
                             value={inputValues.field3}
                             onChange={(e) => handleInputChange(e, 'field3')}
+                        />
+                    </div>
+                    <div>
+                        <div style={{
+                            color: "#510808",
+                            fontSize: "1.2rem",
+                            marginBottom: "0.2rem"
+                        }}>รายละเอียดเพิ่มเติม</div>
+                        <input
+                            style={{
+                                background: "#EAEAEA",
+                                width: "100%",
+                                color: "black",
+                                borderRadius: "10px",
+                                boxSizing: "border-box",
+                                height: "5rem",
+                                fontSize: "1rem",
+                                border: "1px solid #ccc",
+                                padding: "10px",
+                                marginBottom: "0.2rem",
+                                fontFamily: "'Kanit', sans-serif",
+                            }}
+                            type="text"
+                            placeholder='........'
+                            value={inputValues.field4}
+                            onChange={(e) => handleInputChange(e, 'field4')}
                         />
                     </div>
 
