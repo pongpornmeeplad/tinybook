@@ -66,7 +66,7 @@ function App() {
         <Route path="/All" element={<All />} />
         <Route path="/List" element={<List />} />
         {/* Dynamic route for Profile based on LineId */}
-        <Route path="/Profile/:lineId" element={<Profile />} />
+        <Route path="/Profile/:id" element={<Profile />} />
       </Routes>
     </Router>
   );

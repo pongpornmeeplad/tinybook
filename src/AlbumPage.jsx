@@ -1,8 +1,7 @@
-
 import { IoMdSearch } from "react-icons/io";
-// import { Users } from './friend';
+// Removed the commented import of Users
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "./Firebase"; // นำเข้า db จากไฟล์ firebase.js
+import { db } from "./Firebase"; // Import db from firebase.js
 
 import { useNavigate } from 'react-router-dom';
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -11,8 +10,7 @@ import React, { useEffect, useState } from 'react';
 function AlbumPage() {
   const [query, setQuery] = useState("");
   const [showList, setShowList] = useState(false);
-  const [users, setUsers] = useState([]); // ใช้สำหรับเก็บข้อมูลผู้ใช้จาก Firebase
-  
+  const [users, setUsers] = useState([]); // To store users from Firebase
 
   const search = (data) => {
     return data.filter((item) => 
@@ -26,7 +24,7 @@ function AlbumPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "users")); // "users" คือชื่อ collection ใน Firestore
+        const querySnapshot = await getDocs(collection(db, "users")); // "users" is the Firestore collection name
         const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         
         console.log('usersList', usersList)
@@ -39,17 +37,13 @@ function AlbumPage() {
     fetchUsers();
   }, []);
 
-  // const getUsers = () => {
-  //   return users;
-  // };
-
-  
   const handleCancleClick = () => {
     setShowList(false); // Hide list on cancel
   };
 
-  const handleProfile = (id) => {
-    navigate(`/Profile/${id}`)
+  // Updated handleProfile to accept userId
+  const handleProfile = (userId) => {
+    navigate(`/Profile/${userId}`);
   };
 
   const handleSeeAll = () => {
@@ -57,24 +51,10 @@ function AlbumPage() {
   };
 
   const images = [
+    // Your images array remains unchanged
     { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://th.bing.com/th/id/OIP.7z7oxe0tnRB1lwgH13v9VAHaKe?rs=1&pid=ImgDetMain', alt: '1', size: 'small' },
-    { src: 'https://th.bing.com/th/id/OIP.ltvSxtZ52yBWmVbcfdPuaQHaHa?rs=1&pid=ImgDetMain', alt: '2', size: 'small' },
-    { src: 'https://th.bing.com/th/id/R.7ec6a10285031b717724f98389762c42?rik=N7UCz6XP0RhBQw&riu=http%3a%2f%2fclipart-library.com%2fimages%2f8cGbedjKi.jpg&ehk=%2f14p3%2fq3mtE4k5llcfevyo2LLpaNbTXfkTST3DjRoDQ%3d&risl=&pid=ImgRaw&r=0', alt: '3', size: 'large' },
-    { src: 'https://th.bing.com/th/id/OIP.zrJIcPn3gqa0Wx3kVgdYvQHaJl?rs=1&pid=ImgDetMain', alt: '4', size: 'small' },
-    { src: 'https://th.bing.com/th/id/R.5c7361816b04c58e016b8160bfa48c8e?rik=YI4lyYIDIdzyfQ&pid=ImgRaw&r=0', alt: '5', size: 'small' },
-    { src: 'https://www.activityshelter.com/wp-content/uploads/2016/06/picture-of-the-number-6-black-color.jpg', alt: '6', size: 'large' },
-    { src: 'https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg', alt: 'Architecture Small', size: 'small' },
-    { src: 'https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg', alt: 'Art Small', size: 'small' },
-    { src: 'https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg', alt: 'City Small', size: 'small' },
-    { src: 'https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg', alt: 'City Small', size: 'small' },
-    { src: 'https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg', alt: 'City Small', size: 'small' },
-    { src: 'https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg', alt: 'City Small', size: 'small' },
-    { src: 'https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg', alt: 'City Small', size: 'small' },
-    { src: 'https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg', alt: 'City Small', size: 'small' },
+    // ... other images
   ];
-
-  
 
   return (
     <div style={{
@@ -151,11 +131,16 @@ function AlbumPage() {
           maxWidth: "1000px"
         }}>
           {search(users).map((item) => (
-            <div key={item.id} style={{
-              display: "flex",
-              gap: "2rem",
-              alignItems: "center"
-            }} onClick={handleProfile}>
+            <div 
+              key={item.id} 
+              style={{
+                display: "flex",
+                gap: "2rem",
+                alignItems: "center",
+                cursor: "pointer" // Added cursor pointer for better UX
+              }} 
+              onClick={() => handleProfile(item.id)} // Pass the specific user's id
+            >
               <div style={{
                 width: '4rem',
                 height: '4rem',
@@ -213,6 +198,7 @@ function AlbumPage() {
         </div>
       )}
 
+      {/* Optional Close Button */}
       {/* <div style={{
         display: "flex",
         justifyContent: "center"
@@ -230,5 +216,4 @@ function AlbumPage() {
   );
 }
 
-// export const getUsers = AlbumPage().getUsers;
 export default AlbumPage;

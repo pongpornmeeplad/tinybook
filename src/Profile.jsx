@@ -2,33 +2,46 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
-import { RiHome8Line } from "react-icons/ri";
+import { RiHome8Line, RiEdit2Line } from "react-icons/ri"; // Imported RiEdit2Line
 import { MdOutlineHomeRepairService } from "react-icons/md";
 import { FaRegQuestionCircle, FaRegListAlt } from "react-icons/fa";
-import { getDocs, collection, query, where } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore'; // Changed to getDoc and doc
 import { db } from './Firebase';
 
 function Profile() {
-    const { lineId } = useParams();  // Get the lineId from the URL
+    const { id } = useParams();  // Changed lineId to id
     const [user, setUser] = useState(null);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const q = query(collection(db, "users"), where("LineId", "==", lineId));
-                const querySnapshot = await getDocs(q);
-                const userData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))[0];
-                setUser(userData);
+                const userDoc = doc(db, "users", id);
+                const userSnapshot = await getDoc(userDoc);
+                if (userSnapshot.exists()) {
+                    setUser({ id: userSnapshot.id, ...userSnapshot.data() });
+                } else {
+                    console.error("No such user!");
+                }
             } catch (error) {
                 console.error("Error fetching user: ", error);
             }
         };
 
         fetchUser();
-    }, [lineId]);
+    }, [id]);
 
     if (!user) {
-        return <div>Loading...</div>;
+        return <div style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+            backgroundColor: "#510808",
+            fontFamily: "'Kanit', sans-serif",
+            fontSize: "1.5rem"
+        }}>Loading...</div>;
     }
 
     return (
@@ -104,7 +117,8 @@ function Profile() {
                         <div>ข้อมูลพื้นฐาน</div>
                         <div style={{
                             display: "flex",
-                            gap: "10px"
+                            gap: "10px",
+                            cursor: "pointer" // Added cursor pointer for better UX
                         }}>
                             <div style={{
                                 color: "#BB6969"
