@@ -201,6 +201,29 @@ function Page1({inputValues, setInputValues}) {
                             value={inputValues.Tel}
                             onChange={(e) => handleInputChange(e, 'Tel')} />
                     </div>
+
+                    <div>
+                        <div style={{
+                            color: "#510808",
+                            fontSize: "1.2rem",
+                            marginBottom: "0.2rem"
+                        }}>ที่อยู่</div>
+                        <input style={{
+                            background: "#EAEAEA",
+                            width: "100%",
+                            color: "black",
+                            borderRadius: "10px",
+                            boxSizing: "border-box",
+                            height: "2rem",
+                            fontSize: "1rem",
+                            border: "1px solid #ccc",
+                            padding: "10px",
+                            marginBottom: "0.2rem",
+                            fontFamily: "'Kanit', sans-serif",
+                        }} type="text" placeholder='0957777777'
+                            value={inputValues.Add}
+                            onChange={(e) => handleInputChange(e, 'Add')} />
+                    </div>
                 </div>
 
                 <div style={{

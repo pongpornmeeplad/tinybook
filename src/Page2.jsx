@@ -38,11 +38,13 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                 Name: inputValues.Name,
                 Nickname: inputValues.Nickname,
                 Tel: inputValues.Tel,
+                Add: inputValues.Add,
                 Position: inputValues.field1,
                 Workplace: inputValues.field2,
                 Business: inputValues.field3,
                 LineId: inputValues.LineId,  // Ensure consistent casing
                 Picpic: inputValues.picpic
+
             });
             console.log("Document successfully written!");
 
