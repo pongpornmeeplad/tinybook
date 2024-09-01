@@ -56,7 +56,9 @@ function Page2() {
                 Tel: inputValues.Tel,
                 Position: inputValues.field1,
                 Workplace: inputValues.field2,
-                Business: inputValues.field3
+                Business: inputValues.field3,
+                LineId: inputValues.LineId,  // Ensure consistent casing
+                Picpic: inputValues.picpic
             });
             console.log("Document successfully written!");
 
