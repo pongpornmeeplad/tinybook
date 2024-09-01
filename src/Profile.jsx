@@ -58,7 +58,7 @@ function Profile() {
                     border: '5px solid white',
                     backgroundColor: 'white'
                 }}>
-                    <img src="https://via.placeholder.com/100" alt="Profile" style={{
+                    <img src={item.Picpic} alt="Profile" style={{
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover'
