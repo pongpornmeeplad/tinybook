@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { PiBookBookmarkFill } from "react-icons/pi";
-// import { Users } from "./friend";
-import { getUsers } from './AlbumPage';
-function All() {
+import { getDocs, collection } from 'firebase/firestore';
+import { db } from './Firebase';
 
+function All() {
     const navigate = useNavigate();
+    const [users, setUsers] = useState([]);
+
     const handleBack = () => {
-    navigate('/Album');
-  };
+        navigate('/Album');
+    };
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "users"));
+                const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setUsers(usersList);
+            } catch (error) {
+                console.error("Error fetching users: ", error);
+            }
+        };
+
+        fetchUsers();
+    }, []);
 
     return (
         <div style={{
@@ -22,7 +38,6 @@ function All() {
             fontFamily: "'Kanit', sans-serif",
             alignItems: "center",
             overflow: "hidden"
-
         }}>
             <div style={{
                 display: "flex",
@@ -37,28 +52,15 @@ function All() {
                 width: "100%",
                 maxWidth: "1000px"
             }}>
-                <div style={{
-
-                }}>
-                    <FaArrowLeft style={{
-                        fontSize: "1.5rem",
-                        marginTop: "0.5rem"
-                    }} onClick={handleBack}/>
-                </div>
-
-                <div style={{
+                <FaArrowLeft style={{
                     fontSize: "1.5rem",
-                    marginLeft: "10px",
-
-                }}>ทำเนียบรุ่น</div>
-                <div>
-                    <PiBookBookmarkFill style={{
-                        fontSize: "1.5rem",
-                        marginTop: "0.5rem"
-                    }} />
-
-                </div>
-
+                    marginTop: "0.5rem"
+                }} onClick={handleBack} />
+                <div style={{ fontSize: "1.5rem", marginLeft: "10px" }}>ทำเนียบรุ่น</div>
+                <PiBookBookmarkFill style={{
+                    fontSize: "1.5rem",
+                    marginTop: "0.5rem"
+                }} />
             </div>
 
             <div style={{
@@ -74,14 +76,9 @@ function All() {
                 gap: "1rem",
                 overflow: "scroll"
             }}>
-
-                {getUsers.map((item, index) => (
+                {users.map((item) => (
                     <div key={item.id}>
-                        <div style={{                       //บล็อกรายชื่อ
-                            display: "flex",
-                            gap: "1rem",
-                            alignItems: "center",
-                        }}>
+                        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
                             <div style={{
                                 width: '2rem',
                                 height: '2rem',
@@ -106,17 +103,12 @@ function All() {
                                     justifyContent: "space-between"
                                 }}>
                                     <div>{item.Name}</div>
-                                    
-                                    <div style={{
-                                        color: "#bb6969"
-                                    }}>{item.Nickname}</div>
+                                    <div style={{ color: "#bb6969" }}>{item.Nickname}</div>
                                 </div>
-
                                 <div style={{
                                     border: "1px solid #bb6969",
                                     width: "100%"
-                                }}>
-                                </div>
+                                }}></div>
                             </div>
                         </div>
                     </div>
