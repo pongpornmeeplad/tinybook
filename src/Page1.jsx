@@ -220,9 +220,9 @@ function Page1({inputValues, setInputValues}) {
                             padding: "10px",
                             marginBottom: "0.2rem",
                             fontFamily: "'Kanit', sans-serif",
-                        }} type="text" placeholder='0957777777'
-                            value={inputValues.Add}
-                            onChange={(e) => handleInputChange(e, 'Add')} />
+                        }} type="text" placeholder='บ้านเลขที่ ....'
+                            value={inputValues.Address}
+                            onChange={(e) => handleInputChange(e, 'Address')} />
                     </div>
                 </div>
 

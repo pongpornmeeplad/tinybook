@@ -38,7 +38,7 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                 Name: inputValues.Name,
                 Nickname: inputValues.Nickname,
                 Tel: inputValues.Tel,
-                Add: inputValues.Add,
+                Add: inputValues.Address,
                 Position: inputValues.field1,
                 Workplace: inputValues.field2,
                 Business: inputValues.field3,
