@@ -49,7 +49,7 @@ function AlbumPage() {
   };
 
   const handleProfile = (id) => {
-    navigate(`/Profile/${id}`);
+    navigate(`/Profile/${users.id}`);
   };
 
   const handleSeeAll = () => {
