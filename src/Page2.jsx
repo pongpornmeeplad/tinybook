@@ -270,7 +270,7 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                             borderRadius: "30px",
                             width: "15rem",
                             height: "3rem",  // Added height for better UX
-                            color: "white",
+                            
                             fontSize: "1.2rem",
                             cursor: "pointer",
                             color:"#ffffff",
