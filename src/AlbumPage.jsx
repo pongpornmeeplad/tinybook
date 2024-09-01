@@ -48,8 +48,8 @@ function AlbumPage() {
     setShowList(false); // Hide list on cancel
   };
 
-  const handleProfile = () => {
-    navigate('/Profile');
+  const handleProfile = (id) => {
+    navigate(`/Profile/${id}`);
   };
 
   const handleSeeAll = () => {
