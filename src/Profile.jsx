@@ -36,7 +36,8 @@ function Profile() {
             fontFamily: "'Kanit', sans-serif",
             overflow: 'hidden',
             position: 'relative',
-            alignItems: "center"
+            alignItems: "center",
+            justifyContent:"center"
         }}>
             {users.map((user) => (
                 <div style={{
