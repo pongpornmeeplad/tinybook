@@ -38,45 +38,47 @@ function Profile() {
             position: 'relative',
             alignItems: "center"
         }}>
-            <div style={{
-                width: "100%",
-                height: "35vh",
-                backgroundImage: 'url("https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                position: 'relative'
-            }}>
-                <div style={{
-                    position: 'absolute',
-                    bottom: '-50px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: '100px',
-                    height: '100px',
-                    borderRadius: '50%',
-                    overflow: 'hidden',
-                    border: '5px solid white',
-                    backgroundColor: 'white'
-                }}>
-                    <img src={item.Picpic} alt="Profile" style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                    }} />
-                </div>
-            </div>
-
             {users.map((user) => (
-                <div key={user.id} style={{
-                    textAlign: 'center',
-                    marginTop: '35px',
-                    padding: '0 20px',
-                    width: "100%",
-                    maxWidth: "1000px"
-                }}>
-                    <div style={{ margin: '5px 0', textAlign: "right", width: "97%", maxWidth: "1000px", marginRight: "3rem" }}>{user.Service}</div>
-                    <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
-                    <p style={{ margin: '5px 0' }}>{user.Position}</p>
+                <div key={user.id}>
+                    <div style={{
+                        width: "100%",
+                        height: "35vh",
+                        backgroundImage: 'url("https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg")',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        position: 'relative'
+                    }}>
+                        <div style={{
+                            position: 'absolute',
+                            bottom: '-50px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50%',
+                            overflow: 'hidden',
+                            border: '5px solid white',
+                            backgroundColor: 'white'
+                        }}>
+                            <img src={user.picpic} alt="Profile" style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover'
+                            }} />
+                        </div>
+                    </div>
+
+                    <div style={{
+                        textAlign: 'center',
+                        marginTop: '35px',
+                        padding: '0 20px',
+                        width: "100%",
+                        maxWidth: "1000px"
+                    }}>
+                        <div style={{ margin: '5px 0', textAlign: "right", width: "97%", maxWidth: "1000px", marginRight: "3rem" }}>{user.Service}</div>
+                        <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
+                        <p style={{ margin: '5px 0' }}>{user.Position}</p>
+                    </div>
 
                     <div style={{
                         width: "100%",
@@ -158,7 +160,7 @@ function Profile() {
                                 <div style={{ marginTop: "3px" }}><RiHome8Line /></div>
                                 <div>ที่อยู่</div>
                             </div>
-                            <div>{user.Position}</div>
+                            <div>{user.Address}</div>
                         </div>
 
                         <div style={{
