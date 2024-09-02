@@ -107,7 +107,7 @@ function Page1({inputValues, setInputValues}) {
                             height: "2rem",
                             fontSize: "1rem",
                             border: "1px solid #ccc",
-                            padding: "10px",
+                            paddingLeft: "5px",
                             marginBottom: "0.2rem",
                             fontFamily: "'Kanit', sans-serif",
                         }} 
