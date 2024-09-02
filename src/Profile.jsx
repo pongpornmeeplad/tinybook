@@ -328,7 +328,7 @@ function Profile() {
                     </div>
                     {isEditing ? (
                         <input
-                            name="Workplace"
+                            name="Business"
                             value={formData.Business}
                             onChange={handleChange}
                             style={{ backgroundColor: '#EAEAEA', borderRadius: '9px', padding: '5px' }}
