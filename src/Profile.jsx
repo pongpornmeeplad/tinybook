@@ -28,14 +28,6 @@ function Profile() {
         Detail: ''
     });
 
-    // State for editing Name, Service, and Position
-    const [isEditingNameService, setIsEditingNameService] = useState(false);
-    const [formDataNameService, setFormDataNameService] = useState({
-        Name: '',
-        Service: '',
-        Position: ''
-    });
-
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -74,6 +66,13 @@ function Profile() {
         fetchUser();
     }, [id]);
 
+    // State for editing Name, Service, and Position
+    const [isEditingNameService, setIsEditingNameService] = useState(false);
+    const [formDataNameService, setFormDataNameService] = useState({
+        Name: '',
+        Service: '',
+        Position: ''
+    });
     // Toggle edit mode for Name, Service, and Position
     const handleEditToggleNameService = () => {
         setIsEditingNameService(!isEditingNameService);
@@ -106,7 +105,6 @@ function Profile() {
         const { name, value } = e.target;
         setFormDataOther({ ...formDataOther, [name]: value });
     };
-
     // Save updated Name, Service, and Position to Firestore
     const handleSaveNameService = async () => {
         try {
@@ -145,26 +143,69 @@ function Profile() {
 
     if (!user) {
         return (
-            <div style={loadingStyle}>
+            <div style={{
+                width: "100vw",
+                height: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "white",
+                backgroundColor: "#510808",
+                fontFamily: "'Kanit', sans-serif",
+                fontSize: "1.5rem"
+            }}>
                 Loading...
             </div>
         );
     }
 
     return (
-        <div style={containerStyle}>
+        <div style={{
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "#510808",
+            display: 'flex',
+            flexDirection: 'column',
+            color: 'white',
+            fontFamily: "'Kanit', sans-serif",
+            overflowY: 'auto',
+            alignItems: "center",
+            paddingBottom: '20px'
+        }}>
             {/* Header Section */}
-            <div style={headerStyle}>
-                <div style={profileImageContainerStyle}>
-                    <img src={user.Picpic} alt="Profile" style={profileImageStyle} />
+            <div style={{
+                width: "100%",
+                height: "35vh",
+                backgroundImage: 'url("https://previews.123rf.com/images/rawpixel/rawpixel1705/rawpixel170502548/77394524-beauty-nature-outdoors-outside-sunlight.jpg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                position: 'relative'
+            }}>
+                <div style={{
+                    position: 'absolute',
+                    bottom: '-50px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '100px',
+                    height: '100px',
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    border: '5px solid white',
+                    backgroundColor: 'white'
+                }}>
+                    <img src={user.Picpic} alt="Profile" style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                    }} />
                 </div>
             </div>
 
-            <div style={contentContainerStyle}>
-                <div style={{ ...sectionStyle, ...{ textAlign: 'center' } }}>
+            <div style={{ textAlign: 'center', marginTop: '30px', padding: '0 20px', width: "100%", maxWidth: "1000px" }}>
+                <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditingNameService ? (
                         <div style={{ width: "100%" }}>
-                            <div style={editInputContainerStyle}>
+                            <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>
                                 <input
                                     name="Service"
                                     value={formDataNameService.Service}
@@ -173,35 +214,35 @@ function Profile() {
                                     placeholder="Service"
                                 />
                             </div>
-                            <h2 style={editInputContainerStyle}>
+                            <h2 style={{ margin: '5px 0' }}>
                                 <input
                                     name="Name"
                                     value={formDataNameService.Name}
                                     onChange={handleChangeNameService}
-                                    style={inputStyle}
+                                    style={{ ...inputStyle,  }}
                                     placeholder="Name"
                                 />
                             </h2>
-                            <p style={editInputContainerStyle}>
+                            <p style={{ margin: '5px 0' }}>
                                 <input
                                     name="Position"
                                     value={formDataNameService.Position}
                                     onChange={handleChangeNameService}
-                                    style={inputStyle}
+                                    style={{ ...inputStyle,  }}
                                     placeholder="Position"
                                 />
                             </p>
                         </div>
                     ) : (
                         <div style={{ width: "100%" }}>
-                            <div style={infoTextRightStyle}>{user.Service}</div>
-                            <h2>{user.Name}</h2>
-                            <p>{user.Position}</p>
+                            <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>{user.Service}</div>
+                            <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
+                            <p style={{ margin: '5px 0' }}>{user.Position}</p>
                         </div>
                     )}
-                    <div style={editToggleStyle} onClick={handleEditToggleNameService}>
+                    <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px", }} onClick={handleEditToggleNameService}>
                         <RiEdit2Line color="#BB6969" size={20} />
-                        <span style={editTextStyle}>
+                        <span style={{ color: "#BB6969" }}>
                             {isEditingNameService ? 'ยกเลิก' : 'แก้ไข'}
                         </span>
                     </div>
@@ -217,13 +258,31 @@ function Profile() {
                 )}
             </div>
 
+
+
             {/* Basic Information Section */}
-            <div style={sectionContainerStyle}>
-                <div style={sectionHeaderStyle}>
+            <div style={{
+                width: "100%",
+                maxWidth: "1000px",
+                marginTop: '20px'
+            }}>
+                <div style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginLeft: "15px",
+                    marginRight: "15px",
+                    padding: "10px",
+                    alignItems: 'center'
+                }}>
                     <div>ข้อมูลพื้นฐาน</div>
-                    <div style={editToggleStyle} onClick={handleEditToggleBasic}>
+                    <div style={{
+                        display: "flex",
+                        gap: "10px",
+                        cursor: "pointer",
+                        alignItems: 'center'
+                    }} onClick={handleEditToggleBasic}>
                         <RiEdit2Line color="#BB6969" size={20} />
-                        <span style={editTextStyle}>
+                        <span style={{ color: "#BB6969" }}>
                             {isEditingBasic ? 'ยกเลิก' : 'แก้ไข'}
                         </span>
                     </div>
@@ -272,11 +331,11 @@ function Profile() {
                         <span>ที่อยู่</span>
                     </div>
                     {isEditingBasic ? (
-                        <input
+                        <textarea
                             name="Address"
                             value={formDataBasic.Address}
                             onChange={handleChangeBasic}
-                            style={inputStyle}
+                            style={{ ...inputStyle, height: '60px' }}
                         />
                     ) : (
                         <div>{user.Address || '-'}</div>
@@ -287,7 +346,7 @@ function Profile() {
                 <div style={fieldContainerStyle}>
                     <div style={labelContainerStyle}>
                         <MdOutlineHomeRepairService size={20} />
-                        <span>ที่ทำงาน</span>
+                        <span>สถานที่ทำงาน</span>
                     </div>
                     {isEditingBasic ? (
                         <input
@@ -301,7 +360,7 @@ function Profile() {
                     )}
                 </div>
 
-                {/* Save Button for Basic Information */}
+                {/* Save Button for Basic Info */}
                 {isEditingBasic && (
                     <div style={buttonContainerStyle}>
                         <button onClick={handleSaveBasic} style={buttonStyle}>
@@ -312,12 +371,28 @@ function Profile() {
             </div>
 
             {/* Other Information Section */}
-            <div style={sectionContainerStyle}>
-                <div style={sectionHeaderStyle}>
-                    <div>ข้อมูลอื่น ๆ</div>
-                    <div style={editToggleStyle} onClick={handleEditToggleOther}>
+            <div style={{
+                width: "100%",
+                maxWidth: "1000px",
+                marginTop: '20px'
+            }}>
+                <div style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginLeft: "15px",
+                    marginRight: "15px",
+                    padding: "10px",
+                    alignItems: 'center'
+                }}>
+                    <div>ข้อมูลอื่นๆ</div>
+                    <div style={{
+                        display: "flex",
+                        gap: "10px",
+                        cursor: "pointer",
+                        alignItems: 'center'
+                    }} onClick={handleEditToggleOther}>
                         <RiEdit2Line color="#BB6969" size={20} />
-                        <span style={editTextStyle}>
+                        <span style={{ color: "#BB6969" }}>
                             {isEditingOther ? 'ยกเลิก' : 'แก้ไข'}
                         </span>
                     </div>
@@ -327,7 +402,7 @@ function Profile() {
                 <div style={fieldContainerStyle}>
                     <div style={labelContainerStyle}>
                         <FaRegQuestionCircle size={20} />
-                        <span>กิจการ</span>
+                        <span>ธุรกิจส่วนตัว</span>
                     </div>
                     {isEditingOther ? (
                         <input
@@ -348,18 +423,18 @@ function Profile() {
                         <span>รายละเอียด</span>
                     </div>
                     {isEditingOther ? (
-                        <input
+                        <textarea
                             name="Detail"
                             value={formDataOther.Detail}
                             onChange={handleChangeOther}
-                            style={inputStyle}
+                            style={{ ...inputStyle, height: '80px' }}
                         />
                     ) : (
                         <div>{user.Detail || '-'}</div>
                     )}
                 </div>
 
-                {/* Save Button for Other Information */}
+                {/* Save Button for Other Info */}
                 {isEditingOther && (
                     <div style={buttonContainerStyle}>
                         <button onClick={handleSaveOther} style={buttonStyle}>
@@ -372,118 +447,46 @@ function Profile() {
     );
 }
 
-// Styles
-const containerStyle = {
-    padding: '20px',
-    fontFamily: "'Kanit', sans-serif",
-};
-
-const headerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    marginBottom: '20px',
-};
-
-const profileImageContainerStyle = {
-    width: '150px',
-    height: '150px',
-    borderRadius: '50%',
-    overflow: 'hidden',
-};
-
-const profileImageStyle = {
-    width: '100%',
-    height: 'auto',
-};
-
-const contentContainerStyle = {
-    textAlign: 'center',
-    marginBottom: '30px',
-};
-
-const sectionContainerStyle = {
-    marginBottom: '20px',
-};
-
-const sectionHeaderStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '10px',
-    fontSize: '18px',
-    fontWeight: 'bold',
-};
-
-const sectionStyle = {
-    marginBottom: '20px',
-};
-
+/* Styles */
 const fieldContainerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '10px',
+    display: "flex",
+    justifyContent: "space-between",
+    backgroundColor: "#831818",
+    margin: "5px 15px",
+    padding: "10px",
+    borderRadius: "10px",
+    alignItems: "center"
 };
 
 const labelContainerStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
+    display: "flex",
+    gap: "10px",
+    alignItems: "center"
 };
 
 const inputStyle = {
-    width: 'calc(100% - 50px)',
-    padding: '8px',
+    backgroundColor: '#EAEAEA',
     borderRadius: '5px',
-    border: '1px solid #ccc',
-    fontFamily: "'Kanit', sans-serif",
+    padding: '5px',
+    border: 'none',
+    width: '60%',
+    fontSize: '1rem'
 };
 
 const buttonContainerStyle = {
-    textAlign: 'center',
-    marginTop: '10px',
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "10px"
 };
 
 const buttonStyle = {
     backgroundColor: '#BB6969',
-    color: '#fff',
-    padding: '10px 20px',
+    color: 'white',
     borderRadius: '5px',
+    padding: '10px 20px',
+    cursor: 'pointer',
     border: 'none',
-    cursor: 'pointer',
-    fontFamily: "'Kanit', sans-serif",
-};
-
-const editToggleStyle = {
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
-};
-
-const editTextStyle = {
-    fontSize: '14px',
-    color: '#BB6969',
-    fontFamily: "'Kanit', sans-serif",
-};
-
-const loadingStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    fontSize: '24px',
-    fontFamily: "'Kanit', sans-serif",
-    color: '#BB6969',
-};
-
-const infoTextRightStyle = {
-    fontSize: '16px',
-    textAlign: 'right',
-    marginBottom: '5px',
-};
-
-const editInputContainerStyle = {
-    marginBottom: '10px',
+    fontSize: '1rem'
 };
 
 export default Profile;
