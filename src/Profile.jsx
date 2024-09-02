@@ -204,7 +204,7 @@ function Profile() {
             {/* User Info Section */}
             
             <div style={{ textAlign: 'center', marginTop: '30px', padding: '0 20px', width: "100%", maxWidth: "1000px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{  justifyContent: "space-between", alignItems: "center" }}>
                     {isEditingNameService ? (
                         <div style={{ width: "100%" }}>
                             <input
@@ -240,7 +240,7 @@ function Profile() {
                             <p style={{ margin: '5px 0' }}>{user.Position}</p>
                         </div>
                     )}
-                    <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center' }} onClick={handleEditToggleNameService}>
+                    <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft:"15px", }} onClick={handleEditToggleNameService}>
                         <RiEdit2Line color="#BB6969" size={20} />
                         <span style={{ color: "#BB6969" }}>
                             {isEditingNameService ? 'ยกเลิก' : 'แก้ไข'}
