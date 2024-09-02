@@ -329,12 +329,12 @@ function Profile() {
                     {isEditing ? (
                         <input
                             name="Workplace"
-                            value={formData.Workplace}
+                            value={formData.Business}
                             onChange={handleChange}
                             style={{ backgroundColor: '#EAEAEA', borderRadius: '9px', padding: '5px' }}
                         />
                     ) : (
-                        <div>{user.Workplace}</div>
+                        <div>{user.Business}</div>
                     )}
                 </div>
                 <div style={{
