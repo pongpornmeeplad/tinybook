@@ -19,9 +19,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function Page1({inputValues, setInputValues}) {
-
-   
-
     const navigate = useNavigate();
 
     const handleInputChange = (e, field) => {
@@ -31,22 +28,8 @@ function Page1({inputValues, setInputValues}) {
         });
     };
 
-    const handleNextClick =  () => {
-        // try {
-        //     // บันทึกข้อมูลลงใน Firestore
-        //     await addDoc(collection(db, "users"), {
-        //         Service: inputValues.Service,
-        //         Name: inputValues.Name,
-        //         Nickname: inputValues.Nickname,
-        //         Tel: inputValues.Tel
-        //     });
-            // console.log("Document successfully written!");
-
-            // ไปยังหน้า Page2 หลังจากบันทึกสำเร็จ
-            navigate('/Page2', { state: { inputValues } });
-        // } catch (error) {
-        //     console.error("Error adding document: ", error);
-        // }
+    const handleNextClick = () => {
+        navigate('/Page2', { state: { inputValues } });
     };
 
     return (
@@ -115,7 +98,7 @@ function Page1({inputValues, setInputValues}) {
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
                         }}>เหล่า</div>
-                        <input style={{
+                        <select style={{
                             background: "#EAEAEA",
                             width: "100%",
                             color: "black",
@@ -127,10 +110,15 @@ function Page1({inputValues, setInputValues}) {
                             padding: "10px",
                             marginBottom: "0.2rem",
                             fontFamily: "'Kanit', sans-serif",
-                        }} type="text" placeholder='ทบ.'
+                        }} 
                             value={inputValues.Service}
                             onChange={(e) => handleInputChange(e, 'Service')}
-                        />
+                        >
+                            <option value="ทบ.">ทบ.</option>
+                            <option value="ทร.">ทร.</option>
+                            <option value="ทอ.">ทอ.</option>
+                            <option value="ตร.">ตร.</option>
+                        </select>
                     </div>
 
                     <div>
