@@ -201,34 +201,34 @@ function Profile() {
                 </div>
             </div>
 
-            {/* User Info Section */}
-            
             <div style={{ textAlign: 'center', marginTop: '30px', padding: '0 20px', width: "100%", maxWidth: "1000px" }}>
-                <div style={{  justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditingNameService ? (
                         <div style={{ width: "100%" }}>
-                            <input
-                                name="Service"
-                                value={formDataNameService.Service}
-                                onChange={handleChangeNameService}
-                                style={inputStyle}
-                                placeholder="Service"
-                            />
-                            <h2>
+                            <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>
+                                <input
+                                    name="Service"
+                                    value={formDataNameService.Service}
+                                    onChange={handleChangeNameService}
+                                    style={{ ...inputStyle, border: 'none', backgroundColor: 'transparent', textAlign: 'right' }}
+                                    placeholder="Service"
+                                />
+                            </div>
+                            <h2 style={{ margin: '5px 0' }}>
                                 <input
                                     name="Name"
                                     value={formDataNameService.Name}
                                     onChange={handleChangeNameService}
-                                    style={inputStyle}
+                                    style={{ ...inputStyle, border: 'none', backgroundColor: 'transparent', fontSize: 'inherit', fontWeight: 'inherit' }}
                                     placeholder="Name"
                                 />
                             </h2>
-                            <p>
+                            <p style={{ margin: '5px 0' }}>
                                 <input
                                     name="Position"
                                     value={formDataNameService.Position}
                                     onChange={handleChangeNameService}
-                                    style={inputStyle}
+                                    style={{ ...inputStyle, border: 'none', backgroundColor: 'transparent', fontSize: 'inherit' }}
                                     placeholder="Position"
                                 />
                             </p>
@@ -240,7 +240,7 @@ function Profile() {
                             <p style={{ margin: '5px 0' }}>{user.Position}</p>
                         </div>
                     )}
-                    <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft:"15px", }} onClick={handleEditToggleNameService}>
+                    <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px", }} onClick={handleEditToggleNameService}>
                         <RiEdit2Line color="#BB6969" size={20} />
                         <span style={{ color: "#BB6969" }}>
                             {isEditingNameService ? 'ยกเลิก' : 'แก้ไข'}
@@ -257,6 +257,7 @@ function Profile() {
                     </div>
                 )}
             </div>
+
 
 
             {/* Basic Information Section */}
