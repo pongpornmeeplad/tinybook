@@ -326,8 +326,16 @@ function Profile() {
                         }}><FaRegQuestionCircle /></div>
                         <div>ฉายา</div>
                     </div>
-
-                    <div>{user.Name}</div>
+                    {isEditing ? (
+                        <input
+                            name="Workplace"
+                            value={formData.Nickname}
+                            onChange={handleChange}
+                            style={{ backgroundColor: '#EAEAEA', borderRadius: '9px', padding: '5px' }}
+                        />
+                    ) : (
+                        <div>{user.Nickname}</div>
+                    )}
                 </div>
                 <div style={{
                     display: "flex",
@@ -349,7 +357,16 @@ function Profile() {
                         }}><FaRegListAlt /></div>
                         <div>รายละเอียด</div>
                     </div>
-                    <div >{user.Detail}</div>
+                    {isEditing ? (
+                        <input
+                            name="Workplace"
+                            value={formData.Detail}
+                            onChange={handleChange}
+                            style={{ backgroundColor: '#EAEAEA', borderRadius: '9px', padding: '5px' }}
+                        />
+                    ) : (
+                        <div>{user.Detail}</div>
+                    )}
                 </div>
 
                 </div>
