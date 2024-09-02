@@ -202,8 +202,8 @@ function Profile() {
             </div>
 
             {/* User Info Section */}
-            // User Info Section with Edit Option
-            <div style={{ textAlign: 'center', marginTop: '60px', padding: '0 20px', width: "100%", maxWidth: "1000px" }}>
+            
+            <div style={{ textAlign: 'center', marginTop: '30px', padding: '0 20px', width: "100%", maxWidth: "1000px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     {isEditingNameService ? (
                         <div style={{ width: "100%" }}>
