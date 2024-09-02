@@ -324,17 +324,17 @@ function Profile() {
                         <div style={{
                             marginTop: "3px"
                         }}><FaRegQuestionCircle /></div>
-                        <div>ฉายา</div>
+                        <div>ธุรกิจส่วนตัว</div>
                     </div>
                     {isEditing ? (
                         <input
                             name="Workplace"
-                            value={formData.Nickname}
+                            value={formData.Workplace}
                             onChange={handleChange}
                             style={{ backgroundColor: '#EAEAEA', borderRadius: '9px', padding: '5px' }}
                         />
                     ) : (
-                        <div>{user.Nickname}</div>
+                        <div>{user.Workplace}</div>
                     )}
                 </div>
                 <div style={{
