@@ -46,7 +46,21 @@ function App() {
   }, []);
 
   if (!isLiffReady) {
-    return <div>Loading ...</div>;
+    return <div style={{
+      width: "100vw",
+      height: "100vh",
+      backgroundColor: "#510808",
+      display: 'flex',
+      flexDirection: 'column',
+      color: 'white',
+      fontFamily: "'Kanit', sans-serif",
+      overflow: 'hidden',
+      position: 'relative',
+      justifyContent: "end",
+      gap: "0.5rem",
+      alignItems: "center",
+  }}>Loading ...</div>;
+    
   }
 
   return (
