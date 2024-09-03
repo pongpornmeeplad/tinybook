@@ -391,24 +391,12 @@ function Profile() {
 
 
                     {isEditingOther && (
-                        <div style={{display:"flex",
-                            gap:"5px"
-                        }}>
+                        <div>
                             <div style={buttonContainerStyle}>
                                 <button onClick={handleSaveOther} style={buttonStyle}>
                                     บันทึก
                                 </button>
-                                <div style={{
-                                    display: "flex",
-                                    gap: "10px",
-                                    cursor: "pointer",
-                                    alignItems: 'center'
-                                }} onClick={handleEditToggleOther}>
-                                    <RiEdit2Line color="#BB6969" size={20} />
-                                    <span style={{ color: "#BB6969" }}>
-                                        {isEditingOther ? 'ยกเลิก' : 'แก้ไข'}
-                                    </span>
-                                </div>
+                                
                             </div>
                         </div>
 
