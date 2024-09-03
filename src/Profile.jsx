@@ -219,7 +219,7 @@ function Profile() {
                                     name="Name"
                                     value={formDataNameService.Name}
                                     onChange={handleChangeNameService}
-                                    style={{ ...inputStyle,  }}
+                                    style={{ ...inputStyle, }}
                                     placeholder="Name"
                                 />
                             </h2>
@@ -228,7 +228,7 @@ function Profile() {
                                     name="Position"
                                     value={formDataNameService.Position}
                                     onChange={handleChangeNameService}
-                                    style={{ ...inputStyle,  }}
+                                    style={{ ...inputStyle, }}
                                     placeholder="Position"
                                 />
                             </p>
@@ -275,6 +275,15 @@ function Profile() {
                     alignItems: 'center'
                 }}>
                     <div>ข้อมูลพื้นฐาน</div>
+                    {isEditingBasic && (
+                        <div style={buttonContainerStyle}>
+                            <button onClick={handleSaveBasic} style={buttonStyle}>
+                                บันทึก
+                            </button>
+                        </div>
+                    )}
+
+
                     <div style={{
                         display: "flex",
                         gap: "10px",
@@ -361,13 +370,7 @@ function Profile() {
                 </div>
 
                 {/* Save Button for Basic Info */}
-                {isEditingBasic && (
-                    <div style={buttonContainerStyle}>
-                        <button onClick={handleSaveBasic} style={buttonStyle}>
-                            บันทึก
-                        </button>
-                    </div>
-                )}
+
             </div>
 
             {/* Other Information Section */}
