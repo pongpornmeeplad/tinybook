@@ -480,7 +480,8 @@ const inputStyle = {
     border: 'none',
     width: '60%',
     fontSize: '1rem',
-    color:'#ffffff'
+    color:'#ffffff',
+    textAlign:'right'
 };
 
 const buttonContainerStyle = {
