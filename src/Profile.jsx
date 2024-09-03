@@ -390,30 +390,35 @@ function Profile() {
                 }}>
                     <div>ข้อมูลอื่นๆ</div>
 
+                    <div style={{
+                        display:"flex"
+                    }}>
+                        {isEditingOther && (
+                            <div>
+                                <div style={buttonContainerStyle}>
+                                    <button onClick={handleSaveOther} style={buttonStyle}>
+                                        บันทึก
+                                    </button>
 
-                    {isEditingOther && (
-                        <div>
-                            <div style={buttonContainerStyle}>
-                                <button onClick={handleSaveOther} style={buttonStyle}>
-                                    บันทึก
-                                </button>
-
+                                </div>
                             </div>
+
+                        )}
+
+                        <div style={{
+                            display: "flex",
+                            gap: "10px",
+                            cursor: "pointer",
+                            alignItems: 'center'
+                        }} onClick={handleEditToggleOther}>
+                            <RiEdit2Line color="#BB6969" size={20} />
+                            <span style={{ color: "#BB6969" }}>
+                                {isEditingOther ? 'ยกเลิก' : 'แก้ไข'}
+                            </span>
                         </div>
 
-                    )}
-
-                    <div style={{
-                        display: "flex",
-                        gap: "10px",
-                        cursor: "pointer",
-                        alignItems: 'center'
-                    }} onClick={handleEditToggleOther}>
-                        <RiEdit2Line color="#BB6969" size={20} />
-                        <span style={{ color: "#BB6969" }}>
-                            {isEditingOther ? 'ยกเลิก' : 'แก้ไข'}
-                        </span>
                     </div>
+
                 </div>
 
 
