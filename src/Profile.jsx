@@ -344,7 +344,7 @@ function Profile() {
                             name="Address"
                             value={formDataBasic.Address}
                             onChange={handleChangeBasic}
-                            style={{ ...inputStyle, height: '60px' }}
+                            style={{ ...inputStyle,  }}
                         />
                     ) : (
                         <div>{user.Address || '-'}</div>
@@ -430,7 +430,7 @@ function Profile() {
                             name="Detail"
                             value={formDataOther.Detail}
                             onChange={handleChangeOther}
-                            style={{ ...inputStyle, height: '80px' }}
+                            style={{ ...inputStyle,  }}
                         />
                     ) : (
                         <div>{user.Detail || '-'}</div>
