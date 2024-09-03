@@ -228,7 +228,16 @@ function Profile() {
                                     name="Position"
                                     value={formDataNameService.Position}
                                     onChange={handleChangeNameService}
-                                    style={{ ...inputStyle, }}
+                                    style={{
+                                        backgroundColor: '#510808',
+                                        borderRadius: '5px',
+                                        padding: '5px',
+                                        border: 'none',
+                                        width: '60%',
+                                        fontSize: '1rem',
+                                        color: '#ffffff',
+                                        textAlign: 'center'
+                                    }}
                                     placeholder="Position"
                                 />
                             </p>
@@ -277,7 +286,7 @@ function Profile() {
                 }}>
                     <div>ข้อมูลพื้นฐาน</div>
 
-                    <div style={{display:"flex",gap:"10px"}}>
+                    <div style={{ display: "flex", gap: "10px" }}>
                         {isEditingBasic && (
                             <div style={buttonContainerStyle}>
                                 <button onClick={handleSaveBasic} style={buttonStyle}>
