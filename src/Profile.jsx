@@ -276,26 +276,32 @@ function Profile() {
                     alignItems: 'center'
                 }}>
                     <div>ข้อมูลพื้นฐาน</div>
-                    {isEditingBasic && (
-                        <div style={buttonContainerStyle}>
-                            <button onClick={handleSaveBasic} style={buttonStyle}>
-                                บันทึก
-                            </button>
+
+                    <div>
+                        {isEditingBasic && (
+                            <div style={buttonContainerStyle}>
+                                <button onClick={handleSaveBasic} style={buttonStyle}>
+                                    บันทึก
+                                </button>
+                            </div>
+                        )}
+
+
+                        <div style={{
+                            display: "flex",
+                            gap: "10px",
+                            cursor: "pointer",
+                            alignItems: 'center'
+                        }} onClick={handleEditToggleBasic}>
+                            <RiEdit2Line color="#BB6969" size={20} />
+                            <span style={{ color: "#BB6969" }}>
+                                {isEditingBasic ? 'ยกเลิก' : 'แก้ไข'}
+                            </span>
                         </div>
-                    )}
 
 
-                    <div style={{
-                        display: "flex",
-                        gap: "10px",
-                        cursor: "pointer",
-                        alignItems: 'center'
-                    }} onClick={handleEditToggleBasic}>
-                        <RiEdit2Line color="#BB6969" size={20} />
-                        <span style={{ color: "#BB6969" }}>
-                            {isEditingBasic ? 'ยกเลิก' : 'แก้ไข'}
-                        </span>
                     </div>
+
                 </div>
 
                 {/* Nickname Field */}
@@ -391,7 +397,7 @@ function Profile() {
                     <div>ข้อมูลอื่นๆ</div>
 
                     <div style={{
-                        display:"flex"
+                        display: "flex", gap: "10px"
                     }}>
                         {isEditingOther && (
                             <div>
