@@ -201,7 +201,7 @@ function Profile() {
                 </div>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '30px', padding: '0 20px', width: "100%", maxWidth: "1000px" }}>
+            <div style={{ textAlign: 'center', marginTop: '30px',  width: "100%", maxWidth: "1000px" }}>
                 <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditingNameService ? (
                         <div style={{ width: "100%" }}>
