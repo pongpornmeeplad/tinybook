@@ -392,7 +392,7 @@ function Profile() {
 
                     {isEditingOther && (
                         <div style={buttonContainerStyle}>
-                            <button onClick={handleSaveOther} style={buttonStyle}>
+                            <button onClick={handleSaveOther} style={buttonStyle, }>
                                 บันทึก
                             </button>
                         </div>
@@ -497,7 +497,8 @@ const buttonStyle = {
     padding: '5px 5px',
     cursor: 'pointer',
     border: 'none',
-    fontSize: '1rem'
+    fontSize: '1rem',
+    marginLeft:'auto',
 };
 
 export default Profile;
