@@ -245,17 +245,18 @@ function Profile() {
                         <span style={{ color: "#BB6969" }}>
                             {isEditingNameService ? 'ยกเลิก' : 'แก้ไข'}
                         </span>
+                        {isEditingNameService && (
+                            <div style={buttonContainerStyle}>
+                                <button onClick={handleSaveNameService} style={buttonStyle}>
+                                    บันทึก
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
 
                 {/* Save Button for Name, Service, and Position */}
-                {isEditingNameService && (
-                    <div style={buttonContainerStyle}>
-                        <button onClick={handleSaveNameService} style={buttonStyle}>
-                            บันทึก
-                        </button>
-                    </div>
-                )}
+
             </div>
 
 
@@ -396,7 +397,7 @@ function Profile() {
                                 <button onClick={handleSaveOther} style={buttonStyle}>
                                     บันทึก
                                 </button>
-                                
+
                             </div>
                         </div>
 
