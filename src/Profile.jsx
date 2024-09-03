@@ -340,11 +340,11 @@ function Profile() {
                         <span>ที่อยู่</span>
                     </div>
                     {isEditingBasic ? (
-                        <textarea
+                        <input
                             name="Address"
                             value={formDataBasic.Address}
                             onChange={handleChangeBasic}
-                            style={{ ...inputStyle,  }}
+                            style={{ inputStyle  }}
                         />
                     ) : (
                         <div>{user.Address || '-'}</div>
@@ -439,11 +439,11 @@ function Profile() {
                         <span>รายละเอียด</span>
                     </div>
                     {isEditingOther ? (
-                        <textarea
+                        <input
                             name="Detail"
                             value={formDataOther.Detail}
                             onChange={handleChangeOther}
-                            style={{ ...inputStyle,  }}
+                            style={{ inputStyle  }}
                         />
                     ) : (
                         <div>{user.Detail || '-'}</div>
@@ -474,12 +474,13 @@ const labelContainerStyle = {
 };
 
 const inputStyle = {
-    backgroundColor: '#EAEAEA',
+    backgroundColor: '#510808',
     borderRadius: '5px',
     padding: '5px',
     border: 'none',
     width: '60%',
-    fontSize: '1rem'
+    fontSize: '1rem',
+    color:'#ffffff'
 };
 
 const buttonContainerStyle = {
