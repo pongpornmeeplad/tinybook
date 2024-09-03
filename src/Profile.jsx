@@ -277,7 +277,7 @@ function Profile() {
                 }}>
                     <div>ข้อมูลพื้นฐาน</div>
 
-                    <div>
+                    <div style={{display:"flex",gap:"10px"}}>
                         {isEditingBasic && (
                             <div style={buttonContainerStyle}>
                                 <button onClick={handleSaveBasic} style={buttonStyle}>
