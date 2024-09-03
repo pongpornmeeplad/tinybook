@@ -392,7 +392,7 @@ function Profile() {
 
                     {isEditingOther && (
                         <div style={buttonContainerStyle}>
-                            <button onClick={handleSaveOther} style={buttonStyle, }>
+                            <button onClick={handleSaveOther} style={buttonStyle}>
                                 บันทึก
                             </button>
                         </div>
