@@ -201,7 +201,7 @@ function Profile() {
                 </div>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '30px',  width: "100%", maxWidth: "1000px" }}>
+            <div style={{ textAlign: 'center', marginTop: '30px', width: "100%", maxWidth: "1000px" }}>
                 <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditingNameService ? (
                         <div style={{ width: "100%" }}>
@@ -391,15 +391,28 @@ function Profile() {
 
 
                     {isEditingOther && (
-                        <div style={buttonContainerStyle}>
-                            <button onClick={handleSaveOther} style={buttonStyle}>
-                                บันทึก
-                            </button>
+                        <div style={{display:"flex",
+                            gap:"5px"
+                        }}>
+                            <div style={buttonContainerStyle}>
+                                <button onClick={handleSaveOther} style={buttonStyle}>
+                                    บันทึก
+                                </button>
+                                <div style={{
+                                    display: "flex",
+                                    gap: "10px",
+                                    cursor: "pointer",
+                                    alignItems: 'center'
+                                }} onClick={handleEditToggleOther}>
+                                    <RiEdit2Line color="#BB6969" size={20} />
+                                    <span style={{ color: "#BB6969" }}>
+                                        {isEditingOther ? 'ยกเลิก' : 'แก้ไข'}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
+
                     )}
-
-
-
 
                     <div style={{
                         display: "flex",
@@ -413,6 +426,10 @@ function Profile() {
                         </span>
                     </div>
                 </div>
+
+
+
+
 
                 {/* Business Field */}
                 <div style={fieldContainerStyle}>
@@ -480,14 +497,14 @@ const inputStyle = {
     border: 'none',
     width: '60%',
     fontSize: '1rem',
-    color:'#ffffff',
-    textAlign:'right'
+    color: '#ffffff',
+    textAlign: 'right'
 };
 
 const buttonContainerStyle = {
     display: "flex",
     justifyContent: "center",
-    
+
 };
 
 const buttonStyle = {
@@ -498,7 +515,7 @@ const buttonStyle = {
     cursor: 'pointer',
     border: 'none',
     fontSize: '1rem',
-    marginLeft:'auto',
+
 };
 
 export default Profile;
