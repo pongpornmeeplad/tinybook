@@ -214,7 +214,7 @@ function Profile() {
                                         borderRadius: '5px',
                                         padding: '5px',
                                         border: '#BB6969',
-                                        width: '60%',
+                                        width: '50%',
                                         fontSize: '1rem',
                                         color: '#ffffff',
                                         textAlign: 'right'}}
@@ -230,7 +230,7 @@ function Profile() {
                                         borderRadius: '5px',
                                         padding: '5px',
                                         border: 'none',
-                                        width: '60%',
+                                        width: '50%',
                                         fontSize: '1rem',
                                         color: '#ffffff',
                                         textAlign: 'center'}}
@@ -247,7 +247,7 @@ function Profile() {
                                         borderRadius: '5px',
                                         padding: '5px',
                                         border: 'none',
-                                        width: '60%',
+                                        width: '50%',
                                         fontSize: '1rem',
                                         color: '#ffffff',
                                         textAlign: 'center'
@@ -518,7 +518,7 @@ const inputStyle = {
     borderRadius: '5px',
     padding: '5px',
     border: 'none',
-    width: '60%',
+    width: '50%',
     fontSize: '1rem',
     color: '#ffffff',
     textAlign: 'right'
