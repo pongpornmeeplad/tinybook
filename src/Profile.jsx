@@ -210,7 +210,14 @@ function Profile() {
                                     name="Service"
                                     value={formDataNameService.Service}
                                     onChange={handleChangeNameService}
-                                    style={{ ...inputStyle, textAlign: 'right' }}
+                                    style={{  backgroundColor: '#510808',
+                                        borderRadius: '5px',
+                                        padding: '5px',
+                                        border: '#BB6969',
+                                        width: '60%',
+                                        fontSize: '1rem',
+                                        color: '#ffffff',
+                                        textAlign: 'right'}}
                                     placeholder="Service"
                                 />
                             </div>
@@ -219,7 +226,14 @@ function Profile() {
                                     name="Name"
                                     value={formDataNameService.Name}
                                     onChange={handleChangeNameService}
-                                    style={{ ...inputStyle, }}
+                                    style={{  backgroundColor: '#510808',
+                                        borderRadius: '5px',
+                                        padding: '5px',
+                                        border: 'none',
+                                        width: '60%',
+                                        fontSize: '1rem',
+                                        color: '#ffffff',
+                                        textAlign: 'center'}}
                                     placeholder="Name"
                                 />
                             </h2>
