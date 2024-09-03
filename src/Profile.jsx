@@ -388,6 +388,19 @@ function Profile() {
                     alignItems: 'center'
                 }}>
                     <div>ข้อมูลอื่นๆ</div>
+
+
+                    {isEditingOther && (
+                        <div style={buttonContainerStyle}>
+                            <button onClick={handleSaveOther} style={buttonStyle}>
+                                บันทึก
+                            </button>
+                        </div>
+                    )}
+
+
+
+
                     <div style={{
                         display: "flex",
                         gap: "10px",
@@ -438,13 +451,6 @@ function Profile() {
                 </div>
 
                 {/* Save Button for Other Info */}
-                {isEditingOther && (
-                    <div style={buttonContainerStyle}>
-                        <button onClick={handleSaveOther} style={buttonStyle}>
-                            บันทึก
-                        </button>
-                    </div>
-                )}
             </div>
         </div>
     );
@@ -486,7 +492,7 @@ const buttonStyle = {
     backgroundColor: '#BB6969',
     color: 'white',
     borderRadius: '5px',
-    padding: '10px 20px',
+    padding: '5px 5px',
     cursor: 'pointer',
     border: 'none',
     fontSize: '1rem'
