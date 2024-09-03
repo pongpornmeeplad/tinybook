@@ -344,7 +344,7 @@ function Profile() {
                             name="Address"
                             value={formDataBasic.Address}
                             onChange={handleChangeBasic}
-                            style={{ inputStyle  }}
+                            style={inputStyle}
                         />
                     ) : (
                         <div>{user.Address || '-'}</div>
@@ -443,7 +443,7 @@ function Profile() {
                             name="Detail"
                             value={formDataOther.Detail}
                             onChange={handleChangeOther}
-                            style={{ inputStyle  }}
+                            style={inputStyle}
                         />
                     ) : (
                         <div>{user.Detail || '-'}</div>
@@ -474,7 +474,7 @@ const labelContainerStyle = {
 };
 
 const inputStyle = {
-    backgroundColor: '#510808',
+    backgroundColor: '#831818',
     borderRadius: '5px',
     padding: '5px',
     border: 'none',
