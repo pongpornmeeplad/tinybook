@@ -145,7 +145,23 @@ function Profile() {
                 <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditing ? (
                         <div style={{ width: "100%" }}>
-
+                            <div style={{
+                                display:"flex",
+                                justifyContent:"space-between"
+                            }}>
+                                <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
+                                <RiEdit2Line color="#BB6969" size={20} />
+                                <span style={{ color: "#BB6969" }}>
+                                    {isEditing ? 'ยกเลิก' : 'แก้ไข'}
+                                </span>
+                                {isEditing && (
+                                    <div style={buttonContainerStyle}>
+                                        <button onClick={handleSave} style={buttonStyle}>
+                                            บันทึก
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                             <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>
                                 <input
                                     name="Service"
@@ -155,6 +171,8 @@ function Profile() {
                                     placeholder="Service"
                                 />
                             </div>
+                            </div>
+                            
 
 
 
@@ -180,8 +198,8 @@ function Profile() {
                     ) : (
                         <div style={{ width: "100%" }}>
                             <div style={{
-                                display:"flex",
-                                justifyContent:"space-between"
+                                display: "flex",
+                                justifyContent: "space-between"
                             }}>
                                 <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
                                     <RiEdit2Line color="#BB6969" size={20} />
@@ -199,7 +217,7 @@ function Profile() {
                                 <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>{user.Service}</div>
 
                             </div>
-                            
+
                             <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
                             <p style={{ margin: '5px 0' }}>{user.Position}</p>
                         </div>
