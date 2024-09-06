@@ -1,67 +1,26 @@
-import  { useEffect, useState } from 'react';
-import axios from 'axios';
-import { IoMdSearch } from 'react-icons/io';
-import { RiArrowDropDownLine } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
-import { collection, getDocs } from 'firebase/firestore';
+import { IoMdSearch } from "react-icons/io";
+// Removed the commented import of Users
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "./Firebase"; // Import db from firebase.js
 
+import { useNavigate } from 'react-router-dom';
+import { RiArrowDropDownLine } from "react-icons/ri";
+import React, { useEffect, useState } from 'react';
+
 function AlbumPage() {
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
   const [showList, setShowList] = useState(false);
-  const [users, setUsers] = useState([]);
- 
+  const [users, setUsers] = useState([]); // To store users from Firebase
 
-  useEffect(() => {
-    // Function to fetch Instagram images
-    const fetchInstagramImages = async () => {
-      try {
-       
-
-        // Making request to Instagram API
-        const targetUrl = 'http://localhost:7221/instagram-images';
-        
-        const response = await axios.get(targetUrl)
-        
-        
-        // Handle compressed responses
-
-
-        // Parse the response
-
-        // Extract images from the response
-        console.log('response', response)
-        const fetchedImages = response?.data?.data.top?.sections.flatMap(section => 
-          section.layout_content.medias?.map(mediaItem => ({
-            src: mediaItem?.media?.image_versions2?.candidates?.[0]?.url || '',  // Ensure a valid URL
-            alt: mediaItem?.media?.accessibility_caption || 'Instagram Image',  // Provide a default alt text
-          })) || []  // Return an empty array if `medias` is undefined
-        );
-        
-        console.log('fetchedImages', fetchedImages)
-        setImages(fetchedImages || []);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching Instagram images:', error);
-        setError('Error fetching images.');
-        setLoading(false);
-      }
-    };
-
-    fetchInstagramImages();
-  }, []);
-
-  const navigate = useNavigate();
-  
   const search = (data) => {
     return data.filter((item) => 
       (item.Name && item.Name.toLowerCase().includes(query.toLowerCase())) ||
       (item.Nickname && item.Nickname.toLowerCase().includes(query.toLowerCase()))
     );
   };
+
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -91,13 +50,23 @@ function AlbumPage() {
     navigate('/All');
   };
 
-  if (loading) {
-    return <div>Loading images...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+  const images = [
+    // Your images array remains unchanged
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
+  ];
 
   return (
     <div style={{
@@ -111,7 +80,7 @@ function AlbumPage() {
       position: 'relative',
       alignItems: "center"
     }}>
-       <div style={{
+      <div style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-around",
@@ -158,7 +127,6 @@ function AlbumPage() {
         </div>
       </div>
 
-      
       {showList ? (
         
         <div style={{
@@ -219,31 +187,43 @@ function AlbumPage() {
         </div>
         
       ) : (
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '1px',
-        backgroundColor: '#4b0d0d',
-        width: '100%',
-        maxWidth: '1000px',
-        boxSizing: "border-box",
-        padding: "1rem",
-        marginInline: "auto",
-        height: "100%",
-        overflowY: "scroll"
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '1px',
+          backgroundColor: '#4b0d0d',
+          width: '100%',
+          maxWidth: '1000px',
+          boxSizing: "border-box",
+          padding: "1rem",
+          marginInline: "auto ",
+          height: "100%",
+          overflow: "scroll"
+        }}>
+          {images.map((image, index) => (
+            <div key={index} style={{
+              gridRow: (index === 7 || index % 10 === 0) ? "span 2" : "auto"
+            }}>
+              <img style={{ width: "100%", height: "100%", objectFit: "cover" }} src={image.src} alt={image.alt} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Optional Close Button */}
+      {/* <div style={{
+        display: "flex",
+        justifyContent: "center"
       }}>
-        {images.map((image, index) => (
-          <div key={index} style={{
-            gridRow: (index === 7 || index % 10 === 0) ? "span 2" : "auto"
-          }}>
-            <img  crossOrigin='anonymous'  style={{ width: "100%", height: "100%", objectFit: "cover" }} src={image.src} alt={image.alt} />
-          </div>
-        ))}
-      </div>)}
-
-
-
-
+        <button style={{
+          marginBottom: "3rem",
+          backgroundColor: "#ffffff",
+          borderRadius: "30px",
+          width: "15rem",
+          color: "#510808",
+          marginTop: "20px"
+        }} onClick={handleCloseClick}>ปิด</button>
+      </div> */}
     </div>
   );
 }
