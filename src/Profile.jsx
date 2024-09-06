@@ -12,20 +12,18 @@ function Profile() {
     const { id } = useParams();
     const [user, setUser] = useState(null);
 
-    // State for editing basic information
-    const [isEditingBasic, setIsEditingBasic] = useState(false);
-    const [formDataBasic, setFormDataBasic] = useState({
+    // Combined state for all the form data and editing toggle
+    const [isEditing, setIsEditing] = useState(false);
+    const [formData, setFormData] = useState({
         Nickname: '',
         Tel: '',
         Address: '',
-        Workplace: ''
-    });
-
-    // State for editing other information
-    const [isEditingOther, setIsEditingOther] = useState(false);
-    const [formDataOther, setFormDataOther] = useState({
+        Workplace: '',
         Business: '',
-        Detail: ''
+        Detail: '',
+        Name: '',
+        Service: '',
+        Position: ''
     });
 
     useEffect(() => {
@@ -38,19 +36,13 @@ function Profile() {
                     setUser({ id: userSnapshot.id, ...userData });
 
                     // Initialize form data with fetched data
-                    setFormDataBasic({
+                    setFormData({
                         Nickname: userData.Nickname || '',
                         Tel: userData.Tel || '',
                         Address: userData.Address || '',
-                        Workplace: userData.Workplace || ''
-                    });
-
-                    setFormDataOther({
+                        Workplace: userData.Workplace || '',
                         Business: userData.Business || '',
-                        Detail: userData.Detail || ''
-                    });
-
-                    setFormDataNameService({
+                        Detail: userData.Detail || '',
                         Name: userData.Name || '',
                         Service: userData.Service || '',
                         Position: userData.Position || ''
@@ -66,76 +58,24 @@ function Profile() {
         fetchUser();
     }, [id]);
 
-    // State for editing Name, Service, and Position
-    const [isEditingNameService, setIsEditingNameService] = useState(false);
-    const [formDataNameService, setFormDataNameService] = useState({
-        Name: '',
-        Service: '',
-        Position: ''
-    });
-    // Toggle edit mode for Name, Service, and Position
-    const handleEditToggleNameService = () => {
-        setIsEditingNameService(!isEditingNameService);
+    // Toggle edit mode for all sections
+    const handleEditToggle = () => {
+        setIsEditing(!isEditing);
     };
 
-    // Handle input change for Name, Service, and Position
-    const handleChangeNameService = (e) => {
+    // Handle input change for all fields
+    const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormDataNameService({ ...formDataNameService, [name]: value });
+        setFormData({ ...formData, [name]: value });
     };
 
-    // Toggle edit mode for basic information
-    const handleEditToggleBasic = () => {
-        setIsEditingBasic(!isEditingBasic);
-    };
-
-    // Toggle edit mode for other information
-    const handleEditToggleOther = () => {
-        setIsEditingOther(!isEditingOther);
-    };
-
-    // Handle input change for basic information
-    const handleChangeBasic = (e) => {
-        const { name, value } = e.target;
-        setFormDataBasic({ ...formDataBasic, [name]: value });
-    };
-
-    // Handle input change for other information
-    const handleChangeOther = (e) => {
-        const { name, value } = e.target;
-        setFormDataOther({ ...formDataOther, [name]: value });
-    };
-    // Save updated Name, Service, and Position to Firestore
-    const handleSaveNameService = async () => {
+    // Save all updated information to Firestore
+    const handleSave = async () => {
         try {
             const userDoc = doc(db, "users", id);
-            await updateDoc(userDoc, formDataNameService);
-            setUser({ ...user, ...formDataNameService }); // Update local user state
-            setIsEditingNameService(false); // Exit edit mode
-        } catch (error) {
-            console.error("Error updating user: ", error);
-        }
-    };
-
-    // Save updated basic information to Firestore
-    const handleSaveBasic = async () => {
-        try {
-            const userDoc = doc(db, "users", id);
-            await updateDoc(userDoc, formDataBasic);
-            setUser({ ...user, ...formDataBasic }); // Update local user state
-            setIsEditingBasic(false); // Exit edit mode
-        } catch (error) {
-            console.error("Error updating user: ", error);
-        }
-    };
-
-    // Save updated other information to Firestore
-    const handleSaveOther = async () => {
-        try {
-            const userDoc = doc(db, "users", id);
-            await updateDoc(userDoc, formDataOther);
-            setUser({ ...user, ...formDataOther }); // Update local user state
-            setIsEditingOther(false); // Exit edit mode
+            await updateDoc(userDoc, formData);
+            setUser({ ...user, ...formData }); // Update local user state
+            setIsEditing(false); // Exit edit mode
         } catch (error) {
             console.error("Error updating user: ", error);
         }
@@ -203,55 +143,32 @@ function Profile() {
 
             <div style={{ textAlign: 'center', marginTop: '30px', width: "100%", maxWidth: "1000px" }}>
                 <div style={{ justifyContent: "space-between", alignItems: "center" }}>
-                    {isEditingNameService ? (
+                    {isEditing ? (
                         <div style={{ width: "100%" }}>
                             <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>
                                 <input
                                     name="Service"
-                                    value={formDataNameService.Service}
-                                    onChange={handleChangeNameService}
-                                    style={{  backgroundColor: '#510808',
-                                        borderRadius: '5px',
-                                        padding: '5px',
-                                        border: '#BB6969',
-                                        width: '50%',
-                                        fontSize: '1rem',
-                                        color: '#ffffff',
-                                        textAlign: 'right'}}
+                                    value={formData.Service}
+                                    onChange={handleChange}
+                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: '#BB6969', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'right' }}
                                     placeholder="Service"
                                 />
                             </div>
                             <h2 style={{ margin: '5px 0' }}>
                                 <input
                                     name="Name"
-                                    value={formDataNameService.Name}
-                                    onChange={handleChangeNameService}
-                                    style={{  backgroundColor: '#510808',
-                                        borderRadius: '5px',
-                                        padding: '5px',
-                                        border: 'none',
-                                        width: '50%',
-                                        fontSize: '1rem',
-                                        color: '#ffffff',
-                                        textAlign: 'center'}}
+                                    value={formData.Name}
+                                    onChange={handleChange}
+                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: 'none', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'center' }}
                                     placeholder="Name"
                                 />
                             </h2>
                             <p style={{ margin: '5px 0' }}>
                                 <input
                                     name="Position"
-                                    value={formDataNameService.Position}
-                                    onChange={handleChangeNameService}
-                                    style={{
-                                        backgroundColor: '#510808',
-                                        borderRadius: '5px',
-                                        padding: '5px',
-                                        border: 'none',
-                                        width: '50%',
-                                        fontSize: '1rem',
-                                        color: '#ffffff',
-                                        textAlign: 'center'
-                                    }}
+                                    value={formData.Position}
+                                    onChange={handleChange}
+                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: 'none', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'center' }}
                                     placeholder="Position"
                                 />
                             </p>
@@ -263,68 +180,26 @@ function Profile() {
                             <p style={{ margin: '5px 0' }}>{user.Position}</p>
                         </div>
                     )}
-                    <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px", }} onClick={handleEditToggleNameService}>
+                    <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
                         <RiEdit2Line color="#BB6969" size={20} />
                         <span style={{ color: "#BB6969" }}>
-                            {isEditingNameService ? 'ยกเลิก' : 'แก้ไข'}
+                            {isEditing ? 'ยกเลิก' : 'แก้ไข'}
                         </span>
-                        {isEditingNameService && (
+                        {isEditing && (
                             <div style={buttonContainerStyle}>
-                                <button onClick={handleSaveNameService} style={buttonStyle}>
+                                <button onClick={handleSave} style={buttonStyle}>
                                     บันทึก
                                 </button>
                             </div>
                         )}
                     </div>
                 </div>
-
-                {/* Save Button for Name, Service, and Position */}
-
             </div>
 
-
-
             {/* Basic Information Section */}
-            <div style={{
-                width: "100%",
-                maxWidth: "1000px",
-                marginTop: '20px'
-            }}>
-                <div style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginLeft: "15px",
-                    marginRight: "15px",
-                    padding: "10px",
-                    alignItems: 'center'
-                }}>
+            <div style={{ width: "100%", maxWidth: "1000px", marginTop: '20px' }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginLeft: "15px", marginRight: "15px", padding: "10px", alignItems: 'center' }}>
                     <div>ข้อมูลพื้นฐาน</div>
-
-                    <div style={{ display: "flex", gap: "10px" }}>
-                        {isEditingBasic && (
-                            <div style={buttonContainerStyle}>
-                                <button onClick={handleSaveBasic} style={buttonStyle}>
-                                    บันทึก
-                                </button>
-                            </div>
-                        )}
-
-
-                        <div style={{
-                            display: "flex",
-                            gap: "10px",
-                            cursor: "pointer",
-                            alignItems: 'center'
-                        }} onClick={handleEditToggleBasic}>
-                            <RiEdit2Line color="#BB6969" size={20} />
-                            <span style={{ color: "#BB6969" }}>
-                                {isEditingBasic ? 'ยกเลิก' : 'แก้ไข'}
-                            </span>
-                        </div>
-
-
-                    </div>
-
                 </div>
 
                 {/* Nickname Field */}
@@ -333,11 +208,11 @@ function Profile() {
                         <CiFaceSmile size={20} />
                         <span>ชื่อเล่น</span>
                     </div>
-                    {isEditingBasic ? (
+                    {isEditing ? (
                         <input
                             name="Nickname"
-                            value={formDataBasic.Nickname}
-                            onChange={handleChangeBasic}
+                            value={formData.Nickname}
+                            onChange={handleChange}
                             style={inputStyle}
                         />
                     ) : (
@@ -351,11 +226,11 @@ function Profile() {
                         <BsTelephone size={20} />
                         <span>เบอร์โทร</span>
                     </div>
-                    {isEditingBasic ? (
+                    {isEditing ? (
                         <input
                             name="Tel"
-                            value={formDataBasic.Tel}
-                            onChange={handleChangeBasic}
+                            value={formData.Tel}
+                            onChange={handleChange}
                             style={inputStyle}
                         />
                     ) : (
@@ -366,14 +241,14 @@ function Profile() {
                 {/* Address Field */}
                 <div style={fieldContainerStyle}>
                     <div style={labelContainerStyle}>
-                        <RiHome8Line size={20} />
+                    <RiHome8Line size={20} />
                         <span>ที่อยู่</span>
                     </div>
-                    {isEditingBasic ? (
+                    {isEditing ? (
                         <input
                             name="Address"
-                            value={formDataBasic.Address}
-                            onChange={handleChangeBasic}
+                            value={formData.Address}
+                            onChange={handleChange}
                             style={inputStyle}
                         />
                     ) : (
@@ -387,20 +262,17 @@ function Profile() {
                         <MdOutlineHomeRepairService size={20} />
                         <span>สถานที่ทำงาน</span>
                     </div>
-                    {isEditingBasic ? (
+                    {isEditing ? (
                         <input
                             name="Workplace"
-                            value={formDataBasic.Workplace}
-                            onChange={handleChangeBasic}
+                            value={formData.Workplace}
+                            onChange={handleChange}
                             style={inputStyle}
                         />
                     ) : (
                         <div>{user.Workplace || '-'}</div>
                     )}
                 </div>
-
-                {/* Save Button for Basic Info */}
-
             </div>
 
             {/* Other Information Section */}
@@ -418,41 +290,7 @@ function Profile() {
                     alignItems: 'center'
                 }}>
                     <div>ข้อมูลอื่นๆ</div>
-
-                    <div style={{
-                        display: "flex", gap: "10px"
-                    }}>
-                        {isEditingOther && (
-                            <div>
-                                <div style={buttonContainerStyle}>
-                                    <button onClick={handleSaveOther} style={buttonStyle}>
-                                        บันทึก
-                                    </button>
-
-                                </div>
-                            </div>
-
-                        )}
-
-                        <div style={{
-                            display: "flex",
-                            gap: "10px",
-                            cursor: "pointer",
-                            alignItems: 'center'
-                        }} onClick={handleEditToggleOther}>
-                            <RiEdit2Line color="#BB6969" size={20} />
-                            <span style={{ color: "#BB6969" }}>
-                                {isEditingOther ? 'ยกเลิก' : 'แก้ไข'}
-                            </span>
-                        </div>
-
-                    </div>
-
                 </div>
-
-
-
-
 
                 {/* Business Field */}
                 <div style={fieldContainerStyle}>
@@ -460,11 +298,11 @@ function Profile() {
                         <FaRegQuestionCircle size={20} />
                         <span>ธุรกิจส่วนตัว</span>
                     </div>
-                    {isEditingOther ? (
+                    {isEditing ? (
                         <input
                             name="Business"
-                            value={formDataOther.Business}
-                            onChange={handleChangeOther}
+                            value={formData.Business}
+                            onChange={handleChange}
                             style={inputStyle}
                         />
                     ) : (
@@ -478,19 +316,17 @@ function Profile() {
                         <FaRegListAlt size={20} />
                         <span>รายละเอียด</span>
                     </div>
-                    {isEditingOther ? (
+                    {isEditing ? (
                         <input
                             name="Detail"
-                            value={formDataOther.Detail}
-                            onChange={handleChangeOther}
+                            value={formData.Detail}
+                            onChange={handleChange}
                             style={inputStyle}
                         />
                     ) : (
                         <div>{user.Detail || '-'}</div>
                     )}
                 </div>
-
-                {/* Save Button for Other Info */}
             </div>
         </div>
     );
@@ -526,8 +362,7 @@ const inputStyle = {
 
 const buttonContainerStyle = {
     display: "flex",
-    justifyContent: "center",
-
+    justifyContent: "center"
 };
 
 const buttonStyle = {
@@ -537,8 +372,8 @@ const buttonStyle = {
     padding: '5px 5px',
     cursor: 'pointer',
     border: 'none',
-    fontSize: '1rem',
-
+    fontSize: '1rem'
 };
 
 export default Profile;
+
