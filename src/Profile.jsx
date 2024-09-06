@@ -389,7 +389,8 @@ const inputStyle = {
     width: '50%',
     fontSize: '1rem',
     color: '#ffffff',
-    textAlign: 'right'
+    textAlign: 'right',
+    outline: 'none',
 };
 
 const buttonContainerStyle = {
