@@ -1,72 +1,64 @@
-import { IoMdSearch } from "react-icons/io";
-// Removed the commented import of Users
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "./Firebase"; // Import db from firebase.js
-
-import { useNavigate } from 'react-router-dom';
-import { RiArrowDropDownLine } from "react-icons/ri";
 import React, { useEffect, useState } from 'react';
-
+import axios from 'axios';
+import zlib from 'react-zlib-js'
 function AlbumPage() {
-  const [query, setQuery] = useState("");
-  const [showList, setShowList] = useState(false);
-  const [users, setUsers] = useState([]); // To store users from Firebase
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const getTimestampPlusOneYear = () => {
+    const currentTimestamp = Math.floor(Date.now() / 1000);  // Get current Unix timestamp
+    const oneYearInSeconds = 365 * 24 * 60 * 60;  // One year in seconds (365 days)
+    return currentTimestamp + oneYearInSeconds;  // Add one year to the current timestamp
+};
 
-  const search = (data) => {
-    return data.filter((item) => 
-      (item.Name && item.Name.toLowerCase().includes(query.toLowerCase())) ||
-      (item.Nickname && item.Nickname.toLowerCase().includes(query.toLowerCase()))
-    );
-  };
-
-  const navigate = useNavigate();
-  
+// Generate the future timestamp (current + 1 year)
+const futureTimestamp = getTimestampPlusOneYear();
   useEffect(() => {
-    const fetchUsers = async () => {
+    // Function to fetch Instagram images
+    const fetchInstagramImages = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "users")); // "users" is the Firestore collection name
-        const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+       
+
+        // Making request to Instagram API
+        const targetUrl = 'http://localhost:7221/instagram-images';
         
-        console.log('usersList', usersList)
-        setUsers(usersList);
+        const response = await axios.get(targetUrl)
+        
+        
+        // Handle compressed responses
+
+
+        // Parse the response
+
+        // Extract images from the response
+        console.log('response', response)
+        const fetchedImages = response?.data?.data.top?.sections.flatMap(section => 
+          section.layout_content.medias?.map(mediaItem => ({
+            src: mediaItem?.media?.image_versions2?.candidates?.[0]?.url || '',  // Ensure a valid URL
+            alt: mediaItem?.media?.accessibility_caption || 'Instagram Image',  // Provide a default alt text
+          })) || []  // Return an empty array if `medias` is undefined
+        );
+        
+        console.log('fetchedImages', fetchedImages)
+        setImages(fetchedImages || []);
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching users: ", error);
+        console.error('Error fetching Instagram images:', error);
+        setError('Error fetching images.');
+        setLoading(false);
       }
     };
 
-    fetchUsers();
+    fetchInstagramImages();
   }, []);
 
-  const handleCancleClick = () => {
-    setShowList(false); // Hide list on cancel
-  };
+  if (loading) {
+    return <div>Loading images...</div>;
+  }
 
-  // Updated handleProfile to accept userId
-  const handleProfile = (userId) => {
-    navigate(`/Profile/${userId}`);
-  };
-
-  const handleSeeAll = () => {
-    navigate('/All');
-  };
-
-  const images = [
-    // Your images array remains unchanged
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-    { src: 'https://profile.line-scdn.net/0h6D1zjRrLaWscA3nNZ8MXFGxTagE_cjB5YGEuCC1UP1hxY34_NDYgDX0AZV4kY3s6MWR1XXoHYw8QEB4NAlWVXxszN18iMyY5OWchjA/preview', alt: '0', size: 'large' },
-  ];
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div style={{
@@ -81,149 +73,26 @@ function AlbumPage() {
       alignItems: "center"
     }}>
       <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-around",
-        marginInline: "15px 15px",
-        marginBottom: "20px",
-        gap: "20px",
-        marginTop: "1.5rem",
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: '1px',
+        backgroundColor: '#4b0d0d',
+        width: '100%',
         maxWidth: '1000px',
-        width: "95%"
+        boxSizing: "border-box",
+        padding: "1rem",
+        marginInline: "auto",
+        height: "100%",
+        overflowY: "scroll"
       }}>
-        <div style={{
-          width: '100%',
-          borderRadius: '30px',
-          backgroundColor: '#fff',
-          display: 'flex',
-          alignItems: 'center',
-          paddingLeft: '20px',
-        }}>
-          <IoMdSearch style={{
-            color: "#510808",
-            fontSize: "2rem"
-          }} />
-          <input style={{
-            background: "#ffffff",
-            color: "black",
-            borderRadius: "30px",
-            boxSizing: "border-box",
-            height: "2rem",
-            border: "none",
-            padding: "20px",
-            width: "100%",
-            outline: 'none',
-            fontSize: '1rem',
-            backgroundColor: 'transparent',
-            fontFamily: "'Kanit', sans-serif",
-          }} type="text" placeholder="ค้นหารายชื่อ" onFocus={() => setShowList(true)} onChange={(e) => setQuery(e.target.value)} />
-        </div>
-        <div style={{
-          color: "#BB6969",
-          marginLeft: "auto",
-          cursor: "pointer"
-        }} onClick={handleCancleClick}>
-          ยกเลิก
-        </div>
-      </div>
-
-      {showList ? (
-        
-        <div style={{
-          width: "100%",
-          height: "100vh",
-          backgroundColor: "#831818",
-          borderRadius: "30px 30px 0px 0px ",
-          boxSizing: "border-box",
-          padding: "20px",
-          overflow: "scroll",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-          maxWidth: "1000px"
-        }}>
-          {search(users).map((item) => (
-            <div 
-              key={item.id} 
-              style={{
-                display: "flex",
-                gap: "2rem",
-                alignItems: "center",
-                cursor: "pointer" // Added cursor pointer for better UX
-              }} 
-              onClick={() => handleProfile(item.id)} // Pass the specific user's id
-            >
-              <div style={{
-                width: '4rem',
-                height: '4rem',
-                borderRadius: '50%',
-                border: '5px solid white',
-                overflow: 'hidden',
-              }}>
-                <img src={item.Picpic} alt="Profile" style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }} />
-              </div>
-              <div>
-                <div>{item.Name}</div>
-                <div style={{
-                  color: "#bb6969"
-                }}>{item?.Nickname}</div>
-              </div>
-            </div>
-          ))}
-
-          <div style={{
-            display: "flex",
-            justifyContent: "center",
-            cursor: "pointer"
-          }} onClick={handleSeeAll}>
-            <RiArrowDropDownLine style={{ fontSize: "30px" }} />
-            ดูทั้งหมด
+        {images.map((image, index) => (
+          <div key={index} style={{
+            gridRow: (index === 7 || index % 10 === 0) ? "span 2" : "auto"
+          }}>
+            <img  crossOrigin='anonymous'  style={{ width: "100%", height: "100%", objectFit: "cover" }} src={image.src} alt={image.alt} />
           </div>
-          
-        </div>
-        
-      ) : (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1px',
-          backgroundColor: '#4b0d0d',
-          width: '100%',
-          maxWidth: '1000px',
-          boxSizing: "border-box",
-          padding: "1rem",
-          marginInline: "auto ",
-          height: "100%",
-          overflow: "scroll"
-        }}>
-          {images.map((image, index) => (
-            <div key={index} style={{
-              gridRow: (index === 7 || index % 10 === 0) ? "span 2" : "auto"
-            }}>
-              <img style={{ width: "100%", height: "100%", objectFit: "cover" }} src={image.src} alt={image.alt} />
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Optional Close Button */}
-      {/* <div style={{
-        display: "flex",
-        justifyContent: "center"
-      }}>
-        <button style={{
-          marginBottom: "3rem",
-          backgroundColor: "#ffffff",
-          borderRadius: "30px",
-          width: "15rem",
-          color: "#510808",
-          marginTop: "20px"
-        }} onClick={handleCloseClick}>ปิด</button>
-      </div> */}
+        ))}
+      </div>
     </div>
   );
 }

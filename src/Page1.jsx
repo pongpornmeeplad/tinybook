@@ -49,7 +49,7 @@ function Page1({ inputValues, setInputValues }) {
             gap: "0.5rem",
             alignItems: "center",
         }}>
-             <div style={{
+            <div style={{
                 position: 'absolute',
                 top: 0,
                 left: 0,
@@ -70,7 +70,7 @@ function Page1({ inputValues, setInputValues }) {
                 maxWidth: "1000px",
                 width: "100%",
                 marginBottom: "10px",
-                zIndex:1
+                zIndex: 1
             }}>
                 กรอกข้อมูล
 
@@ -97,8 +97,8 @@ function Page1({ inputValues, setInputValues }) {
                 backgroundColor: "#ffffff",
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent:'space-between',
-                
+                justifyContent: 'space-between',
+
                 color: 'white',
                 overflow: 'hidden',
                 position: 'relative',
@@ -109,7 +109,7 @@ function Page1({ inputValues, setInputValues }) {
                 paddingTop: "40px",
                 paddingBottom: "70px",
             }}>
-                <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     <div>
                         <div style={{
                             color: "#510808",
@@ -169,11 +169,12 @@ function Page1({ inputValues, setInputValues }) {
                             marginBottom: "0.2rem"
                         }}>ชื่อเล่น/ฉายา</div>
 
-                        <Input variant='filled' placeholder='ปาล์ม'
+                        <Input
+                            variant='filled'
+                            placeholder='ปาล์ม'
                             value={inputValues.Nickname}
                             onChange={(e) => handleInputChange(e, 'Nickname')}
                             size='large'
-
                         />
                     </div>
 
@@ -223,7 +224,7 @@ function Page1({ inputValues, setInputValues }) {
                 </div>
             </div>
         </div>
-       
+
     );
 }
 
