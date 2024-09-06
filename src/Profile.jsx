@@ -145,15 +145,38 @@ function Profile() {
                 <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditing ? (
                         <div style={{ width: "100%" }}>
-                            <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>
-                                <input
-                                    name="Service"
-                                    value={formData.Service}
-                                    onChange={handleChange}
-                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: '#BB6969', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'right' }}
-                                    placeholder="Service"
-                                />
+
+
+                            <div style={{
+                                display:"flex"
+                            }}>
+                                <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>
+                                    <input
+                                        name="Service"
+                                        value={formData.Service}
+                                        onChange={handleChange}
+                                        style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: '#BB6969', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'right' }}
+                                        placeholder="Service"
+                                    />
+                                </div>
+                                <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
+                                    <RiEdit2Line color="#BB6969" size={20} />
+                                    <span style={{ color: "#BB6969" }}>
+                                        {isEditing ? 'ยกเลิก' : 'แก้ไข'}
+                                    </span>
+                                    {isEditing && (
+                                        <div style={buttonContainerStyle}>
+                                            <button onClick={handleSave} style={buttonStyle}>
+                                                บันทึก
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
+
+
+
+
                             <h2 style={{ margin: '5px 0' }}>
                                 <input
                                     name="Name"
@@ -180,19 +203,9 @@ function Profile() {
                             <p style={{ margin: '5px 0' }}>{user.Position}</p>
                         </div>
                     )}
-                    <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
-                        <RiEdit2Line color="#BB6969" size={20} />
-                        <span style={{ color: "#BB6969" }}>
-                            {isEditing ? 'ยกเลิก' : 'แก้ไข'}
-                        </span>
-                        {isEditing && (
-                            <div style={buttonContainerStyle}>
-                                <button onClick={handleSave} style={buttonStyle}>
-                                    บันทึก
-                                </button>
-                            </div>
-                        )}
-                    </div>
+
+
+
                 </div>
             </div>
 
@@ -241,7 +254,7 @@ function Profile() {
                 {/* Address Field */}
                 <div style={fieldContainerStyle}>
                     <div style={labelContainerStyle}>
-                    <RiHome8Line size={20} />
+                        <RiHome8Line size={20} />
                         <span>ที่อยู่</span>
                     </div>
                     {isEditing ? (
