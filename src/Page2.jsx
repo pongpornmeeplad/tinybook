@@ -181,7 +181,7 @@ function Page2({ inputValues, setInputValues }) {
                             marginBottom: "0.2rem",
                         }}>ธุรกิจส่วนตัว</div>
 
-                        <Input variant='filled' type="text"
+                        <Input variant='filled' 
                             type="text"
                             placeholder='ร้านอาหาร...'
                             value={inputValues.field3}
