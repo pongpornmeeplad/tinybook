@@ -180,7 +180,8 @@ function Profile() {
                     ) : (
                         <div style={{ width: "100%" }}>
                             <div style={{
-                                display:"flex"
+                                display:"flex",
+                                justifyContent:"space-between"
                             }}>
                                 <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
                                     <RiEdit2Line color="#BB6969" size={20} />
