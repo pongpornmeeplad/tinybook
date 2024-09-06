@@ -2,7 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-
+import bgImage from './assets/afaps48-bg.png'; // Use the same background as Page1
+import { Input } from 'antd';
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyC4dCrV6B5GYraqkFm16oQlqMwU8LMNh3E",
@@ -17,8 +18,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-function Page2({ inputValues, setInputValues }) {  // Receive props
+const { TextArea } = Input;
+function Page2({ inputValues, setInputValues }) {
     const navigate = useNavigate();
 
     // Handle input changes
@@ -31,6 +32,7 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
 
     // Handle form submission
     const handleNextClick = async () => {
+        console.log('inputValues', inputValues)
         try {
             // Save data to Firestore
             await addDoc(collection(db, "users"), {
@@ -43,9 +45,8 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                 Workplace: inputValues.field2,
                 Business: inputValues.field3,
                 Detail: inputValues.field4,
-                LineId: inputValues.LineId,  // Ensure consistent casing
+                LineId: inputValues.LineId,
                 Picpic: inputValues.picpic
-
             });
             console.log("Document successfully written!");
 
@@ -60,7 +61,8 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
         <div style={{
             width: "100vw",
             height: "100vh",
-            backgroundColor: "#510808",
+            backgroundImage: `url(${bgImage})`, // Use the same background as Page1
+            backgroundSize: 'contain',
             display: 'flex',
             flexDirection: 'column',
             color: 'white',
@@ -69,21 +71,35 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
             position: 'relative',
             justifyContent: "end",
             gap: "0.5rem",
-            alignItems:"center"
+            alignItems: "center",
         }}>
-            
+            {/* Red Overlay */}
             <div style={{
-                marginLeft:"1rem",
-                justifyContent:"left",
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: "#510808",
+                opacity: 0.8,
+                zIndex: 0
+            }} />
+
+<div style={{
+                marginLeft: "3rem",
+                justifyContent: "left",
                 color: '#FFFFFF',
                 fontSize: '30px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '10px',
-                maxWidth:"1000px",
-                width:"100%"
+                maxWidth: "1000px",
+                width: "100%",
+                marginBottom: "10px",
+                zIndex:1
             }}>
                 กรอกข้อมูล
+
                 <div style={{
                     width: '35px',
                     height: '35px',
@@ -91,59 +107,51 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderRadius: '5px',
+                    borderRadius: '10px',
                 }}>
                     <span style={{
                         color: '#510808',
                         fontSize: '18px',
-                        fontWeight: 'bold',
-                        fontFamily: "'Kanit', sans-serif",
+                        fontWeight: 'bold'
                     }}>2</span>
                 </div>
             </div>
-            
+
+            {/* Form Section */}
             <div style={{
                 width: "100vw",
                 height: "70vh",
                 backgroundColor: "#ffffff",
                 display: 'flex',
                 flexDirection: 'column',
+                justifyContent: 'space-between',
                 color: 'white',
-                fontFamily: "'Kanit', sans-serif",
                 overflow: 'hidden',
                 position: 'relative',
                 boxSizing: "border-box",
                 padding: "20px",
-                borderRadius:"30px 30px 0px 0px",
-                maxWidth:"1000px"
+                borderRadius: "30px 30px 0px 0px",
+                maxWidth: "1000px",
+                paddingTop: "40px",
+                paddingBottom: "70px",
+                zIndex: 1,
             }}>
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {/* Position Field */}
                     <div>
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
-                            fontFamily: "'Kanit', sans-serif",
                         }}>ตำแหน่ง สังกัด</div>
-                        <input
-                            style={{
-                                background: "#EAEAEA",
-                                width: "100%",
-                                color: "black",
-                                borderRadius: "10px",
-                                boxSizing: "border-box",
-                                height: "2rem",
-                                fontSize: "1rem",
-                                border: "1px solid #ccc",
-                                padding: "10px",
-                                marginBottom: "0.2rem",
-                                fontFamily: "'Kanit', sans-serif",
-                            }}
-                            type="text"
-                            placeholder='ผบ......'
-                            value={inputValues.field1}
-                            onChange={(e) => handleInputChange(e, 'field1')}
+                       
+                          <Input variant='filled'
+                           type="text"
+                           placeholder='ผบ......'
+                           value={inputValues.field1}
+                           onChange={(e) => handleInputChange(e, 'field1')}
+                            size='large'
+
                         />
                     </div>
 
@@ -152,26 +160,16 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
-                            marginBottom: "0.2rem"
+                            marginBottom: "0.2rem",
                         }}>สถานที่ทำงาน</div>
-                        <input
-                            style={{
-                                background: "#EAEAEA",
-                                width: "100%",
-                                color: "black",
-                                borderRadius: "10px",
-                                boxSizing: "border-box",
-                                height: "2rem",
-                                fontSize: "1rem",
-                                border: "1px solid #ccc",
-                                padding: "10px",
-                                marginBottom: "0.2rem",
-                                fontFamily: "'Kanit', sans-serif",
-                            }}
+
+                        <Input variant='filled'
                             type="text"
                             placeholder='โรงเรียน....'
                             value={inputValues.field2}
                             onChange={(e) => handleInputChange(e, 'field2')}
+                            size='large'
+
                         />
                     </div>
 
@@ -180,134 +178,49 @@ function Page2({ inputValues, setInputValues }) {  // Receive props
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
-                            marginBottom: "0.2rem"
+                            marginBottom: "0.2rem",
                         }}>ธุรกิจส่วนตัว</div>
-                        <input
-                            style={{
-                                background: "#EAEAEA",
-                                width: "100%",
-                                color: "black",
-                                borderRadius: "10px",
-                                boxSizing: "border-box",
-                                height: "5rem",
-                                fontSize: "1rem",
-                                border: "1px solid #ccc",
-                                padding: "10px",
-                                marginBottom: "0.2rem",
-                                fontFamily: "'Kanit', sans-serif",
-                            }}
+
+                        <Input variant='filled' type="text"
                             type="text"
                             placeholder='ร้านอาหาร...'
                             value={inputValues.field3}
                             onChange={(e) => handleInputChange(e, 'field3')}
+                            size='large'
+
                         />
                     </div>
+
+                    {/* Detail Field */}
                     <div>
                         <div style={{
                             color: "#510808",
                             fontSize: "1.2rem",
-                            marginBottom: "0.2rem"
+                            marginBottom: "0.2rem",
                         }}>รายละเอียดเพิ่มเติม</div>
-                        <input
-                            style={{
-                                background: "#EAEAEA",
-                                width: "100%",
-                                color: "black",
-                                borderRadius: "10px",
-                                boxSizing: "border-box",
-                                height: "5rem",
-                                fontSize: "1rem",
-                                border: "1px solid #ccc",
-                                padding: "10px",
-                                marginBottom: "0.2rem",
-                                fontFamily: "'Kanit', sans-serif",
-                            }}
-                            type="text"
+
+                        <TextArea variant='filled' type="text"
                             placeholder='........'
                             value={inputValues.field4}
                             onChange={(e) => handleInputChange(e, 'field4')}
+                            size='large'
+
                         />
                     </div>
-
-                    {/* Line ID Field */}
-                    {/* <div>
-                        <div style={{
-                            color: "#510808",
-                            fontSize: "1.2rem",
-                            marginBottom: "0.2rem"
-                        }}>Line ID</div>
-                        <input
-                            style={{
-                                background: "#EAEAEA",
-                                width: "100%",
-                                color: "black",
-                                borderRadius: "10px",
-                                boxSizing: "border-box",
-                                height: "2rem",
-                                fontSize: "1rem",
-                                border: "1px solid #ccc",
-                                padding: "10px",
-                                marginBottom: "0.2rem",
-                                fontFamily: "'Kanit', sans-serif",
-                            }}
-                            type="text"
-                            placeholder='ไอดีไลน์....'
-                            value={inputValues.LineId}  // Ensure consistent casing
-                            onChange={(e) => handleInputChange(e, 'LineId')}
-                            readOnly  // If LineId should not be editable
-                        />
-                    </div> */}
-
-                    {/* Picture URL Field */}
-                    {/* <div>
-                        <div style={{
-                            color: "#510808",
-                            fontSize: "1.2rem",
-                            marginBottom: "0.2rem"
-                        }}>Picture URL</div>
-                        <input
-                            style={{
-                                background: "#EAEAEA",
-                                width: "100%",
-                                color: "black",
-                                borderRadius: "10px",
-                                boxSizing: "border-box",
-                                height: "2rem",
-                                fontSize: "1rem",
-                                border: "1px solid #ccc",
-                                padding: "10px",
-                                marginBottom: "0.2rem",
-                                fontFamily: "'Kanit', sans-serif",
-                            }}
-                            type="text"
-                            placeholder='ลิงค์รูป....'
-                            value={inputValues.picpic}
-                            onChange={(e) => handleInputChange(e, 'picpic')}
-                            readOnly  // If picpic should not be editable
-                        />
-                    </div> */}
                 </div>
 
+                {/* Submit Button */}
                 <div style={{
                     alignSelf: "center",
                     marginTop: "20px",
                     borderRadius: "30px"
                 }}>
-                    <button
-                        style={{
-                            backgroundColor: "#510808",
-                            borderRadius: "30px",
-                            width: "15rem",
-                            height: "3rem",  // Added height for better UX
-                            
-                            fontSize: "1.2rem",
-                            cursor: "pointer",
-                            color:"#ffffff",
-                        }}
-                        onClick={handleNextClick}
-                    >
-                        ต่อไป
-                    </button>
+                    <button style={{
+                        color: "#ffffff",
+                        backgroundColor: "#510808",
+                        borderRadius: "30px",
+                        width: "80vw",
+                    }} onClick={handleNextClick}>ต่อไป</button>
                 </div>
             </div>
         </div>

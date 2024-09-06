@@ -2,4 +2,26 @@
   
   /* text-align: end; */
 }
+.ant-select {
+  font-family: inherit;
 
+}
+
+/* theme.css */
+.ant-select-focused .ant-select-selector {
+  border-color: #aa4444 !important;
+}
+
+.ant-input {
+  font-family: inherit;
+  color: gray;
+
+}
+.ant-input:focus {
+  border-radius: 8px;
+  border: 1px solid #aa4444;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  transition: border-color 0.25s;
+}

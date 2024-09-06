@@ -10,9 +10,9 @@ import All from './All';
 import Profile from './Profile';
 
 function App() {
-  const [isLiffReady, setIsLiffReady] = useState(false);
+  const [isLiffReady, setIsLiffReady] = useState(true);
   const [inputValues, setInputValues] = useState({
-    Service: '',
+    Service: null,
     Name: '',
     Nickname: '',
     Tel: '',
@@ -20,30 +20,30 @@ function App() {
     picpic: '',
   });
 
-  useEffect(() => {
-    const initializeLiff = async () => {
-      try {
-        if (!window.liff) throw new Error('LIFF SDK is not loaded');
-        await window.liff.init({ liffId: '2005857013-rP966d6R' });
-        if (window.liff.isLoggedIn()) {
-          const profile = await window.liff.getProfile();
-          console.log('profile', profile);
-          setInputValues((prevValues) => ({
-            ...prevValues,
-            LineId: profile.userId,  // Ensure consistent casing
-            picpic: profile.pictureUrl,
-          }));
-        } else {
-          window.liff.login();
-        }
-        setIsLiffReady(true);
-      } catch (err) {
-        console.error('Error initializing LIFF:', err);
-      }
-    };
+  // useEffect(() => {
+  //   const initializeLiff = async () => {
+  //     try {
+  //       if (!window.liff) throw new Error('LIFF SDK is not loaded');
+  //       await window.liff.init({ liffId: '2005857013-rP966d6R' });
+  //       if (window.liff.isLoggedIn()) {
+  //         const profile = await window.liff.getProfile();
+  //         console.log('profile', profile);
+  //         setInputValues((prevValues) => ({
+  //           ...prevValues,
+  //           LineId: profile.userId,  // Ensure consistent casing
+  //           picpic: profile.pictureUrl,
+  //         }));
+  //       } else {
+  //         window.liff.login();
+  //       }
+  //       setIsLiffReady(true);
+  //     } catch (err) {
+  //       console.error('Error initializing LIFF:', err);
+  //     }
+  //   };
 
-    initializeLiff();
-  }, []);
+  //   initializeLiff();
+  // }, []);
 
   if (!isLiffReady) {
     return <div style={{
