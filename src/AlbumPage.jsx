@@ -67,8 +67,6 @@ function AlbumPage() {
       try {
         const querySnapshot = await getDocs(collection(db, "users")); // "users" is the Firestore collection name
         const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        
-        console.log('usersList', usersList)
         setUsers(usersList);
       } catch (error) {
         console.error("Error fetching users: ", error);

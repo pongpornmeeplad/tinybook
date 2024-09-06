@@ -210,14 +210,16 @@ function Profile() {
                                     name="Service"
                                     value={formDataNameService.Service}
                                     onChange={handleChangeNameService}
-                                    style={{  backgroundColor: '#510808',
+                                    style={{
+                                        backgroundColor: '#510808',
                                         borderRadius: '5px',
                                         padding: '5px',
                                         border: '#BB6969',
                                         width: '50%',
                                         fontSize: '1rem',
                                         color: '#ffffff',
-                                        textAlign: 'right'}}
+                                        textAlign: 'right'
+                                    }}
                                     placeholder="Service"
                                 />
                             </div>
@@ -226,14 +228,16 @@ function Profile() {
                                     name="Name"
                                     value={formDataNameService.Name}
                                     onChange={handleChangeNameService}
-                                    style={{  backgroundColor: '#510808',
+                                    style={{
+                                        backgroundColor: '#510808',
                                         borderRadius: '5px',
                                         padding: '5px',
                                         border: 'none',
                                         width: '50%',
                                         fontSize: '1rem',
                                         color: '#ffffff',
-                                        textAlign: 'center'}}
+                                        textAlign: 'center'
+                                    }}
                                     placeholder="Name"
                                 />
                             </h2>
@@ -257,25 +261,29 @@ function Profile() {
                             </p>
                         </div>
                     ) : (
-                        <div style={{ width: "100%" }}>
-                            <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>{user.Service}</div>
-                            <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
-                            <p style={{ margin: '5px 0' }}>{user.Position}</p>
-                        </div>
-                    )}
-                    <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px", }} onClick={handleEditToggleNameService}>
-                        <RiEdit2Line color="#BB6969" size={20} />
-                        <span style={{ color: "#BB6969" }}>
-                            {isEditingNameService ? 'ยกเลิก' : 'แก้ไข'}
-                        </span>
-                        {isEditingNameService && (
-                            <div style={buttonContainerStyle}>
-                                <button onClick={handleSaveNameService} style={buttonStyle}>
-                                    บันทึก
-                                </button>
+                        <div style={{display:'flex',flexDirection:'row',justifyContent:'center',gap:4}}>
+                            <div style={{ width: "100%" }}>
+                                <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>{user.Service}</div>
+                                <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
+                                <p style={{ margin: '5px 0' }}>{user.Position}</p>
                             </div>
-                        )}
-                    </div>
+                            <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px", }} onClick={handleEditToggleNameService}>
+                                <RiEdit2Line color="#BB6969" size={20} />
+                                <span style={{ color: "#BB6969" }}>
+                                    {isEditingNameService ? 'ยกเลิก' : 'แก้ไข'}
+                                </span>
+                                {isEditingNameService && (
+                                    <div style={buttonContainerStyle}>
+                                        <button onClick={handleSaveNameService} style={buttonStyle}>
+                                            บันทึก
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                    )}
+
                 </div>
 
                 {/* Save Button for Name, Service, and Position */}
