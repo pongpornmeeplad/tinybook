@@ -167,7 +167,7 @@ function Profile() {
                                     name="Service"
                                     value={formData.Service}
                                     onChange={handleChange}
-                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: '#BB6969', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'right' }}
+                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: '#BB6969', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'right',outline: 'none' }}
                                     placeholder="Service"
                                 />
                             </div>
@@ -190,7 +190,8 @@ function Profile() {
                                     name="Position"
                                     value={formData.Position}
                                     onChange={handleChange}
-                                    style={inputStyle}
+                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: 'none', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
+
                                     placeholder="Position"
                                 />
                             </p>
