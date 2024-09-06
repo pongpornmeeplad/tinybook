@@ -181,7 +181,7 @@ function Profile() {
                                     name="Name"
                                     value={formData.Name}
                                     onChange={handleChange}
-                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: 'none', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'center' }}
+                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: 'none', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'center',outline:"none" }}
                                     placeholder="Name"
                                 />
                             </h2>
