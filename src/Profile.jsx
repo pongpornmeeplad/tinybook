@@ -190,7 +190,7 @@ function Profile() {
                                     name="Position"
                                     value={formData.Position}
                                     onChange={handleChange}
-                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: 'none', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'center' }}
+                                    style={inputStyle}
                                     placeholder="Position"
                                 />
                             </p>
