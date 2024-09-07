@@ -146,33 +146,33 @@ function Profile() {
                     {isEditing ? (
                         <div style={{ width: "100%" }}>
                             <div style={{
-                                display:"flex",
-                                justifyContent:"space-between"
+                                display: "flex",
+                                justifyContent: "space-between"
                             }}>
                                 <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
-                                <RiEdit2Line color="#BB6969" size={20} />
-                                <span style={{ color: "#BB6969" }}>
-                                    {isEditing ? 'ยกเลิก' : 'แก้ไข'}
-                                </span>
-                                {isEditing && (
-                                    <div style={buttonContainerStyle}>
-                                        <button onClick={handleSave} style={buttonStyle}>
-                                            บันทึก
-                                        </button>
-                                    </div>
-                                )}
+                                    <RiEdit2Line color="#BB6969" size={20} />
+                                    <span style={{ color: "#BB6969" }}>
+                                        {isEditing ? 'ยกเลิก' : 'แก้ไข'}
+                                    </span>
+                                    {isEditing && (
+                                        <div style={buttonContainerStyle}>
+                                            <button onClick={handleSave} style={buttonStyle}>
+                                                บันทึก
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                                <div style={{ margin: '5px 10px', textAlign: "right", width: "97%", marginRight: "3rem" }}>
+                                    <input
+                                        name="Service"
+                                        value={formData.Service}
+                                        onChange={handleChange}
+                                        style={{ font: 'inherit', backgroundColor: '#831818', borderRadius: '7px', padding: '5px', border: 'none', width: '30%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
+                                        placeholder="Service"
+                                    />
+                                </div>
                             </div>
-                            <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>
-                                <input
-                                    name="Service"
-                                    value={formData.Service}
-                                    onChange={handleChange}
-                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: '#BB6969', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'right',outline: 'none' }}
-                                    placeholder="Service"
-                                />
-                            </div>
-                            </div>
-                            
+
 
 
 
@@ -181,7 +181,7 @@ function Profile() {
                                     name="Name"
                                     value={formData.Name}
                                     onChange={handleChange}
-                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: 'none', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
+                                    style={{ font: 'inherit', backgroundColor: '#831818', borderRadius: '7px', padding: '5px', border: 'none', width: '80%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
                                     placeholder="Name"
                                 />
                             </h2>
@@ -190,7 +190,7 @@ function Profile() {
                                     name="Position"
                                     value={formData.Position}
                                     onChange={handleChange}
-                                    style={{ backgroundColor: '#510808', borderRadius: '5px', padding: '5px', border: 'none', width: '50%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
+                                    style={{ font: 'inherit', backgroundColor: '#831818', borderRadius: '7px', padding: '5px', border: 'none', width: '80%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
 
                                     placeholder="Position"
                                 />
@@ -215,7 +215,7 @@ function Profile() {
                                         </div>
                                     )}
                                 </div>
-                                <div style={{ margin: '5px 0', textAlign: "right", width: "97%", marginRight: "3rem" }}>{user.Service}</div>
+                                <div style={{ margin: '5px 20px', textAlign: "right", width: "97%", marginRight: "3rem" }}>{user.Service}</div>
 
                             </div>
 
@@ -243,13 +243,14 @@ function Profile() {
                     </div>
                     {isEditing ? (
                         <input
+
                             name="Nickname"
                             value={formData.Nickname}
                             onChange={handleChange}
                             style={inputStyle}
                         />
                     ) : (
-                        <div>{user.Nickname || '-'}</div>
+                        <div style={{ color: "#dd7a7a" }}>{user.Nickname || '-'}</div>
                     )}
                 </div>
 
@@ -267,7 +268,7 @@ function Profile() {
                             style={inputStyle}
                         />
                     ) : (
-                        <div>{user.Tel || '-'}</div>
+                        <div style={{ color: "#dd7a7a" }}>{user.Tel || '-'}</div>
                     )}
                 </div>
 
@@ -285,7 +286,7 @@ function Profile() {
                             style={inputStyle}
                         />
                     ) : (
-                        <div>{user.Address || '-'}</div>
+                        <div style={{ color: "#dd7a7a" }}>{user.Address || '-'}</div>
                     )}
                 </div>
 
@@ -303,7 +304,7 @@ function Profile() {
                             style={inputStyle}
                         />
                     ) : (
-                        <div>{user.Workplace || '-'}</div>
+                        <div style={{ color: "#dd7a7a" }}>{user.Workplace || '-'}</div>
                     )}
                 </div>
             </div>
@@ -329,7 +330,7 @@ function Profile() {
                 <div style={fieldContainerStyle}>
                     <div style={labelContainerStyle}>
                         <FaRegQuestionCircle size={20} />
-                        <span>ธุรกิจส่วนตัว</span>
+                        <span >ธุรกิจส่วนตัว</span>
                     </div>
                     {isEditing ? (
                         <input
@@ -339,7 +340,7 @@ function Profile() {
                             style={inputStyle}
                         />
                     ) : (
-                        <div>{user.Business || '-'}</div>
+                        <div style={{ color: "#dd7a7a" }}>{user.Business || '-'}</div>
                     )}
                 </div>
 
@@ -357,7 +358,7 @@ function Profile() {
                             style={inputStyle}
                         />
                     ) : (
-                        <div>{user.Detail || '-'}</div>
+                        <div style={{ color: "#dd7a7a" }}>{user.Detail || '-'}</div>
                     )}
                 </div>
             </div>
@@ -379,19 +380,18 @@ const fieldContainerStyle = {
 const labelContainerStyle = {
     display: "flex",
     gap: "10px",
-    alignItems: "center"
+    alignItems: "center",
 };
 
 const inputStyle = {
     backgroundColor: '#831818',
-    borderRadius: '5px',
-    padding: '5px',
     border: 'none',
     width: '50%',
     fontSize: '1rem',
-    color: '#ffffff',
+    color: 'white',
     textAlign: 'right',
     outline: 'none',
+    font: 'inherit'
 };
 
 const buttonContainerStyle = {
