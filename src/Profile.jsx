@@ -35,7 +35,9 @@ function Profile() {
                     const userData = userSnapshot.data();
                     console.log('userData', userData)
                     setUser({ id: userSnapshot.id, ...userData });
-
+                    const lineId = userData.LineId;
+                    const profile = await window.liff.getProfile();
+                    console.log('lineId,profile', lineId,profile)
                     // Initialize form data with fetched data
                     setFormData({
                         Nickname: userData.Nickname || '',

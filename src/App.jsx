@@ -28,6 +28,7 @@ function App() {
         if (window.liff.isLoggedIn()) {
           const profile = await window.liff.getProfile();
           console.log('profile', profile);
+          
           setInputValues((prevValues) => ({
             ...prevValues,
             LineId: profile.userId,  // Ensure consistent casing
