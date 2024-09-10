@@ -40,7 +40,7 @@ function Profile() {
                     const currentLineId = profile?.userId;
                     if (profilelineId == currentLineId) {
                         setShowEditButton(true);
-                    }else{
+                    } else {
                         setShowEditButton(false)
                     }
                     // Initialize form data with fetched data
@@ -149,9 +149,9 @@ function Profile() {
                 </div>
             </div>
 
-            
+
             <div style={{ textAlign: 'center', marginTop: '30px', width: "100%", maxWidth: "1000px" }}>
-     <div style={{ justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditing ? (
                         <div style={{ width: "100%" }}>
                             <div style={{
@@ -211,7 +211,7 @@ function Profile() {
                                 display: "flex",
                                 justifyContent: "space-between"
                             }}>
-                                        {showEditButton &&   <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
+                                {showEditButton && <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
                                     <RiEdit2Line color="#BB6969" size={20} />
                                     <span style={{ color: "#BB6969" }}>
                                         {isEditing ? 'ยกเลิก' : 'แก้ไข'}
