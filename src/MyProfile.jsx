@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line, RiEdit2Line } from "react-icons/ri";
@@ -9,8 +9,10 @@ import { getDocs, query, where, collection, updateDoc } from 'firebase/firestore
 import { db } from './Firebase';
 
 function Profile() {
+
     const [user, setUser] = useState(null);
     const [showEditButton, setShowEditButton] = useState(false);
+    // Combined state for all the form data and editing toggle
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         Nickname: '',
@@ -24,6 +26,7 @@ function Profile() {
         Position: ''
     });
 
+   
     useEffect(() => {
         const fetchUserByLineId = async () => {
             try {
@@ -83,7 +86,7 @@ function Profile() {
     // Save all updated information to Firestore
     const handleSave = async () => {
         try {
-            const userDoc = doc(db, "users", user.id);
+            const userDoc = doc(db, "users", id);
             await updateDoc(userDoc, formData);
             setUser({ ...user, ...formData }); // Update local user state
             setIsEditing(false); // Exit edit mode
@@ -185,6 +188,9 @@ function Profile() {
                                 </div>
                             </div>
 
+
+
+
                             <h2 style={{ margin: '5px 0' }}>
                                 <input
                                     name="Name"
@@ -232,15 +238,177 @@ function Profile() {
                             <p style={{ margin: '5px 0' }}>{user.Position}</p>
                         </div>
                     )}
+
+
+
                 </div>
             </div>
 
-            {/* Add more sections as per your previous code */}
+            {/* Basic Information Section */}
+            <div style={{ width: "100%", maxWidth: "1000px", marginTop: '20px' }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginLeft: "15px", marginRight: "15px", padding: "10px", alignItems: 'center' }}>
+                    <div>ข้อมูลพื้นฐาน</div>
+                </div>
+
+                {/* Nickname Field */}
+                <div style={fieldContainerStyle}>
+                    <div style={labelContainerStyle}>
+                        <CiFaceSmile size={20} />
+                        <span>ชื่อเล่น</span>
+                    </div>
+                    {isEditing ? (
+                        <input
+
+                            name="Nickname"
+                            value={formData.Nickname}
+                            onChange={handleChange}
+                            style={inputStyle}
+                        />
+                    ) : (
+                        <div style={{ color: "#dd7a7a" }}>{user.Nickname || '-'}</div>
+                    )}
+                </div>
+
+                {/* Tel Field */}
+                <div style={fieldContainerStyle}>
+                    <div style={labelContainerStyle}>
+                        <BsTelephone size={20} />
+                        <span>เบอร์โทร</span>
+                    </div>
+                    {isEditing ? (
+                        <input
+                            name="Tel"
+                            value={formData.Tel}
+                            onChange={handleChange}
+                            style={inputStyle}
+                        />
+                    ) : (
+                        <div style={{ color: "#dd7a7a" }}>{user.Tel || '-'}</div>
+                    )}
+                </div>
+
+                {/* Address Field */}
+                <div style={fieldContainerStyle}>
+                    <div style={labelContainerStyle}>
+                        <RiHome8Line size={20} />
+                        <span>ที่อยู่</span>
+                    </div>
+                    {isEditing ? (
+                        <input
+                            name="Address"
+                            value={formData.Address}
+                            onChange={handleChange}
+                            style={inputStyle}
+                        />
+                    ) : (
+                        <div style={{ color: "#dd7a7a" }}>{user.Address || '-'}</div>
+                    )}
+                </div>
+
+                {/* Workplace Field */}
+                <div style={fieldContainerStyle}>
+                    <div style={labelContainerStyle}>
+                        <MdOutlineHomeRepairService size={20} />
+                        <span>สถานที่ทำงาน</span>
+                    </div>
+                    {isEditing ? (
+                        <input
+                            name="Workplace"
+                            value={formData.Workplace}
+                            onChange={handleChange}
+                            style={inputStyle}
+                        />
+                    ) : (
+                        <div style={{ color: "#dd7a7a" }}>{user.Workplace || '-'}</div>
+                    )}
+                </div>
+            </div>
+
+            {/* Other Information Section */}
+            <div style={{
+                width: "100%",
+                maxWidth: "1000px",
+                marginTop: '20px'
+            }}>
+                <div style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginLeft: "15px",
+                    marginRight: "15px",
+                    padding: "10px",
+                    alignItems: 'center'
+                }}>
+                    <div>ข้อมูลอื่นๆ</div>
+                </div>
+
+                {/* Business Field */}
+                <div style={fieldContainerStyle}>
+                    <div style={labelContainerStyle}>
+                        <FaRegQuestionCircle size={20} />
+                        <span >ธุรกิจส่วนตัว</span>
+                    </div>
+                    {isEditing ? (
+                        <input
+                            name="Business"
+                            value={formData.Business}
+                            onChange={handleChange}
+                            style={inputStyle}
+                        />
+                    ) : (
+                        <div style={{ color: "#dd7a7a" }}>{user.Business || '-'}</div>
+                    )}
+                </div>
+
+                {/* Detail Field */}
+                <div style={fieldContainerStyle}>
+                    <div style={labelContainerStyle}>
+                        <FaRegListAlt size={20} />
+                        <span>รายละเอียด</span>
+                    </div>
+                    {isEditing ? (
+                        <input
+                            name="Detail"
+                            value={formData.Detail}
+                            onChange={handleChange}
+                            style={inputStyle}
+                        />
+                    ) : (
+                        <div style={{ color: "#dd7a7a" }}>{user.Detail || '-'}</div>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }
 
 /* Styles */
+const fieldContainerStyle = {
+    display: "flex",
+    justifyContent: "space-between",
+    backgroundColor: "#831818",
+    margin: "5px 15px",
+    padding: "10px",
+    borderRadius: "10px",
+    alignItems: "center"
+};
+
+const labelContainerStyle = {
+    display: "flex",
+    gap: "10px",
+    alignItems: "center",
+};
+
+const inputStyle = {
+    backgroundColor: '#831818',
+    border: 'none',
+    width: '50%',
+    fontSize: '1rem',
+    color: 'white',
+    textAlign: 'right',
+    outline: 'none',
+    font: 'inherit'
+};
+
 const buttonContainerStyle = {
     display: "flex",
     justifyContent: "center"
@@ -257,3 +425,4 @@ const buttonStyle = {
 };
 
 export default Profile;
+
