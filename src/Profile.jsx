@@ -43,7 +43,6 @@ function Profile() {
                     }else{
                         setShowEditButton(false)
                     }
-                    console.log('lineId,profile', lineId, profile)
                     // Initialize form data with fetched data
                     setFormData({
                         Nickname: userData.Nickname || '',
@@ -150,9 +149,9 @@ function Profile() {
                 </div>
             </div>
 
-            {showEditButton && 
+            
             <div style={{ textAlign: 'center', marginTop: '30px', width: "100%", maxWidth: "1000px" }}>
-                <div style={{ justifyContent: "space-between", alignItems: "center" }}>
+            {showEditButton &&    <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditing ? (
                         <div style={{ width: "100%" }}>
                             <div style={{
@@ -236,8 +235,8 @@ function Profile() {
 
 
 
-                </div>
-            </div>}
+                </div>}
+            </div>
 
             {/* Basic Information Section */}
             <div style={{ width: "100%", maxWidth: "1000px", marginTop: '20px' }}>
