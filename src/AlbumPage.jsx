@@ -207,7 +207,7 @@ function AlbumPage() {
                 <div style={{
                   color: "#bb6969"
 
-                }}>{item?.Tel}</div>
+                }}>Telll</div>
 
 {/* commentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcomment */}
               </div>
