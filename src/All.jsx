@@ -106,7 +106,13 @@ function All() {
                                     display: "flex",
                                     justifyContent: "space-between"
                                 }}>
-                                    <div>{item.Name}</div>
+                                    
+                                    <div>
+                                        <div>{item.Name}</div>
+                                        <div>{item.Tel}</div>
+
+
+                                    </div>
                                     <div style={{ color: "#bb6969" }}>{item.Nickname}</div>
                                 </div>
                                 <div style={{
