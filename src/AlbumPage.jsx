@@ -200,6 +200,7 @@ function AlbumPage() {
                 <div>{item.Name}</div>
                 <div style={{
                   color: "#bb6969"
+                  
                 }}>{item?.Nickname}</div>
                 <div style={{
                   color: "#bb6969"
