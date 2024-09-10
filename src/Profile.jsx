@@ -11,7 +11,7 @@ import { db } from './Firebase';
 function Profile() {
     const { id } = useParams();
     const [user, setUser] = useState(null);
-
+    const [showEditButton, setShowEditButton] = useState(false);
     // Combined state for all the form data and editing toggle
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
@@ -35,9 +35,13 @@ function Profile() {
                     const userData = userSnapshot.data();
                     console.log('userData', userData)
                     setUser({ id: userSnapshot.id, ...userData });
-                    const lineId = userData.LineId;
+                    const profilelineId = userData.LineId;
                     const profile = await window.liff.getProfile();
-                    console.log('lineId,profile', lineId,profile)
+                    const currentLineId = profile?.userId;
+                    if (profilelineId == currentLineId) {
+                        setShowEditButton(true);
+                    }
+                    console.log('lineId,profile', lineId, profile)
                     // Initialize form data with fetched data
                     setFormData({
                         Nickname: userData.Nickname || '',
@@ -144,7 +148,7 @@ function Profile() {
                 </div>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '30px', width: "100%", maxWidth: "1000px" }}>
+            {showEditButton && <div style={{ textAlign: 'center', marginTop: '30px', width: "100%", maxWidth: "1000px" }}>
                 <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditing ? (
                         <div style={{ width: "100%" }}>
@@ -230,7 +234,7 @@ function Profile() {
 
 
                 </div>
-            </div>
+            </div>}
 
             {/* Basic Information Section */}
             <div style={{ width: "100%", maxWidth: "1000px", marginTop: '20px' }}>
