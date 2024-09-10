@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { Input, notification } from 'antd'; // Import notification from Ant Design
 import bgImage from './assets/afaps48-bg.png'; // Use the same background as Page1
-import { Input } from 'antd';
+
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyC4dCrV6B5GYraqkFm16oQlqMwU8LMNh3E",
@@ -19,6 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const { TextArea } = Input;
+
 function Page2({ inputValues, setInputValues }) {
     const navigate = useNavigate();
 
@@ -30,9 +32,18 @@ function Page2({ inputValues, setInputValues }) {
         });
     };
 
+    // Function to show error notification
+    const showErrorNotification = (message) => {
+        notification.error({
+            message: 'Error',
+            description: message,
+            placement: 'topRight',
+        });
+    };
+
     // Handle form submission
     const handleNextClick = async () => {
-        console.log('inputValues', inputValues)
+        console.log('inputValues', inputValues);
         try {
             // Save data to Firestore
             await addDoc(collection(db, "users"), {
@@ -54,6 +65,7 @@ function Page2({ inputValues, setInputValues }) {
             navigate('/Register');
         } catch (error) {
             console.error("Error adding document: ", error);
+            showErrorNotification("Failed to submit data. Please try again."); // Show error notification
         }
     };
 
@@ -85,7 +97,7 @@ function Page2({ inputValues, setInputValues }) {
                 zIndex: 0
             }} />
 
-<div style={{
+            <div style={{
                 marginLeft: "3rem",
                 justifyContent: "left",
                 color: '#FFFFFF',
@@ -96,7 +108,7 @@ function Page2({ inputValues, setInputValues }) {
                 maxWidth: "1000px",
                 width: "100%",
                 marginBottom: "10px",
-                zIndex:1
+                zIndex: 1
             }}>
                 กรอกข้อมูล
 
@@ -144,12 +156,12 @@ function Page2({ inputValues, setInputValues }) {
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
                         }}>ตำแหน่ง สังกัด</div>
-                       
-                          <Input variant='filled'
-                           type="text"
-                           placeholder='ผบ......'
-                           value={inputValues.field1}
-                           onChange={(e) => handleInputChange(e, 'field1')}
+
+                        <Input variant='filled'
+                            type="text"
+                            placeholder='ผบ......'
+                            value={inputValues.field1}
+                            onChange={(e) => handleInputChange(e, 'field1')}
                             size='large'
 
                         />
@@ -181,7 +193,7 @@ function Page2({ inputValues, setInputValues }) {
                             marginBottom: "0.2rem",
                         }}>ธุรกิจส่วนตัว</div>
 
-                        <Input variant='filled' 
+                        <Input variant='filled'
                             type="text"
                             placeholder='ร้านอาหาร...'
                             value={inputValues.field3}

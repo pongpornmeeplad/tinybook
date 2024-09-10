@@ -33,6 +33,7 @@ function Profile() {
                 const userSnapshot = await getDoc(userDoc);
                 if (userSnapshot.exists()) {
                     const userData = userSnapshot.data();
+                    console.log('userData', userData)
                     setUser({ id: userSnapshot.id, ...userData });
 
                     // Initialize form data with fetched data
@@ -150,7 +151,7 @@ function Profile() {
                                 justifyContent: "space-between"
                             }}>
                                 <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
-                                    <RiEdit2Line color="#BB6969" size={20} />
+                                    {!isEditing && <RiEdit2Line color="#BB6969" size={20} />}
                                     <span style={{ color: "#BB6969" }}>
                                         {isEditing ? 'ยกเลิก' : 'แก้ไข'}
                                     </span>

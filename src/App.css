@@ -24,3 +24,11 @@
   font-family: inherit;
   transition: border-color 0.25s;
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
