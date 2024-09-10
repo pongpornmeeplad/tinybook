@@ -138,7 +138,7 @@ function Page2({ inputValues, setInputValues }) {
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 color: 'white',
-                overflow: 'hidden',
+                overflow: 'scroll',
                 position: 'relative',
                 boxSizing: "border-box",
                 padding: "20px",
