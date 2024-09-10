@@ -9,6 +9,7 @@ import List from './List';
 import All from './All';
 import Profile from './Profile';
 import SearchPage from './SearchPage'
+import MyProfile from "./MyProfile"
 function App() {
   const [isLiffReady, setIsLiffReady] = useState(false);
   const [inputValues, setInputValues] = useState({
@@ -82,6 +83,8 @@ function App() {
         <Route path="/List" element={<List />} />
         {/* Dynamic route for Profile based on LineId */}
         <Route path="/Profile/:id" element={<Profile />} />
+        <Route path="/myProfile" element={<MyProfile />} />
+
       </Routes>
     </Router>
   );
