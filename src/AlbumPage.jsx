@@ -203,11 +203,12 @@ function AlbumPage() {
                   color: "#bb6969"
 
                 }}>{item?.Nickname}</div>
-
                 <div style={{
                   color: "#bb6969"
 
-                }}>Telll</div>
+                }}>{item?.Nickname}</div>
+
+                
 
 {/* commentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcomment */}
               </div>
