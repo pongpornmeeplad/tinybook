@@ -196,15 +196,18 @@ function AlbumPage() {
                   objectFit: 'cover'
                 }} />
               </div>
+
               <div>
                 <div>{item.Name}</div>
                 <div style={{
                   color: "#bb6969"
                   
                 }}>{item?.Nickname}</div>
+
                 <div style={{
                   color: "#bb6969"
-                }}>{item?.Tel}</div>
+                }}>asdfasdf</div>
+
               </div>
               
             </div>
