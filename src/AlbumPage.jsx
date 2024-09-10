@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IoMdSearch } from 'react-icons/io';
 import { RiArrowDropDownLine } from 'react-icons/ri';
@@ -13,20 +13,20 @@ function AlbumPage() {
   const [query, setQuery] = useState("");
   const [showList, setShowList] = useState(false);
   const [users, setUsers] = useState([]);
- 
+
 
   useEffect(() => {
     // Function to fetch Instagram images
     const fetchInstagramImages = async () => {
       try {
-       
+
 
         // Making request to Instagram API
         const targetUrl = 'http://localhost:7221/instagram-images';
-        
+
         const response = await axios.get(targetUrl)
-        
-        
+
+
         // Handle compressed responses
 
 
@@ -34,13 +34,13 @@ function AlbumPage() {
 
         // Extract images from the response
         console.log('response', response)
-        const fetchedImages = response?.data?.data.top?.sections.flatMap(section => 
+        const fetchedImages = response?.data?.data.top?.sections.flatMap(section =>
           section.layout_content.medias?.map(mediaItem => ({
             src: mediaItem?.media?.image_versions2?.candidates?.[0]?.url || '',  // Ensure a valid URL
             alt: mediaItem?.media?.accessibility_caption || 'Instagram Image',  // Provide a default alt text
           })) || []  // Return an empty array if `medias` is undefined
         );
-        
+
         console.log('fetchedImages', fetchedImages)
         setImages(fetchedImages || []);
         setLoading(false);
@@ -55,9 +55,9 @@ function AlbumPage() {
   }, []);
 
   const navigate = useNavigate();
-  
+
   const search = (data) => {
-    return data.filter((item) => 
+    return data.filter((item) =>
       (item.Name && item.Name.toLowerCase().includes(query.toLowerCase())) ||
       (item.Nickname && item.Nickname.toLowerCase().includes(query.toLowerCase()))
     );
@@ -109,7 +109,7 @@ function AlbumPage() {
       position: 'relative',
       alignItems: "center"
     }}>
-       <div style={{
+      <div style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-around",
@@ -156,9 +156,9 @@ function AlbumPage() {
         </div>
       </div>
 
-      
+
       {showList ? (
-        
+
         <div style={{
           width: "100%",
           height: "100vh",
@@ -173,14 +173,14 @@ function AlbumPage() {
           maxWidth: "1000px"
         }}>
           {search(users).map((item) => (
-            <div 
-              key={item.id} 
+            <div
+              key={item.id}
               style={{
                 display: "flex",
                 gap: "2rem",
                 alignItems: "center",
                 cursor: "pointer" // Added cursor pointer for better UX
-              }} 
+              }}
               onClick={() => handleProfile(item.id)} // Pass the specific user's id
             >
               <div style={{
@@ -201,15 +201,17 @@ function AlbumPage() {
                 <div>{item.Name}</div>
                 <div style={{
                   color: "#bb6969"
-                  
+
                 }}>{item?.Nickname}</div>
 
                 <div style={{
-                  
+                  color: "#bb6969"
+
                 }}>{item?.Tel}</div>
 
+
               </div>
-              
+
             </div>
           ))}
 
@@ -221,31 +223,31 @@ function AlbumPage() {
             <RiArrowDropDownLine style={{ fontSize: "30px" }} />
             ดูทั้งหมด
           </div>
-          
+
         </div>
-        
+
       ) : (
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '1px',
-        backgroundColor: '#4b0d0d',
-        width: '100%',
-        maxWidth: '1000px',
-        boxSizing: "border-box",
-        padding: "1rem",
-        marginInline: "auto",
-        height: "100%",
-        overflowY: "scroll"
-      }}>
-        {images.map((image, index) => (
-          <div key={index} style={{
-            gridRow: (index === 7 || index % 10 === 0) ? "span 2" : "auto"
-          }}>
-            <img  crossOrigin='anonymous'  style={{ width: "100%", height: "100%", objectFit: "cover" }} src={image.src} alt={image.alt} />
-          </div>
-        ))}
-      </div>)}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '1px',
+          backgroundColor: '#4b0d0d',
+          width: '100%',
+          maxWidth: '1000px',
+          boxSizing: "border-box",
+          padding: "1rem",
+          marginInline: "auto",
+          height: "100%",
+          overflowY: "scroll"
+        }}>
+          {images.map((image, index) => (
+            <div key={index} style={{
+              gridRow: (index === 7 || index % 10 === 0) ? "span 2" : "auto"
+            }}>
+              <img crossOrigin='anonymous' style={{ width: "100%", height: "100%", objectFit: "cover" }} src={image.src} alt={image.alt} />
+            </div>
+          ))}
+        </div>)}
 
 
 
