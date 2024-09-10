@@ -109,11 +109,11 @@ function All() {
                                     
                                     <div>
                                         <div>{item.Name}</div>
-                                        <div>{item.Tel}</div>
+                                        <div style={{ color: "#bb6969" }}>{item.Tel}</div>
 
 
                                     </div>
-                                    <div style={{ color: "#bb6969" }}>{item.Nickname}</div>
+                                    <div style={{ color: "#bb6969",alignItems:"center" }}>{item.Nickname}</div>
                                 </div>
                                 <div style={{
                                     border: "1px solid #bb6969",
