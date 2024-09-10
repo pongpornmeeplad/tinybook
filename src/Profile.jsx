@@ -151,7 +151,7 @@ function Profile() {
 
             
             <div style={{ textAlign: 'center', marginTop: '30px', width: "100%", maxWidth: "1000px" }}>
-            {showEditButton &&    <div style={{ justifyContent: "space-between", alignItems: "center" }}>
+     <div style={{ justifyContent: "space-between", alignItems: "center" }}>
                     {isEditing ? (
                         <div style={{ width: "100%" }}>
                             <div style={{
@@ -211,7 +211,7 @@ function Profile() {
                                 display: "flex",
                                 justifyContent: "space-between"
                             }}>
-                                <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
+                                        {showEditButton &&   <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
                                     <RiEdit2Line color="#BB6969" size={20} />
                                     <span style={{ color: "#BB6969" }}>
                                         {isEditing ? 'ยกเลิก' : 'แก้ไข'}
@@ -223,7 +223,7 @@ function Profile() {
                                             </button>
                                         </div>
                                     )}
-                                </div>
+                                </div>}
                                 <div style={{ margin: '5px 20px', textAlign: "right", width: "97%", marginRight: "3rem" }}>{user.Service}</div>
 
                             </div>
@@ -235,7 +235,7 @@ function Profile() {
 
 
 
-                </div>}
+                </div>
             </div>
 
             {/* Basic Information Section */}
