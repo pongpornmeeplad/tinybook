@@ -113,7 +113,7 @@ function All() {
 
 
                                     </div>
-                                    <div style={{ color: "#bb6969",alignItems:"center" }}>{item.Nickname}</div>
+                                    <div style={{ color: "#bb6969",alignSelf:"center" }}>{item.Nickname}</div>
                                 </div>
                                 <div style={{
                                     border: "1px solid #bb6969",
