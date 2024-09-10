@@ -196,6 +196,9 @@ function AlbumPage() {
                 <div style={{
                   color: "#bb6969"
                 }}>{item?.Nickname}</div>
+                <div style={{
+                  color: "#bb6969"
+                }}>{item?.Tel}</div>
               </div>
             </div>
           ))}
