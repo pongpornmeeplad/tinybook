@@ -225,7 +225,10 @@ function Page2({ inputValues, setInputValues }) {
                 <div style={{
                     alignSelf: "center",
                     marginTop: "20px",
-                    borderRadius: "30px"
+                    borderRadius: "30px",
+                    width: "100%",
+                    display:'flex',
+                    justifyContent:'center'
                 }}>
                     <button style={{
                         color: "#ffffff",
