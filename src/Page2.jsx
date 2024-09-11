@@ -231,7 +231,8 @@ function Page2({ inputValues, setInputValues }) {
                         color: "#ffffff",
                         backgroundColor: "#510808",
                         borderRadius: "30px",
-                        width: "80vw",
+                        width: "90%",
+                        alignSelf: "center",
                     }} onClick={handleNextClick}>ต่อไป</button>
                 </div>
             </div>
