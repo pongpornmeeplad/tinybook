@@ -13,15 +13,15 @@ const firstColors = {
 
 function Registerpage() {
     const navigate = useNavigate();
-    const handleNextClick = () => {
-        navigate('/album');
-    };
-
+    const location = useLocation(); // Get the location object
     const { Service } = location.state || {}; // Retrieve Service from location state
 
     // Set the background color dynamically based on the selected Service
     const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
 
+    const handleNextClick = () => {
+        navigate('/album');
+    };
     return (
 
         <div

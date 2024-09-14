@@ -73,7 +73,7 @@ function Page2({ inputValues, setInputValues }) {
             });
             console.log("Document successfully written!");
 
-            navigate('/Register', { state: { inputValues } });
+            navigate('/Register', { state: { Service: inputValues.Service } });
         
     } catch (error) {
         console.error("Error adding document: ", error);
