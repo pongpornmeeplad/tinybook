@@ -292,7 +292,13 @@ function Profile() {
                 </div>
 
                 {/* Nickname Field */}
-                <div style={fieldContainerStyle} >
+                <div style={{backgroundColor: selectedSecColor,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: "5px 15px",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    alignItems: "center"}} >
                     <div style={labelContainerStyle}>
                         <CiFaceSmile size={20} />
                         <span>ชื่อเล่น</span>
@@ -338,7 +344,13 @@ function Profile() {
                 </div>
 
                 {/* Address Field */}
-                <div style={fieldContainerStyle} >
+                <div style={{backgroundColor: selectedSecColor,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: "5px 15px",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    alignItems: "center"}} >
                     <div style={labelContainerStyle}>
                         <RiHome8Line size={20} />
                         <span>ที่อยู่</span>
@@ -351,12 +363,18 @@ function Profile() {
                             style={inputStyle}
                         />
                     ) : (
-                        <div style={{ color: "#dd7a7a" }}>{user.Address || '-'}</div>
+                        <div >{user.Address || '-'}</div>
                     )}
                 </div>
 
                 {/* Workplace Field */}
-                <div style={fieldContainerStyle} >
+                <div style={{backgroundColor: selectedSecColor,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: "5px 15px",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    alignItems: "center"}} >
                     <div style={labelContainerStyle}>
                         <MdOutlineHomeRepairService size={20} />
                         <span>สถานที่ทำงาน</span>
@@ -369,7 +387,7 @@ function Profile() {
                             style={inputStyle}
                         />
                     ) : (
-                        <div style={{ color: "#dd7a7a" }}>{user.Workplace || '-'}</div>
+                        <div >{user.Workplace || '-'}</div>
                     )}
                 </div>
             </div>
@@ -392,7 +410,13 @@ function Profile() {
                 </div>
 
                 {/* Business Field */}
-                <div style={fieldContainerStyle} >
+                <div style={{backgroundColor: selectedSecColor,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: "5px 15px",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    alignItems: "center"}} >
                     <div style={labelContainerStyle}>
                         <FaRegQuestionCircle size={20} />
                         <span >ธุรกิจส่วนตัว</span>
@@ -405,12 +429,18 @@ function Profile() {
                             style={inputStyle}
                         />
                     ) : (
-                        <div style={{ color: "#dd7a7a" }}>{user.Business || '-'}</div>
+                        <div>{user.Business || '-'}</div>
                     )}
                 </div>
 
                 {/* Detail Field */}
-                <div style={fieldContainerStyle}>
+                <div style={{backgroundColor: selectedSecColor,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: "5px 15px",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    alignItems: "center"}}>
                     <div style={labelContainerStyle}>
                         <FaRegListAlt size={20} />
                         <span>รายละเอียด</span>
@@ -423,7 +453,7 @@ function Profile() {
                             style={inputStyle}
                         />
                     ) : (
-                        <div style={{ color: "#dd7a7a" }}>{user.Detail || '-'}</div>
+                        <div>{user.Detail || '-'}</div>
                     )}
                 </div>
             </div>
@@ -432,15 +462,7 @@ function Profile() {
 }
 
 /* Styles */
-const fieldContainerStyle = {
-    backgroundColor: '#831818',
-    display: "flex",
-    justifyContent: "space-between",
-    margin: "5px 15px",
-    padding: "10px",
-    borderRadius: "10px",
-    alignItems: "center"
-};
+
 
 const labelContainerStyle = {
     display: "flex",
