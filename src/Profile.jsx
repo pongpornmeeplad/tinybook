@@ -333,7 +333,7 @@ function Profile() {
                             type="number"
                         />
                     ) : (
-                        <div style={{ color: "#dd7a7a" }}>{user.Tel || '-'}</div>
+                        <div >{user.Tel || '-'}</div>
                     )}
                 </div>
 
