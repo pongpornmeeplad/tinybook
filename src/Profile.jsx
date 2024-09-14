@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams,useLocation } from 'react-router-dom';
+import { useParams,useLocation ,useNavigate} from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line, RiEdit2Line } from "react-icons/ri";
@@ -8,7 +8,32 @@ import { FaRegQuestionCircle, FaRegListAlt } from "react-icons/fa";
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from './Firebase';
 
+const firstColors = {
+    'ทบ.': '#008000',
+    'ทร.': '#003aff',
+    'ทอ.': '#00c5ff',
+    'ตร.': '#510808'
+};
+
+const secColors = {
+    'ทบ.': '#1ed11e',
+    'ทร.': '#0093ff',
+    'ทอ.': '#00ecff',
+    'ตร.': '#831818'
+
+};
+
+
+const thirdColors = {
+    'ทบ.': '#23f123',
+    'ทร.': '#00c5ff',
+    'ทอ.': '#48fff6',
+    'ตร.': '#bb6969'
+};
+
 function Profile() {
+    const location = useLocation(); // Get the location object
+    const { Service } = location.state || {}; // Retrieve Service
     const { id } = useParams();
     const [user, setUser] = useState(null);
     const [showEditButton, setShowEditButton] = useState(false);
@@ -25,6 +50,17 @@ function Profile() {
         Service: '',
         Position: ''
     });
+    // Set the background color dynamically based on the selected Service
+    const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
+
+    
+    // Set the background color dynamically based on the selected Service
+    const selectedsecColor = secColors[Service] || "#831818"; // Default color
+
+    
+
+    // Set the background color dynamically based on the selected Service
+    const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -98,7 +134,7 @@ function Profile() {
                 justifyContent: "center",
                 alignItems: "center",
                 color: "white",
-                backgroundColor: "#510808",
+                backgroundColor: selectedfirstColor,
                 fontFamily: "'Kanit', sans-serif",
                 fontSize: "1.5rem"
             }}>
@@ -111,7 +147,7 @@ function Profile() {
         <div style={{
             width: "100vw",
             height: "100vh",
-            backgroundColor: "#510808",
+            backgroundColor: selectedfirstColor,
             display: 'flex',
             flexDirection: 'column',
             color: 'white',
