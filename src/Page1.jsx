@@ -34,7 +34,7 @@ function Page1({ inputValues, setInputValues }) {
     };
 
     const handleNextClick = () => {
-        navigate('/Page2' ,'/Registerpage', { state: { inputValues } });
+        navigate('/Page2' , { state: { inputValues } });
     };
     const firstColors = {
         'ทบ.': 'green',
