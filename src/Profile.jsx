@@ -32,9 +32,9 @@ const thirdColors = {
 };
 
 const serviceImg = {
-    'ทบ.': 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fth.pikbest.com%2Fbackgrounds%2Ftexture-vintage-battle-tank_9979327.html&psig=AOvVaw2wfuNLWvDhCsVwzdzXqG0N&ust=1726418794554000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDgnLDxwogDFQAAAAAdAAAAABAE',
-    'ทร.': 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fth%2Fillustrations%2F%25E0%25B9%2580%25E0%25B8%25A3%25E0%25B8%25AD-%25E0%25B9%2580%25E0%25B8%25A3%25E0%25B8%25AD%25E0%25B8%25A3%25E0%25B8%259A-%25E0%25B8%2581%25E0%25B8%25AD%25E0%25B8%2587%25E0%25B8%2597%25E0%25B8%259E%25E0%25B9%2580%25E0%25B8%25A3%25E0%25B8%25AD-x-ray-%25E0%25B8%2597%25E0%25B8%25AB%25E0%25B8%25B2%25E0%25B8%25A3-8663314%2F&psig=AOvVaw24BcMPn1MXKY_7nvN4Ps30&ust=1726418901716000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJCmru_xwogDFQAAAAAdAAAAABAE',
-    'ทอ.': 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fdepositphotos.com%2Fth%2Fphotos%2F%25E0%25B9%2580%25E0%25B8%2584%25E0%25B8%25A3%25E0%25B8%25B7%25E0%25B9%2588%25E0%25B8%25AD%25E0%25B8%2587%25E0%25B8%259A%25E0%25B8%25B4%25E0%25B8%2599%25E0%25B8%25A3%25E0%25B8%259A.html&psig=AOvVaw0JmTPpMswwQ5M5as8VItxs&ust=1726418969528000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJCduZbywogDFQAAAAAdAAAAABAE',
+    'ทบ.': 'https://f.ptcdn.info/400/063/000/ppqeh86vhn39NbDw0Lw-o.jpg',
+    'ทร.': 'https://cdn.pixabay.com/photo/2024/03/29/17/54/ship-8663314_960_720.jpg',
+    'ทอ.': 'https://png.pngtree.com/thumb_back/fh260/background/20230424/pngtree-fighter-jet-being-blown-away-by-the-ocean-waves-image_2507862.jpg',
     'ตร.': 'https://file.chobrod.com/2018/06/23/nkNHHn8K/1-dodge-charger-purs-896b.jpg'
 };
 function Profile() {
