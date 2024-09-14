@@ -197,7 +197,15 @@ function Profile() {
                                     </span>
                                     {isEditing && (
                                         <div style={buttonContainerStyle}>
-                                            <button onClick={handleSave} style={buttonStyle} >
+                                            <button onClick={handleSave} style={{
+                                                backgroundColor: selectedThirdColor,
+                                                color: 'white',
+                                                borderRadius: '5px',
+                                                padding: '5px 10px',
+                                                cursor: 'pointer',
+                                                border: 'none',
+                                                fontSize: '1rem'
+                                            }} >
                                                 บันทึก
                                             </button>
                                         </div>
@@ -266,7 +274,15 @@ function Profile() {
                                     </span>
                                     {isEditing && (
                                         <div style={buttonContainerStyle}>
-                                            <button onClick={handleSave} style={buttonStyle}>
+                                            <button onClick={handleSave} style={{
+                                                backgroundColor: selectedThirdColor,
+                                                color: 'white',
+                                                borderRadius: '5px',
+                                                padding: '5px 10px',
+                                                cursor: 'pointer',
+                                                border: 'none',
+                                                fontSize: '1rem'
+                                            }}>
                                                 บันทึก
                                             </button>
                                         </div>
@@ -293,13 +309,15 @@ function Profile() {
                 </div>
 
                 {/* Nickname Field */}
-                <div style={{backgroundColor: selectedSecColor,
+                <div style={{
+                    backgroundColor: selectedSecColor,
                     display: "flex",
                     justifyContent: "space-between",
                     margin: "5px 15px",
                     padding: "10px",
                     borderRadius: "10px",
-                    alignItems: "center"}} >
+                    alignItems: "center"
+                }} >
                     <div style={labelContainerStyle}>
                         <CiFaceSmile size={20} />
                         <span>ชื่อเล่น</span>
@@ -310,10 +328,19 @@ function Profile() {
                             name="Nickname"
                             value={formData.Nickname}
                             onChange={handleChange}
-                            style={inputStyle}
+                            style={{
+                                backgroundColor: selectedSecColor,
+                                border: 'none',
+                                width: '50%',
+                                fontSize: '1rem',
+                                color: 'white',
+                                textAlign: 'right',
+                                outline: 'none',
+                                font: 'inherit'
+                            }}
                         />
                     ) : (
-                        <div style={{ color: "#dd7a7a" }}>{user.Nickname || '-'}</div>
+                        <div>{user.Nickname || '-'}</div>
                     )}
                 </div>
 
@@ -336,7 +363,16 @@ function Profile() {
                             name="Tel"
                             value={formData.Tel}
                             onChange={handleChange}
-                            style={inputStyle}
+                            style={{
+                                backgroundColor: selectedSecColor,
+                                border: 'none',
+                                width: '50%',
+                                fontSize: '1rem',
+                                color: 'white',
+                                textAlign: 'right',
+                                outline: 'none',
+                                font: 'inherit'
+                            }}
                             type="number"
                         />
                     ) : (
@@ -345,13 +381,15 @@ function Profile() {
                 </div>
 
                 {/* Address Field */}
-                <div style={{backgroundColor: selectedSecColor,
+                <div style={{
+                    backgroundColor: selectedSecColor,
                     display: "flex",
                     justifyContent: "space-between",
                     margin: "5px 15px",
                     padding: "10px",
                     borderRadius: "10px",
-                    alignItems: "center"}} >
+                    alignItems: "center"
+                }} >
                     <div style={labelContainerStyle}>
                         <RiHome8Line size={20} />
                         <span>ที่อยู่</span>
@@ -361,7 +399,16 @@ function Profile() {
                             name="Address"
                             value={formData.Address}
                             onChange={handleChange}
-                            style={inputStyle}
+                            style={{
+                                backgroundColor: selectedSecColor,
+                                border: 'none',
+                                width: '50%',
+                                fontSize: '1rem',
+                                color: 'white',
+                                textAlign: 'right',
+                                outline: 'none',
+                                font: 'inherit'
+                            }}
                         />
                     ) : (
                         <div >{user.Address || '-'}</div>
@@ -369,13 +416,15 @@ function Profile() {
                 </div>
 
                 {/* Workplace Field */}
-                <div style={{backgroundColor: selectedSecColor,
+                <div style={{
+                    backgroundColor: selectedSecColor,
                     display: "flex",
                     justifyContent: "space-between",
                     margin: "5px 15px",
                     padding: "10px",
                     borderRadius: "10px",
-                    alignItems: "center"}} >
+                    alignItems: "center"
+                }} >
                     <div style={labelContainerStyle}>
                         <MdOutlineHomeRepairService size={20} />
                         <span>สถานที่ทำงาน</span>
@@ -385,7 +434,16 @@ function Profile() {
                             name="Workplace"
                             value={formData.Workplace}
                             onChange={handleChange}
-                            style={inputStyle}
+                            style={{
+                                backgroundColor: selectedSecColor,
+                                border: 'none',
+                                width: '50%',
+                                fontSize: '1rem',
+                                color: 'white',
+                                textAlign: 'right',
+                                outline: 'none',
+                                font: 'inherit'
+                            }}
                         />
                     ) : (
                         <div >{user.Workplace || '-'}</div>
@@ -411,13 +469,15 @@ function Profile() {
                 </div>
 
                 {/* Business Field */}
-                <div style={{backgroundColor: selectedSecColor,
+                <div style={{
+                    backgroundColor: selectedSecColor,
                     display: "flex",
                     justifyContent: "space-between",
                     margin: "5px 15px",
                     padding: "10px",
                     borderRadius: "10px",
-                    alignItems: "center"}} >
+                    alignItems: "center"
+                }} >
                     <div style={labelContainerStyle}>
                         <FaRegQuestionCircle size={20} />
                         <span >ธุรกิจส่วนตัว</span>
@@ -427,7 +487,16 @@ function Profile() {
                             name="Business"
                             value={formData.Business}
                             onChange={handleChange}
-                            style={inputStyle}
+                            style={{
+                                backgroundColor: selectedSecColor,
+                                border: 'none',
+                                width: '50%',
+                                fontSize: '1rem',
+                                color: 'white',
+                                textAlign: 'right',
+                                outline: 'none',
+                                font: 'inherit'
+                            }}
                         />
                     ) : (
                         <div>{user.Business || '-'}</div>
@@ -435,13 +504,15 @@ function Profile() {
                 </div>
 
                 {/* Detail Field */}
-                <div style={{backgroundColor: selectedSecColor,
+                <div style={{
+                    backgroundColor: selectedSecColor,
                     display: "flex",
                     justifyContent: "space-between",
                     margin: "5px 15px",
                     padding: "10px",
                     borderRadius: "10px",
-                    alignItems: "center"}}>
+                    alignItems: "center"
+                }}>
                     <div style={labelContainerStyle}>
                         <FaRegListAlt size={20} />
                         <span>รายละเอียด</span>
@@ -451,7 +522,16 @@ function Profile() {
                             name="Detail"
                             value={formData.Detail}
                             onChange={handleChange}
-                            style={inputStyle}
+                            style={{
+                                backgroundColor: selectedSecColor,
+                                border: 'none',
+                                width: '50%',
+                                fontSize: '1rem',
+                                color: 'white',
+                                textAlign: 'right',
+                                outline: 'none',
+                                font: 'inherit'
+                            }}
                         />
                     ) : (
                         <div>{user.Detail || '-'}</div>
@@ -471,31 +551,13 @@ const labelContainerStyle = {
     alignItems: "center",
 };
 
-const inputStyle = {
-    backgroundColor: '#bb6969',
-    border: 'none',
-    width: '50%',
-    fontSize: '1rem',
-    color: 'white',
-    textAlign: 'right',
-    outline: 'none',
-    font: 'inherit'
-};
+
 
 const buttonContainerStyle = {
     display: "flex",
     justifyContent: "center"
 };
 
-const buttonStyle = {
-    backgroundColor: '#bb6969',
-    color: 'white',
-    borderRadius: '5px',
-    padding: '5px 10px',
-    cursor: 'pointer',
-    border: 'none',
-    fontSize: '1rem'
-};
 
 export default Profile;
 
