@@ -104,7 +104,8 @@ function AlbumPage() {
 
   // Updated handleProfile to accept userId
   const handleProfile = (userId) => {
-    navigate(`/Profile/${userId}`,{state: {Service}});
+    console.log("Service value before navigating to Profile:", Service); // ตรวจสอบค่า
+    navigate(`/Profile/${userId}`, { state: { Service } });
   };
 
   const handleSeeAll = () => {
