@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, } from 'react-router-dom';
+import { useParams,useLocation } from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line, RiEdit2Line } from "react-icons/ri";

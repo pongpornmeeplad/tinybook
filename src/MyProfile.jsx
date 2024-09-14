@@ -194,7 +194,7 @@ function Profile() {
                                 justifyContent: "space-between"
                             }}>
                                 <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
-                                    {!isEditing && <RiEdit2Line color="#BB6969" size={20} />}
+                                    {!isEditing && <RiEdit2Line selectedthirdColor size={20} />}
                                     <span style={{ color: "#BB6969" }}>
                                         {isEditing ? 'ยกเลิก' : 'แก้ไข'}
                                     </span>

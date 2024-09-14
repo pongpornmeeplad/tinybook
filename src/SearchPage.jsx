@@ -108,7 +108,7 @@ function AlbumPage() {
   };
 
   const handleSeeAll = () => {
-    navigate('/All');
+    navigate('/All',{state: {Service}});
   };
 
   const location = useLocation(); // Get the location object
