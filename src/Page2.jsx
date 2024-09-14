@@ -22,12 +22,11 @@ const db = getFirestore(app);
 const { TextArea } = Input;
 
 const firstColors = {
-    'ทบ.': 'green',
-    'ทร.': 'blue',
-    'ทอ.': 'lightblue',
+    'ทบ.': '#008000',
+    'ทร.': '#003aff',
+    'ทอ.': '#00c5ff',
     'ตร.': '#510808'
 };
-
 
 
 function Page2({ inputValues, setInputValues }) {
