@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams,useLocation } from 'react-router-dom';
+import { useParams,useLocation ,useNavigate} from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line, RiEdit2Line } from "react-icons/ri";
@@ -8,6 +8,29 @@ import { FaRegQuestionCircle, FaRegListAlt } from "react-icons/fa";
 import { getDocs, query, where, collection, updateDoc } from 'firebase/firestore';
 import { db } from './Firebase';
 
+
+const firstColors = {
+    'ทบ.': '#008000',
+    'ทร.': '#003aff',
+    'ทอ.': '#00c5ff',
+    'ตร.': '#510808'
+};
+
+const secColors = {
+    'ทบ.': '#1ed11e',
+    'ทร.': '#0093ff',
+    'ทอ.': '#00ecff',
+    'ตร.': '#831818'
+
+};
+
+
+const thirdColors = {
+    'ทบ.': '#23f123',
+    'ทร.': '#00c5ff',
+    'ทอ.': '#48fff6',
+    'ตร.': '#bb6969'
+};
 function Profile() {
     const location = useLocation(); // Get the location object
     const { Service } = location.state || {}; // Retrieve Service from location sta
@@ -27,32 +50,16 @@ function Profile() {
         Position: ''
     });
 
-    const firstColors = {
-        'ทบ.': '#008000',
-        'ทร.': '#003aff',
-        'ทอ.': '#00c5ff',
-        'ตร.': '#510808'
-    };
+    
 
     // Set the background color dynamically based on the selected Service
     const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
 
-    const secColors = {
-        'ทบ.': '#1ed11e',
-        'ทร.': '#0093ff',
-        'ทอ.': '#00ecff',
-        'ตร.': '#831818'
-    };
-
+    
     // Set the background color dynamically based on the selected Service
     const selectedsecColor = secColors[Service] || "#831818"; // Default color
 
-    const thirdColors = {
-        'ทบ.': '#23f123',
-        'ทร.': '#00c5ff',
-        'ทอ.': '#48fff6',
-        'ตร.': '#bb6969'
-    };
+    
 
     // Set the background color dynamically based on the selected Service
     const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default col
@@ -414,7 +421,7 @@ function Profile() {
 const fieldContainerStyle = {
     display: "flex",
     justifyContent: "space-between",
-    backgroundColor: "#831818",
+    secColors,
     margin: "5px 15px",
     padding: "10px",
     borderRadius: "10px",
