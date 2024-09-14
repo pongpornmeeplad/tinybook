@@ -36,7 +36,7 @@ function Page1({ inputValues, setInputValues }) {
     const handleNextClick = () => {
         navigate('/Page2', { state: { inputValues } });
     };
-    const bgColors = {
+    const firstColors = {
         'ทบ.': 'green',
         'ทร.': 'blue',
         'ทอ.': 'lightblue',
@@ -44,7 +44,17 @@ function Page1({ inputValues, setInputValues }) {
     };
 
     // Set the background color dynamically based on the selected Service
-    const selectedBgColor = bgColors[inputValues.Service] || "#510808"; // Default color
+    const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; // Default color
+
+    const secondColors = {
+        'ทบ.': 'green',
+        'ทร.': 'blue',
+        'ทอ.': 'lightblue',
+        'ตร.': '#510808'
+    };
+
+    // Set the background color dynamically based on the selected Service
+    const selectedsecondColor = secondColors[inputValues.Service] || "#510808"; // Default color
 
     return (
         <div style={{
@@ -69,7 +79,7 @@ function Page1({ inputValues, setInputValues }) {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                backgroundColor: selectedBgColor,
+                backgroundColor: selectedfirstColor,
                 opacity: 0.8,
                 zIndex: 0
             }} />
@@ -131,7 +141,7 @@ function Page1({ inputValues, setInputValues }) {
                             borderRadius: '10px',
                         }}>
                             <span style={{
-                                color: selectedBgColor,
+                                color: selectedfirstColor,
                                 fontSize: '18px',
                                 fontWeight: 'bold'
                             }}>1</span>
@@ -163,7 +173,7 @@ function Page1({ inputValues, setInputValues }) {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                             <div>
                                 <div style={{
-                                    color: selectedBgColor,
+                                    color: selectedfirstColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem",
                                 }}>เหล่า</div>
@@ -185,7 +195,7 @@ function Page1({ inputValues, setInputValues }) {
 
                             <div>
                                 <div style={{
-                                    color: selectedBgColor,
+                                    color: selectedfirstColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>คำนำหน้า ชื่อ สกุล</div>
@@ -200,7 +210,7 @@ function Page1({ inputValues, setInputValues }) {
 
                             <div>
                                 <div style={{
-                                    color: selectedBgColor,
+                                    color: selectedfirstColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>ชื่อเล่น/ฉายา</div>
@@ -215,7 +225,7 @@ function Page1({ inputValues, setInputValues }) {
 
                             <div>
                                 <div style={{
-                                    color: selectedBgColor,
+                                    color: selectedfirstColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>เบอร์โทร</div>
@@ -231,7 +241,7 @@ function Page1({ inputValues, setInputValues }) {
 
                             <div>
                                 <div style={{
-                                    color: selectedBgColor,
+                                    color: selectedfirstColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>ที่อยู่</div>
@@ -255,7 +265,7 @@ function Page1({ inputValues, setInputValues }) {
                         }}>
                             <button style={{
                                 color: "#ffffff",
-                                backgroundColor: selectedBgColor,
+                                backgroundColor: selectedfirstColor,
                                 borderRadius: "30px",
                                 width: "90%",
                                 alignSelf: "center",

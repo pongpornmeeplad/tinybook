@@ -21,6 +21,15 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const { TextArea } = Input;
 
+const firstColors = {
+    'ทบ.': 'green',
+    'ทร.': 'blue',
+    'ทอ.': 'lightblue',
+    'ตร.': '#510808'
+};
+
+
+
 function Page2({ inputValues, setInputValues }) {
     const navigate = useNavigate();
 
@@ -31,6 +40,9 @@ function Page2({ inputValues, setInputValues }) {
             [field]: e.target.value
         });
     };
+
+    // Set the background color dynamically based on the selected Service
+    const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; // Default color
 
     // Function to show error notification
     const showErrorNotification = (message) => {
@@ -92,7 +104,7 @@ function Page2({ inputValues, setInputValues }) {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                backgroundColor: "#510808",
+                backgroundColor: firstColors,
                 opacity: 0.8,
                 zIndex: 0
             }} />
@@ -227,8 +239,8 @@ function Page2({ inputValues, setInputValues }) {
                     marginTop: "20px",
                     borderRadius: "30px",
                     width: "100%",
-                    display:'flex',
-                    justifyContent:'center'
+                    display: 'flex',
+                    justifyContent: 'center'
                 }}>
                     <button style={{
                         color: "#ffffff",
