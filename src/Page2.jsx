@@ -134,7 +134,7 @@ function Page2({ inputValues, setInputValues }) {
                     borderRadius: '10px',
                 }}>
                     <span style={{
-                        color: '#510808',
+                        color: selectedfirstColor,
                         fontSize: '18px',
                         fontWeight: 'bold'
                     }}>2</span>
@@ -164,7 +164,7 @@ function Page2({ inputValues, setInputValues }) {
                     {/* Position Field */}
                     <div>
                         <div style={{
-                            color: "#510808",
+                            color: selectedfirstColor,
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
                         }}>ตำแหน่ง สังกัด</div>
@@ -182,7 +182,7 @@ function Page2({ inputValues, setInputValues }) {
                     {/* Workplace Field */}
                     <div>
                         <div style={{
-                            color: "#510808",
+                            color: selectedfirstColor,
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
                         }}>สถานที่ทำงาน</div>
@@ -200,7 +200,7 @@ function Page2({ inputValues, setInputValues }) {
                     {/* Business Field */}
                     <div>
                         <div style={{
-                            color: "#510808",
+                            color: selectedfirstColor,
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
                         }}>ธุรกิจส่วนตัว</div>
@@ -218,7 +218,7 @@ function Page2({ inputValues, setInputValues }) {
                     {/* Detail Field */}
                     <div>
                         <div style={{
-                            color: "#510808",
+                            color: selectedfirstColor,
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
                         }}>รายละเอียดเพิ่มเติม</div>
@@ -244,7 +244,7 @@ function Page2({ inputValues, setInputValues }) {
                 }}>
                     <button style={{
                         color: "#ffffff",
-                        backgroundColor: "#510808",
+                        backgroundColor: selectedfirstColor,
                         borderRadius: "30px",
                         width: "90%",
                         alignSelf: "center",
