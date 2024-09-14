@@ -19,7 +19,7 @@ const secColors = {
     'ตร.': '#831818'
 };
 
-function Registerpage() {
+function Registerpage(inputValues, setInputValues) {
     const navigate = useNavigate();
     const location = useLocation(); // Get the location object
     const { Service } = location.state || {}; // Retrieve Service from location state
