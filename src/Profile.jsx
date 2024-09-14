@@ -63,8 +63,8 @@ function Profile() {
     const selectedSecColor = secColors[selectedService];
     const selectedThirdColor = thirdColors[selectedService];
     const selectedserviceImg = serviceImg[selectedService];
-
-
+    
+    
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -163,7 +163,7 @@ function Profile() {
             <div style={{
                 width: "100%",
                 height: "35vh",
-                backgroundImage: selectedserviceImg,
+                backgroundImage: `url(${selectedserviceImg})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 position: 'relative'
