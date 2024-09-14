@@ -427,7 +427,7 @@ function Profile() {
 const fieldContainerStyle = {
     display: "flex",
     justifyContent: "space-between",
-    backgroundColor: "#831818",
+    backgroundColor: selectedSecColor,
     margin: "5px 15px",
     padding: "10px",
     borderRadius: "10px",
@@ -441,7 +441,7 @@ const labelContainerStyle = {
 };
 
 const inputStyle = {
-    backgroundColor: '#831818',
+    backgroundColor: selectedSecColor,
     border: 'none',
     width: '50%',
     fontSize: '1rem',
@@ -457,7 +457,7 @@ const buttonContainerStyle = {
 };
 
 const buttonStyle = {
-    backgroundColor: '#BB6969',
+    backgroundColor: selectedThirdColor,
     color: 'white',
     borderRadius: '5px',
     padding: '5px 10px',
