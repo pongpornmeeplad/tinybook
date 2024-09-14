@@ -303,7 +303,7 @@ function Profile() {
                             name="Nickname"
                             value={formData.Nickname}
                             onChange={handleChange}
-                            style={inputStyle} backgroundColor={selectedSecColor}
+                            style={inputStyle} 
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Nickname || '-'}</div>
@@ -440,7 +440,7 @@ const labelContainerStyle = {
 };
 
 const inputStyle = {
-    
+    backgroundColor:'#bb6969',
     border: 'none',
     width: '50%',
     fontSize: '1rem',
