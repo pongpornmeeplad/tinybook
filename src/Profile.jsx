@@ -196,7 +196,7 @@ function Profile() {
                                     </span>
                                     {isEditing && (
                                         <div style={buttonContainerStyle}>
-                                            <button onClick={handleSave} style={buttonStyle} backgroundColor={selectedThirdColor}>
+                                            <button onClick={handleSave} style={buttonStyle} >
                                                 บันทึก
                                             </button>
                                         </div>
@@ -265,7 +265,7 @@ function Profile() {
                                     </span>
                                     {isEditing && (
                                         <div style={buttonContainerStyle}>
-                                            <button onClick={handleSave} style={buttonStyle} backgroundColor={selectedThirdColor}>
+                                            <button onClick={handleSave} style={buttonStyle}>
                                                 บันทึก
                                             </button>
                                         </div>
@@ -456,7 +456,7 @@ const buttonContainerStyle = {
 };
 
 const buttonStyle = {
-    
+    backgroundColor:'#bb6969',
     color: 'white',
     borderRadius: '5px',
     padding: '5px 10px',
