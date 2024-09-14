@@ -36,6 +36,15 @@ function Page1({ inputValues, setInputValues }) {
     const handleNextClick = () => {
         navigate('/Page2', { state: { inputValues } });
     };
+    const bgColors = {
+        'ทบ.': 'green',
+        'ทร.': 'blue',
+        'ทอ.': 'lightblue',
+        'ตร.': '#510808'
+    };
+
+    // Set the background color dynamically based on the selected Service
+    const selectedBgColor = bgColors[inputValues.Service] || "#510808"; // Default color
 
     return (
         <div style={{
@@ -60,7 +69,7 @@ function Page1({ inputValues, setInputValues }) {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                backgroundColor: "#510808",
+                backgroundColor: selectedBgColor,
                 opacity: 0.8,
                 zIndex: 0
             }} />
