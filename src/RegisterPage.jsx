@@ -11,6 +11,14 @@ const firstColors = {
     'ตร.': '#510808'
 };
 
+
+const secColors = {
+    'ทบ.': '#1ed11e',
+    'ทร.': '#0093ff',
+    'ทอ.': '#00ecff',
+    'ตร.': '#831818'
+};
+
 function Registerpage() {
     const navigate = useNavigate();
     const location = useLocation(); // Get the location object
@@ -20,7 +28,8 @@ function Registerpage() {
     const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
 
     const handleNextClick = () => {
-        navigate('/album');
+        navigate('/album' ,{ state: { Service: inputValues.Service } });
+        
     };
     return (
 

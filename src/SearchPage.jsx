@@ -2,9 +2,25 @@ import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IoMdSearch } from 'react-icons/io';
 import { RiArrowDropDownLine } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useLocation} from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from "./Firebase"; // Import db from firebase.js
+
+
+const firstColors = {
+  'ทบ.': '#008000',
+  'ทร.': '#003aff',
+  'ทอ.': '#00c5ff',
+  'ตร.': '#510808'
+};
+
+const secColors = {
+  'ทบ.': '#1ed11e',
+  'ทร.': '#0093ff',
+  'ทอ.': '#00ecff',
+  'ตร.': '#831818'
+};
+
 
 function AlbumPage() {
   const [images, setImages] = useState([]);
@@ -89,6 +105,10 @@ function AlbumPage() {
     navigate('/All');
   };
 
+  const location = useLocation(); // Get the location object
+    const { Service } = location.state || {}; // Retrieve Service from location state
+    const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
+    const selectedsecColor = secColors[Service] || "#831818"; // Default color
   if (loading) {
     return <div>Loading images...</div>;
   }
@@ -99,7 +119,7 @@ function AlbumPage() {
     <div style={{
       width: "100vw",
       height: "100vh",
-      backgroundColor: "#510808",
+      backgroundColor: selectedfirstColor,
       display: 'flex',
       flexDirection: 'column',
       color: 'white',
@@ -127,7 +147,7 @@ function AlbumPage() {
           paddingLeft: '20px',
         }}>
           <IoMdSearch style={{
-            color: "#510808",
+            color: selectedfirstColor,
             fontSize: "2rem"
           }} />
           <input style={{
@@ -146,7 +166,7 @@ function AlbumPage() {
           }} type="text" placeholder="ค้นหารายชื่อ" onFocus={() => setShowList(true)} onChange={(e) => setQuery(e.target.value)} />
         </div>
         <div style={{
-          color: "#BB6969",
+          color: selectedsecColor,
           marginLeft: "auto",
           cursor: "pointer"
         }} onClick={handleCancleClick}>
@@ -157,7 +177,7 @@ function AlbumPage() {
         <div style={{
           width: "100%",
           height: "100vh",
-          backgroundColor: "#831818",
+          backgroundColor: selectedfirstColor,
           borderRadius: "30px 30px 0px 0px ",
           boxSizing: "border-box",
           padding: "20px",
