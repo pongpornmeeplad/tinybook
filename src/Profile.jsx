@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams,useLocation ,useNavigate} from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line, RiEdit2Line } from "react-icons/ri";
@@ -53,11 +53,11 @@ function Profile() {
     // Set the background color dynamically based on the selected Service
     const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
 
-    
+
     // Set the background color dynamically based on the selected Service
     const selectedsecColor = secColors[Service] || "#831818"; // Default color
 
-    
+
 
     // Set the background color dynamically based on the selected Service
     const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default
@@ -208,14 +208,30 @@ function Profile() {
                                     )}
                                 </div>
                                 <div style={{ margin: '5px 10px', textAlign: "right", width: "97%", marginRight: "3rem" }}>
-                                    <input
+                                    <select
                                         name="Service"
                                         value={formData.Service}
                                         onChange={handleChange}
-                                        style={{ font: 'inherit', backgroundColor: '#831818', borderRadius: '7px', padding: '5px', border: 'none', width: '30%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
-                                        placeholder="Service"
-                                    />
+                                        style={{
+                                            font: 'inherit',
+                                            backgroundColor: '#831818',
+                                            borderRadius: '7px',
+                                            padding: '5px',
+                                            border: 'none',
+                                            width: '30%',
+                                            fontSize: '1rem',
+                                            color: '#ffffff',
+                                            textAlign: 'center',
+                                            outline: 'none'
+                                        }}
+                                    >
+                                        <option value="ทบ.">ทบ.</option>
+                                        <option value="ทร.">ทร.</option>
+                                        <option value="ทอ.">ทอ.</option>
+                                        <option value="ตร.">ตร.</option>
+                                    </select>
                                 </div>
+
                             </div>
 
 
