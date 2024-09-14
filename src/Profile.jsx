@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate, useLocation  } from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line, RiEdit2Line } from "react-icons/ri";
@@ -8,7 +8,38 @@ import { FaRegQuestionCircle, FaRegListAlt } from "react-icons/fa";
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from './Firebase';
 
+const firstColors = {
+    'ทบ.': '#008000',
+    'ทร.': '#003aff',
+    'ทอ.': '#00c5ff',
+    'ตร.': '#510808'
+};
+
+// Set the background color dynamically based on the selected Service
+const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; // Default color
+
+const secColors = {
+    'ทบ.': '#1ed11e',
+    'ทร.': '#0093ff',
+    'ทอ.': '#00ecff',
+    'ตร.': '#831818'
+};
+
+// Set the background color dynamically based on the selected Service
+const selectedsecColor = secColors[inputValues.Service] || "#831818"; // Default color
+
+const thirdColors = {
+    'ทบ.': '#23f123',
+    'ทร.': '#00c5ff',
+    'ทอ.': '#48fff6',
+    'ตร.': '#bb6969'
+};
+
+// Set the background color dynamically based on the selected Service
+const selectedthirdColor = thirdColors[inputValues.Service] || "#bb6969"; // Default co
 function Profile() {
+    const location = useLocation(); // Get the location object
+    const { Service } = location.state || {}; // Retrieve Service from location stat
     const { id } = useParams();
     const [user, setUser] = useState(null);
     const [showEditButton, setShowEditButton] = useState(false);
@@ -98,7 +129,7 @@ function Profile() {
                 justifyContent: "center",
                 alignItems: "center",
                 color: "white",
-                backgroundColor: "#510808",
+                backgroundColor: selectedfirstColor,
                 fontFamily: "'Kanit', sans-serif",
                 fontSize: "1.5rem"
             }}>
@@ -111,7 +142,7 @@ function Profile() {
         <div style={{
             width: "100vw",
             height: "100vh",
-            backgroundColor: "#510808",
+            backgroundColor: selectedfirstColor,
             display: 'flex',
             flexDirection: 'column',
             color: 'white',
@@ -159,8 +190,8 @@ function Profile() {
                                 justifyContent: "space-between"
                             }}>
                                 <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
-                                    {!isEditing && <RiEdit2Line color="#BB6969" size={20} />}
-                                    <span style={{ color: "#BB6969" }}>
+                                    {!isEditing && <RiEdit2Line selectedthirdColor size={20} />}
+                                    <span style={{ selectedthirdColor }}>
                                         {isEditing ? 'ยกเลิก' : 'แก้ไข'}
                                     </span>
                                     {isEditing && (
@@ -176,7 +207,7 @@ function Profile() {
                                         name="Service"
                                         value={formData.Service}
                                         onChange={handleChange}
-                                        style={{ font: 'inherit', backgroundColor: '#831818', borderRadius: '7px', padding: '5px', border: 'none', width: '30%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
+                                        style={{ font: 'inherit', selectedsecColor, borderRadius: '7px', padding: '5px', border: 'none', width: '30%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
                                         placeholder="Service"
                                     />
                                 </div>
@@ -190,7 +221,7 @@ function Profile() {
                                     name="Name"
                                     value={formData.Name}
                                     onChange={handleChange}
-                                    style={{ font: 'inherit', backgroundColor: '#831818', borderRadius: '7px', padding: '5px', border: 'none', width: '80%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
+                                    style={{ font: 'inherit', selectedsecColor, borderRadius: '7px', padding: '5px', border: 'none', width: '80%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
                                     placeholder="Name"
                                 />
                             </h2>
@@ -199,7 +230,7 @@ function Profile() {
                                     name="Position"
                                     value={formData.Position}
                                     onChange={handleChange}
-                                    style={{ font: 'inherit', backgroundColor: '#831818', borderRadius: '7px', padding: '5px', border: 'none', width: '80%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
+                                    style={{ font: 'inherit', selectedsecColor, borderRadius: '7px', padding: '5px', border: 'none', width: '80%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
 
                                     placeholder="Position"
                                 />
