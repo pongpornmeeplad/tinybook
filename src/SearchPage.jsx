@@ -170,7 +170,7 @@ function AlbumPage() {
         <div style={{
           width: "100%",
           height: "100vh",
-          backgroundColor: "#831818",
+          backgroundColor: selectedsecColor,
           borderRadius: "30px 30px 0px 0px ",
           boxSizing: "border-box",
           padding: "20px",
@@ -207,10 +207,10 @@ function AlbumPage() {
               <div>
                 <div>{item.Name}</div>
                 <div style={{
-                  color: "#bb6969"
+                  color: selectedsecColor
                 }}>{item?.Nickname}</div>
                 <div style={{
-                  color: "#bb6969"
+                  color: selectedsecColor
                 }}>{item?.Tel}</div>
               </div>
             </div>
