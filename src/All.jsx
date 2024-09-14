@@ -140,7 +140,7 @@ function All() {
                                     <div style={{ color: selectedthirdColor,alignSelf:"center" }}>{item.Nickname}</div>
                                 </div>
                                 <div style={{
-                                    border: "1px solid #bb6969",
+                                    border: "1px solid ${selectedthirdColor}",
                                     width: "100%"
                                 }}></div>
                             </div>
