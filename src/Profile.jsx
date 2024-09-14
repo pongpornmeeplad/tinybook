@@ -425,6 +425,7 @@ function Profile() {
 
 /* Styles */
 const fieldContainerStyle = {
+    backgroundColor:'#bb6969',
     display: "flex",
     justifyContent: "space-between",
     margin: "5px 15px",
