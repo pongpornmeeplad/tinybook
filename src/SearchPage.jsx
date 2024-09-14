@@ -14,13 +14,6 @@ const firstColors = {
   'ตร.': '#510808'
 };
 
-const secColors = {
-  'ทบ.': '#1ed11e',
-  'ทร.': '#0093ff',
-  'ทอ.': '#00ecff',
-  'ตร.': '#831818'
-};
-
 
 function AlbumPage() {
   const [images, setImages] = useState([]);
@@ -166,7 +159,7 @@ function AlbumPage() {
           }} type="text" placeholder="ค้นหารายชื่อ" onFocus={() => setShowList(true)} onChange={(e) => setQuery(e.target.value)} />
         </div>
         <div style={{
-          color: selectedsecColor,
+          color: "#BB6969",
           marginLeft: "auto",
           cursor: "pointer"
         }} onClick={handleCancleClick}>
@@ -177,7 +170,7 @@ function AlbumPage() {
         <div style={{
           width: "100%",
           height: "100vh",
-          backgroundColor: selectedfirstColor,
+          backgroundColor: "#831818",
           borderRadius: "30px 30px 0px 0px ",
           boxSizing: "border-box",
           padding: "20px",
