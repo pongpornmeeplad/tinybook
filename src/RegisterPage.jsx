@@ -5,10 +5,10 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 
 
 const firstColors = {
-    'ทบ.': 'green',
-    'ทร.': 'blue',
-    'ทอ.': 'lightblue',
-    'ตร.': '#510808' // Fallback color
+    'ทบ.': '#008000',
+    'ทร.': '#003aff',
+    'ทอ.': '#00c5ff',
+    'ตร.': '#510808'
 };
 
 function Registerpage() {
