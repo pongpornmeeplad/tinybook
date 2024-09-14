@@ -131,7 +131,7 @@ function Page1({ inputValues, setInputValues }) {
                             borderRadius: '10px',
                         }}>
                             <span style={{
-                                color: '#510808',
+                                color: selectedBgColor,
                                 fontSize: '18px',
                                 fontWeight: 'bold'
                             }}>1</span>
@@ -163,7 +163,7 @@ function Page1({ inputValues, setInputValues }) {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                             <div>
                                 <div style={{
-                                    color: "#510808",
+                                    color: selectedBgColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem",
                                 }}>เหล่า</div>
@@ -185,7 +185,7 @@ function Page1({ inputValues, setInputValues }) {
 
                             <div>
                                 <div style={{
-                                    color: "#510808",
+                                    color: selectedBgColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>คำนำหน้า ชื่อ สกุล</div>
@@ -200,7 +200,7 @@ function Page1({ inputValues, setInputValues }) {
 
                             <div>
                                 <div style={{
-                                    color: "#510808",
+                                    color: selectedBgColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>ชื่อเล่น/ฉายา</div>
@@ -215,7 +215,7 @@ function Page1({ inputValues, setInputValues }) {
 
                             <div>
                                 <div style={{
-                                    color: "#510808",
+                                    color: selectedBgColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>เบอร์โทร</div>
@@ -231,7 +231,7 @@ function Page1({ inputValues, setInputValues }) {
 
                             <div>
                                 <div style={{
-                                    color: "#510808",
+                                    color: selectedBgColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>ที่อยู่</div>
@@ -255,7 +255,7 @@ function Page1({ inputValues, setInputValues }) {
                         }}>
                             <button style={{
                                 color: "#ffffff",
-                                backgroundColor: "#510808",
+                                backgroundColor: selectedBgColor,
                                 borderRadius: "30px",
                                 width: "90%",
                                 alignSelf: "center",
