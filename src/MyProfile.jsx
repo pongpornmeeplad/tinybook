@@ -218,7 +218,7 @@ function Profile() {
                                         name="Service"
                                         value={formData.Service}
                                         onChange={handleChange}
-                                        style={{ font: 'inherit', selectedsecColor, borderRadius: '7px', padding: '5px', border: 'none', width: '30%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
+                                        style={{ font: 'inherit', backgroundColor:selectedsecColor, borderRadius: '7px', padding: '5px', border: 'none', width: '30%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
                                         placeholder="Service"
                                     />
                                 </div>
@@ -232,7 +232,7 @@ function Profile() {
                                     name="Name"
                                     value={formData.Name}
                                     onChange={handleChange}
-                                    style={{ font: 'inherit', selectedsecColor, borderRadius: '7px', padding: '5px', border: 'none', width: '80%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
+                                    style={{ font: 'inherit', backgroundColor:selectedsecColor, borderRadius: '7px', padding: '5px', border: 'none', width: '80%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
                                     placeholder="Name"
                                 />
                             </h2>
