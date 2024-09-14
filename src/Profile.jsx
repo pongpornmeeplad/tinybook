@@ -53,9 +53,9 @@ function Profile() {
     // Set the background color dynamically based on the selected Service
    
     const selectedService = formData.Service || 'ทบ.'; // Default to 'ทบ.' if not set
-    const selectedFirstColor = firstColors[selectedService];
-    const selectedSecColor = secColors[selectedService];
-    const selectedThirdColor = thirdColors[selectedService];
+    const selectedFirstColor = firstColors[formData.Service] || firstColors['ทบ.'];
+    const selectedSecColor = secColors[formData.Service] || secColors['ทบ.'];
+    const selectedThirdColor = thirdColors[formData.Service] || thirdColors['ทบ.'];
 
     useEffect(() => {
         const fetchUser = async () => {
