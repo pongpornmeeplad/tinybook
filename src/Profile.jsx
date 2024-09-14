@@ -292,7 +292,7 @@ function Profile() {
                 </div>
 
                 {/* Nickname Field */}
-                <div style={fieldContainerStyle} backgroundColor={selectedSecColor}>
+                <div style={fieldContainerStyle} >
                     <div style={labelContainerStyle}>
                         <CiFaceSmile size={20} />
                         <span>ชื่อเล่น</span>
@@ -311,7 +311,7 @@ function Profile() {
                 </div>
 
                 {/* Tel Field */}
-                <div style={fieldContainerStyle} backgroundColor={selectedSecColor}>
+                <div style={fieldContainerStyle} >
                     <div style={labelContainerStyle}>
                         <BsTelephone size={20} />
                         <span>เบอร์โทร</span>
@@ -321,7 +321,7 @@ function Profile() {
                             name="Tel"
                             value={formData.Tel}
                             onChange={handleChange}
-                            style={inputStyle} backgroundColor={selectedSecColor}
+                            style={inputStyle} 
                             type="number"
                         />
                     ) : (
@@ -330,7 +330,7 @@ function Profile() {
                 </div>
 
                 {/* Address Field */}
-                <div style={fieldContainerStyle} backgroundColor={selectedSecColor}>
+                <div style={fieldContainerStyle} >
                     <div style={labelContainerStyle}>
                         <RiHome8Line size={20} />
                         <span>ที่อยู่</span>
@@ -340,7 +340,7 @@ function Profile() {
                             name="Address"
                             value={formData.Address}
                             onChange={handleChange}
-                            style={inputStyle} backgroundColor={selectedSecColor}
+                            style={inputStyle}
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Address || '-'}</div>
@@ -348,7 +348,7 @@ function Profile() {
                 </div>
 
                 {/* Workplace Field */}
-                <div style={fieldContainerStyle} backgroundColor={selectedSecColor}>
+                <div style={fieldContainerStyle} >
                     <div style={labelContainerStyle}>
                         <MdOutlineHomeRepairService size={20} />
                         <span>สถานที่ทำงาน</span>
@@ -358,7 +358,7 @@ function Profile() {
                             name="Workplace"
                             value={formData.Workplace}
                             onChange={handleChange}
-                            style={inputStyle} backgroundColor={selectedSecColor}
+                            style={inputStyle} 
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Workplace || '-'}</div>
@@ -384,7 +384,7 @@ function Profile() {
                 </div>
 
                 {/* Business Field */}
-                <div style={fieldContainerStyle} backgroundColor={selectedSecColor}>
+                <div style={fieldContainerStyle} >
                     <div style={labelContainerStyle}>
                         <FaRegQuestionCircle size={20} />
                         <span >ธุรกิจส่วนตัว</span>
@@ -394,7 +394,7 @@ function Profile() {
                             name="Business"
                             value={formData.Business}
                             onChange={handleChange}
-                            style={inputStyle} backgroundColor={selectedSecColor}
+                            style={inputStyle} 
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Business || '-'}</div>
@@ -402,7 +402,7 @@ function Profile() {
                 </div>
 
                 {/* Detail Field */}
-                <div style={fieldContainerStyle} backgroundColor={selectedSecColor}>
+                <div style={fieldContainerStyle}>
                     <div style={labelContainerStyle}>
                         <FaRegListAlt size={20} />
                         <span>รายละเอียด</span>
@@ -412,7 +412,7 @@ function Profile() {
                             name="Detail"
                             value={formData.Detail}
                             onChange={handleChange}
-                            style={inputStyle} backgroundColor={selectedSecColor}
+                            style={inputStyle} 
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Detail || '-'}</div>
@@ -425,7 +425,7 @@ function Profile() {
 
 /* Styles */
 const fieldContainerStyle = {
-    backgroundColor:'#bb6969',
+    backgroundColor:'#831818',
     display: "flex",
     justifyContent: "space-between",
     margin: "5px 15px",
