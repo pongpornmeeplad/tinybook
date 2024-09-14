@@ -14,6 +14,12 @@ const firstColors = {
   'ตร.': '#510808'
 };
 
+const secColors = {
+  'ทบ.': '#1ed11e',
+  'ทร.': '#0093ff',
+  'ทอ.': '#00ecff',
+  'ตร.': '#831818'
+};
 
 function AlbumPage() {
   const [images, setImages] = useState([]);
