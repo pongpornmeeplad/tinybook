@@ -129,7 +129,7 @@ function Profile() {
                 justifyContent: "center",
                 alignItems: "center",
                 color: "white",
-                backgroundColor: firstColors,
+                backgroundColor: selectedFirstColor,
                 fontFamily: "'Kanit', sans-serif",
                 fontSize: "1.5rem"
             }}>
@@ -142,7 +142,7 @@ function Profile() {
         <div style={{
             width: "100vw",
             height: "100vh",
-            backgroundColor: firstColors,
+            backgroundColor: selectedFirstColor,
             display: 'flex',
             flexDirection: 'column',
             color: 'white',
