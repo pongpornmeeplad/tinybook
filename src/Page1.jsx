@@ -56,6 +56,16 @@ function Page1({ inputValues, setInputValues }) {
     // Set the background color dynamically based on the selected Service
     const selectedsecColor = secColors[inputValues.Service] || "#831818"; // Default color
 
+    const thirdColors = {
+        'ทบ.': '#23f123',
+        'ทร.': '#00c5ff',
+        'ทอ.': '#48fff6',
+        'ตร.': '#bb6969'
+    };
+
+    // Set the background color dynamically based on the selected Service
+    const selectedthirdColor = thirdColors[inputValues.Service] || "#bb6969"; // Default color
+
     return (
         <div style={{
             width: "100vw",

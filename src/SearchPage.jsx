@@ -21,6 +21,13 @@ const secColors = {
   'ตร.': '#831818'
 };
 
+const thirdColors = {
+  'ทบ.': '#23f123',
+  'ทร.': '#00c5ff',
+  'ทอ.': '#48fff6',
+  'ตร.': '#bb6969'
+};
+
 function AlbumPage() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -108,6 +115,7 @@ function AlbumPage() {
     const { Service } = location.state || {}; // Retrieve Service from location state
     const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
     const selectedsecColor = secColors[Service] || "#831818"; // Default color
+    const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default color
   if (loading) {
     return <div>Loading images...</div>;
   }
@@ -165,7 +173,7 @@ function AlbumPage() {
           }} type="text" placeholder="ค้นหารายชื่อ" onFocus={() => setShowList(true)} onChange={(e) => setQuery(e.target.value)} />
         </div>
         <div style={{
-          color: "#BB6969",
+          color: selectedthirdColor,
           marginLeft: "auto",
           cursor: "pointer"
         }} onClick={handleCancleClick}>
@@ -213,10 +221,10 @@ function AlbumPage() {
               <div>
                 <div>{item.Name}</div>
                 <div style={{
-                  color: selectedsecColor
+                  color: selectedthirdColor
                 }}>{item?.Nickname}</div>
                 <div style={{
-                  color: selectedsecColor
+                  color: selectedthirdColor
                 }}>{item?.Tel}</div>
               </div>
             </div>
