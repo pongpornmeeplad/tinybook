@@ -1,8 +1,6 @@
 import React from 'react';
-import { useNavigate , useLocation} from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FaRegCircleCheck } from "react-icons/fa6";
-
-
 
 const firstColors = {
     'ทบ.': '#008000',
@@ -11,15 +9,7 @@ const firstColors = {
     'ตร.': '#510808'
 };
 
-
-const secColors = {
-    'ทบ.': '#1ed11e',
-    'ทร.': '#0093ff',
-    'ทอ.': '#00ecff',
-    'ตร.': '#831818'
-};
-
-function Registerpage(inputValues, setInputValues) {
+function Registerpage() {
     const navigate = useNavigate();
     const location = useLocation(); // Get the location object
     const { Service } = location.state || {}; // Retrieve Service from location state
@@ -28,11 +18,10 @@ function Registerpage(inputValues, setInputValues) {
     const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
 
     const handleNextClick = () => {
-        navigate('/album' ,{ state: { Service: inputValues.Service } });
-        
+        navigate('/album', { state: { Service } }); // Pass Service to the /album route
     };
-    return (
 
+    return (
         <div
             style={{
                 width: "100vw",
@@ -46,26 +35,37 @@ function Registerpage(inputValues, setInputValues) {
                 justifyContent: "space-between",
                 alignItems: "center",
                 fontFamily: "'Kanit', sans-serif",
-            }}>
+            }}
+        >
             <div
                 style={{
                     fontSize: "2rem",
                     marginTop: "3rem",
                     fontFamily: "'Kanit', sans-serif",
-                }}>ลงทะเบียนเรียบร้อย</div>
-            <div>
-                <FaRegCircleCheck style={{
-                    fontSize: "200px",
-                }} />
+                }}
+            >
+                ลงทะเบียนเรียบร้อย
             </div>
             <div>
-                <button style={{
-                    marginBottom: "3rem",
-                    backgroundColor: "#ffffff",
-                    borderRadius: "30px",
-                    width: "15rem",
-                    color: selectedfirstColor,
-                }} onClick={handleNextClick}>ปิด</button>
+                <FaRegCircleCheck
+                    style={{
+                        fontSize: "200px",
+                    }}
+                />
+            </div>
+            <div>
+                <button
+                    style={{
+                        marginBottom: "3rem",
+                        backgroundColor: "#ffffff",
+                        borderRadius: "30px",
+                        width: "15rem",
+                        color: selectedfirstColor,
+                    }}
+                    onClick={handleNextClick}
+                >
+                    ปิด
+                </button>
             </div>
         </div>
     );
