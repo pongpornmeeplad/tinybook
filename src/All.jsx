@@ -98,7 +98,7 @@ function All() {
                 flexDirection: "column",
                 boxSizing: "border-box",
                 padding: "2rem",
-                backgroundColor: "#831818",
+                backgroundColor: selectedsecColor,
                 borderRadius: "30px 30px 0px 0px ",
                 maxWidth: "1000px",
                 gap: "1rem",
@@ -133,11 +133,11 @@ function All() {
                                     
                                     <div>
                                         <div>{item.Name}</div>
-                                        <div style={{ color: "#bb6969" }}>{item.Tel}</div>
+                                        <div style={{ color: selectedthirdColor }}>{item.Tel}</div>
 
 
                                     </div>
-                                    <div style={{ color: "#bb6969",alignSelf:"center" }}>{item.Nickname}</div>
+                                    <div style={{ color: selectedthirdColor,alignSelf:"center" }}>{item.Nickname}</div>
                                 </div>
                                 <div style={{
                                     border: "1px solid #bb6969",
