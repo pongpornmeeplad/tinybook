@@ -1,10 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useLocation} from 'react-router-dom';
 import { PiBookBookmarkFill } from "react-icons/pi";
 import { getDocs, collection } from 'firebase/firestore';
 import { db } from './Firebase';
 
+const firstColors = {
+    'ทบ.': '#008000',
+    'ทร.': '#003aff',
+    'ทอ.': '#00c5ff',
+    'ตร.': '#510808'
+  };
+  
+  const secColors = {
+    'ทบ.': '#1ed11e',
+    'ทร.': '#0093ff',
+    'ทอ.': '#00ecff',
+    'ตร.': '#831818'
+  };
+  
+  const thirdColors = {
+    'ทบ.': '#23f123',
+    'ทร.': '#00c5ff',
+    'ทอ.': '#48fff6',
+    'ตร.': '#bb6969'
+  };
 function All() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
@@ -13,7 +33,11 @@ function All() {
         navigate('/Album');
     };
 
-
+    const location = useLocation(); // Get the location object
+    const { Service } = location.state || {}; // Retrieve Service from location state
+    const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
+    const selectedsecColor = secColors[Service] || "#831818"; // Default color
+    const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default colo
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -29,13 +53,13 @@ function All() {
         fetchUsers();
     }, []);
     const handleProfile = (userId) => {
-        navigate(`/Profile/${userId}`);
+        navigate(`/Profile/${userId}`,{state: {Service}});
       };
     return (
         <div style={{
             width: "100vw",
             height: "100vh",
-            backgroundColor: "#510808",
+            backgroundColor: selectedfirstColor,
             display: 'flex',
             flexDirection: 'column',
             color: 'white',
