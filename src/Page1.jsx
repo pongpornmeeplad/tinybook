@@ -36,7 +36,26 @@ function Page1({ inputValues, setInputValues }) {
     const handleNextClick = () => {
         navigate('/Page2', { state: { inputValues } });
     };
+    // Define the options with different colors
+    const options = [
+        { value: 'ทบ.', label: 'ทบ.', color: 'green' },
+        { value: 'ทร.', label: 'ทร.', color: 'blue' },
+        { value: 'ทอ.', label: 'ทอ.', color: 'lightblue' },
+        { value: 'ตร.', label: 'ตร.', color: '#510808' } // original color
+    ];
 
+    // Custom styles for react-select
+    const customStyles = {
+        option: (provided, state) => ({
+            ...provided,
+            color: state.data.color, // Assign color based on the option's color field
+            padding: 10,
+        }),
+        singleValue: (provided, state) => ({
+            ...provided,
+            color: state.data.color, // Assign color for the selected option
+        }),
+    };
     return (
         <div style={{
             width: "100vw",
@@ -92,8 +111,8 @@ function Page1({ inputValues, setInputValues }) {
                 </div>
             ) : (
                 // Show the form with fade-in effect
-                <>     
-            
+                <>
+
 
                     <div style={{
                         marginLeft: "3rem",
@@ -152,25 +171,20 @@ function Page1({ inputValues, setInputValues }) {
                     >
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                            <div>
+                        <div>
                                 <div style={{
                                     color: "#510808",
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem",
                                 }}>เหล่า</div>
                                 <Select
-                                    style={{ width: "100%" }}
-                                    variant='filled'
-                                    size='large'
+                                    styles={customStyles}
+                                    options={options}
+                                    value={options.find(opt => opt.value === inputValues.Service)}
+                                    onChange={(selectedOption) =>
+                                        setInputValues({ ...inputValues, Service: selectedOption.value })
+                                    }
                                     placeholder='เลือกเหล่า'
-                                    value={inputValues.Service}
-                                    onChange={(value) => setInputValues({ ...inputValues, Service: value })}
-                                    options={[
-                                        { value: 'ทบ.', label: 'ทบ.' },
-                                        { value: 'ทร.', label: 'ทร.' },
-                                        { value: 'ทอ.', label: 'ทอ.' },
-                                        { value: 'ตร.', label: 'ตร.' },
-                                    ]}
                                 />
                             </div>
 
@@ -241,8 +255,8 @@ function Page1({ inputValues, setInputValues }) {
                             marginTop: "20px",
                             borderRadius: "30px",
                             width: "100%",
-                            display:'flex',
-                            justifyContent:'center'
+                            display: 'flex',
+                            justifyContent: 'center'
                         }}>
                             <button style={{
                                 color: "#ffffff",
