@@ -32,8 +32,8 @@ const thirdColors = {
 };
 
 function Profile() {
-    
-    
+
+
     const { id } = useParams();
     const [user, setUser] = useState(null);
     const [showEditButton, setShowEditButton] = useState(false);
@@ -51,7 +51,7 @@ function Profile() {
         Position: ''
     });
     // Set the background color dynamically based on the selected Service
-   
+
     const selectedService = formData.Service || 'ทบ.'; // Default to 'ทบ.' if not set
     const selectedFirstColor = firstColors[formData.Service] || firstColors['ทบ.'];
     const selectedSecColor = secColors[formData.Service] || secColors['ทบ.'];
@@ -303,7 +303,7 @@ function Profile() {
                             name="Nickname"
                             value={formData.Nickname}
                             onChange={handleChange}
-                            style={inputStyle} 
+                            style={inputStyle}
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Nickname || '-'}</div>
@@ -311,7 +311,15 @@ function Profile() {
                 </div>
 
                 {/* Tel Field */}
-                <div style={fieldContainerStyle} >
+                <div style={{
+                    backgroundColor: selectedSecColor,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: "5px 15px",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    alignItems: "center"
+                }} >
                     <div style={labelContainerStyle}>
                         <BsTelephone size={20} />
                         <span>เบอร์โทร</span>
@@ -321,7 +329,7 @@ function Profile() {
                             name="Tel"
                             value={formData.Tel}
                             onChange={handleChange}
-                            style={inputStyle} 
+                            style={inputStyle}
                             type="number"
                         />
                     ) : (
@@ -358,7 +366,7 @@ function Profile() {
                             name="Workplace"
                             value={formData.Workplace}
                             onChange={handleChange}
-                            style={inputStyle} 
+                            style={inputStyle}
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Workplace || '-'}</div>
@@ -394,7 +402,7 @@ function Profile() {
                             name="Business"
                             value={formData.Business}
                             onChange={handleChange}
-                            style={inputStyle} 
+                            style={inputStyle}
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Business || '-'}</div>
@@ -412,7 +420,7 @@ function Profile() {
                             name="Detail"
                             value={formData.Detail}
                             onChange={handleChange}
-                            style={inputStyle} 
+                            style={inputStyle}
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Detail || '-'}</div>
@@ -425,7 +433,7 @@ function Profile() {
 
 /* Styles */
 const fieldContainerStyle = {
-    backgroundColor:'#831818',
+    backgroundColor: '#831818',
     display: "flex",
     justifyContent: "space-between",
     margin: "5px 15px",
@@ -441,7 +449,7 @@ const labelContainerStyle = {
 };
 
 const inputStyle = {
-    backgroundColor:'#bb6969',
+    backgroundColor: '#bb6969',
     border: 'none',
     width: '50%',
     fontSize: '1rem',
@@ -457,7 +465,7 @@ const buttonContainerStyle = {
 };
 
 const buttonStyle = {
-    backgroundColor:'#bb6969',
+    backgroundColor: '#bb6969',
     color: 'white',
     borderRadius: '5px',
     padding: '5px 10px',
