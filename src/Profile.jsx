@@ -32,8 +32,8 @@ const thirdColors = {
 };
 
 function Profile() {
-    const location = useLocation(); // Get the location object
-    const { Service } = location.state || {}; // Retrieve Service
+    
+    
     const { id } = useParams();
     const [user, setUser] = useState(null);
     const [showEditButton, setShowEditButton] = useState(false);
@@ -51,16 +51,11 @@ function Profile() {
         Position: ''
     });
     // Set the background color dynamically based on the selected Service
-    const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
-
-
-    // Set the background color dynamically based on the selected Service
-    const selectedsecColor = secColors[Service] || "#831818"; // Default color
-
-
-
-    // Set the background color dynamically based on the selected Service
-    const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default
+   
+    const selectedService = formData.Service || 'ทบ.'; // Default to 'ทบ.' if not set
+    const selectedFirstColor = firstColors[selectedService];
+    const selectedSecColor = secColors[selectedService];
+    const selectedThirdColor = thirdColors[selectedService];
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -134,7 +129,7 @@ function Profile() {
                 justifyContent: "center",
                 alignItems: "center",
                 color: "white",
-                backgroundColor: selectedfirstColor,
+                backgroundColor: firstColors,
                 fontFamily: "'Kanit', sans-serif",
                 fontSize: "1.5rem"
             }}>
@@ -147,7 +142,7 @@ function Profile() {
         <div style={{
             width: "100vw",
             height: "100vh",
-            backgroundColor: selectedfirstColor,
+            backgroundColor: firstColors,
             display: 'flex',
             flexDirection: 'column',
             color: 'white',
@@ -327,6 +322,7 @@ function Profile() {
                             value={formData.Tel}
                             onChange={handleChange}
                             style={inputStyle}
+                            type="number"
                         />
                     ) : (
                         <div style={{ color: "#dd7a7a" }}>{user.Tel || '-'}</div>
