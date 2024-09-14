@@ -16,7 +16,7 @@ const firstColors = {
 };
 
 // Set the background color dynamically based on the selected Service
-const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; // Default color
+const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
 
 const secColors = {
     'ทบ.': '#1ed11e',
@@ -26,7 +26,7 @@ const secColors = {
 };
 
 // Set the background color dynamically based on the selected Service
-const selectedsecColor = secColors[inputValues.Service] || "#831818"; // Default color
+const selectedsecColor = secColors[Service] || "#831818"; // Default color
 
 const thirdColors = {
     'ทบ.': '#23f123',
@@ -36,7 +36,7 @@ const thirdColors = {
 };
 
 // Set the background color dynamically based on the selected Service
-const selectedthirdColor = thirdColors[inputValues.Service] || "#bb6969"; // Default co
+const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default co
 function Profile() {
     const location = useLocation(); // Get the location object
     const { Service } = location.state || {}; // Retrieve Service from location stat
