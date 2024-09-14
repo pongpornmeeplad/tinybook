@@ -37,16 +37,24 @@ function Page1({ inputValues, setInputValues }) {
         navigate('/Page2' , { state: { inputValues } });
     };
     const firstColors = {
-        'ทบ.': 'green',
-        'ทร.': 'blue',
-        'ทอ.': 'lightblue',
+        'ทบ.': '#008000',
+        'ทร.': '#003aff',
+        'ทอ.': '#00c5ff',
         'ตร.': '#510808'
     };
 
     // Set the background color dynamically based on the selected Service
     const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; // Default color
 
-    
+    const secColors = {
+        'ทบ.': '#1ed11e',
+        'ทร.': '#0093ff',
+        'ทอ.': '#00ecff',
+        'ตร.': '#831818'
+    };
+
+    // Set the background color dynamically based on the selected Service
+    const selectedsecColor = secColors[inputValues.Service] || "#831818"; // Default color
 
     return (
         <div style={{
