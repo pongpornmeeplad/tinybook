@@ -2,35 +2,48 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaRegCircleCheck } from "react-icons/fa6";
 
+
+
+const firstColors = {
+    'ทบ.': 'green',
+    'ทร.': 'blue',
+    'ทอ.': 'lightblue',
+    'ตร.': '#510808' // Fallback color
+};
+
 function Registerpage() {
     const navigate = useNavigate();
     const handleNextClick = () => {
         navigate('/album');
     };
 
+    const { Service } = location.state || {}; // Retrieve Service from location state
+
+    // Set the background color dynamically based on the selected Service
+    const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
 
     return (
-       
+
         <div
             style={{
                 width: "100vw",
                 height: "100vh",
-                backgroundColor: "#510808",
+                backgroundColor: selectedfirstColor,
                 display: 'flex',
                 flexDirection: 'column',
                 color: 'white',
                 overflow: 'hidden',
                 position: 'relative',
                 justifyContent: "space-between",
-                alignItems:"center",
+                alignItems: "center",
                 fontFamily: "'Kanit', sans-serif",
             }}>
             <div
-             style={{
-                fontSize:"2rem",
-                marginTop:"3rem",
-                fontFamily: "'Kanit', sans-serif",
-             }}>ลงทะเบียนเรียบร้อย</div>
+                style={{
+                    fontSize: "2rem",
+                    marginTop: "3rem",
+                    fontFamily: "'Kanit', sans-serif",
+                }}>ลงทะเบียนเรียบร้อย</div>
             <div>
                 <FaRegCircleCheck style={{
                     fontSize: "200px",
@@ -38,11 +51,11 @@ function Registerpage() {
             </div>
             <div>
                 <button style={{
-                    marginBottom:"3rem",
+                    marginBottom: "3rem",
                     backgroundColor: "#ffffff",
                     borderRadius: "30px",
                     width: "15rem",
-                    color:"#510808"
+                    color: selectedfirstColor,
                 }} onClick={handleNextClick}>ปิด</button>
             </div>
         </div>
