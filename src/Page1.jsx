@@ -241,11 +241,12 @@ function Page1({ inputValues, setInputValues }) {
                                 }}>เบอร์โทร</div>
                                 <Input
                                     variant='filled'
-                                    type='number'
+                                    type='tel'
                                     placeholder='0957777777'
                                     value={inputValues.Tel}
                                     onChange={(e) => handleInputChange(e, 'Tel')}
                                     size='large'
+                                    
                                 />
                             </div>
 
