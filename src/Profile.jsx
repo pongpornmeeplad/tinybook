@@ -380,7 +380,7 @@ function Profile() {
                                 outline: 'none',
                                 font: 'inherit'
                             }}
-                            type="tel"
+                            type="number"
                         />
                     ) : (
                         <div >{user.Tel || '-'}</div>

@@ -241,7 +241,7 @@ function Page1({ inputValues, setInputValues }) {
                                 }}>เบอร์โทร</div>
                                 <Input
                                     variant='filled'
-                                    type='tel'
+                                    type='number'
                                     placeholder='0957777777'
                                     value={inputValues.Tel}
                                     onChange={(e) => handleInputChange(e, 'Tel')}
