@@ -22,7 +22,7 @@ const secColors = {
 };
 
 const thirdColors = {
-  'ทบ.': '#FF0000',
+  'ทบ.': '#FFA07A',
   'ทร.': '#00c5ff',
   'ทอ.': '#48fff6',
   'ตร.': '#bb6969'
