@@ -22,7 +22,7 @@ const db = getFirestore(app);
 const { TextArea } = Input;
 
 const firstColors = {
-    'ทบ.': '#008000',
+    'ทบ.': '#8B0000',
     'ทร.': '#003aff',
     'ทอ.': '#00c5ff',
     'ตร.': '#510808'

@@ -37,7 +37,7 @@ function Page1({ inputValues, setInputValues }) {
         navigate('/Page2' , { state: { inputValues } });
     };
     const firstColors = {
-        'ทบ.': '#008000',
+        'ทบ.': '#8B0000',
         'ทร.': '#003aff',
         'ทอ.': '#00c5ff',
         'ตร.': '#510808'
@@ -47,7 +47,7 @@ function Page1({ inputValues, setInputValues }) {
     const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; // Default color
 
     const secColors = {
-        'ทบ.': '#1ed11e',
+        'ทบ.': '#FF0000',
         'ทร.': '#0093ff',
         'ทอ.': '#00ecff',
         'ตร.': '#831818'
@@ -57,7 +57,7 @@ function Page1({ inputValues, setInputValues }) {
     const selectedsecColor = secColors[inputValues.Service] || "#831818"; // Default color
 
     const thirdColors = {
-        'ทบ.': '#23f123',
+        'ทบ.': '#FFA07A',
         'ทร.': '#00c5ff',
         'ทอ.': '#48fff6',
         'ตร.': '#bb6969'

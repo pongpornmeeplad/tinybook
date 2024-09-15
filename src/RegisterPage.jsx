@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { FaRegCircleCheck } from "react-icons/fa6";
 
 const firstColors = {
-    'ทบ.': '#008000',
+    'ทบ.': '#8B0000',
     'ทร.': '#003aff',
     'ทอ.': '#00c5ff',
     'ตร.': '#510808'

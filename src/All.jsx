@@ -6,21 +6,21 @@ import { getDocs, collection } from 'firebase/firestore';
 import { db } from './Firebase';
 
 const firstColors = {
-    'ทบ.': '#008000',
+    'ทบ.': '#8B0000',
     'ทร.': '#003aff',
     'ทอ.': '#00c5ff',
     'ตร.': '#510808'
   };
   
   const secColors = {
-    'ทบ.': '#1ed11e',
+    'ทบ.': '#FF0000',
     'ทร.': '#0093ff',
     'ทอ.': '#00ecff',
     'ตร.': '#831818'
   };
   
   const thirdColors = {
-    'ทบ.': '#23f123',
+    'ทบ.': '#FFA07A',
     'ทร.': '#00c5ff',
     'ทอ.': '#48fff6',
     'ตร.': '#bb6969'
