@@ -17,7 +17,7 @@ const firstColors = {
 };
 
 const secColors = {
-    'ทบ.': '#1ed11e',
+    'ทบ.': '#FF0000',
     'ทร.': '#0093ff',
     'ทอ.': '#00ecff',
     'ตร.': '#831818'
@@ -26,7 +26,7 @@ const secColors = {
 
 
 const thirdColors = {
-    'ทบ.': '#23f123',
+    'ทบ.': '#FFA07A',
     'ทร.': '#00c5ff',
     'ทอ.': '#48fff6',
     'ตร.': '#bb6969'
@@ -203,7 +203,7 @@ function Profile() {
                             }}>
                                 <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
                                     {!isEditing && <RiEdit2Line selectedthirdColor size={20} />}
-                                    <span style={{ color: "#BB6969" }}>
+                                    <span style={{ color: selectedThirdColor }}>
                                         {isEditing ? 'ยกเลิก' : 'แก้ไข'}
                                     </span>
                                     {isEditing && (
@@ -332,7 +332,7 @@ function Profile() {
                         <CiFaceSmile size={20} />
                         <span>ชื่อเล่น</span>
                     </div>
-                    {isEditing ? (
+                   {isEditing ? (
                         <input
 
                             name="Nickname"
