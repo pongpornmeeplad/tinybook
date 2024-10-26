@@ -2,20 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Select } from 'antd';
 import bgImage from './assets/afaps48-bg.png';
+
 const { TextArea } = Input;
+
+const provinces = [
+    'กรุงเทพมหานคร', 'กระบี่', 'กาญจนบุรี', 'กาฬสินธุ์', 'กำแพงเพชร', 'ขอนแก่น', 
+    'จันทบุรี', 'ฉะเชิงเทรา', 'ชลบุรี', 'ชัยนาท', 'ชัยภูมิ', 'ชุมพร', 'เชียงราย', 
+    'เชียงใหม่', 'ตรัง', 'ตราด', 'ตาก', 'นครนายก', 'นครปฐม', 'นครพนม', 'นครราชสีมา', 
+    'นครศรีธรรมราช', 'นครสวรรค์', 'นนทบุรี', 'นราธิวาส', 'น่าน', 'บึงกาฬ', 'บุรีรัมย์', 
+    'ปทุมธานี', 'ประจวบคีรีขันธ์', 'ปราจีนบุรี', 'ปัตตานี', 'พระนครศรีอยุธยา', 'พังงา', 
+    'พัทลุง', 'พิจิตร', 'พิษณุโลก', 'เพชรบุรี', 'เพชรบูรณ์', 'แพร่', 'ภูเก็ต', 'มหาสารคาม', 
+    'มุกดาหาร', 'แม่ฮ่องสอน', 'ยโสธร', 'ยะลา', 'ร้อยเอ็ด', 'ระนอง', 'ระยอง', 'ราชบุรี', 
+    'ลพบุรี', 'ลำปาง', 'ลำพูน', 'เลย', 'ศรีสะเกษ', 'สกลนคร', 'สงขลา', 'สตูล', 
+    'สมุทรปราการ', 'สมุทรสงคราม', 'สมุทรสาคร', 'สระบุรี', 'สระแก้ว', 'สิงห์บุรี', 
+    'สุโขทัย', 'สุพรรณบุรี', 'สุราษฎร์ธานี', 'สุรินทร์', 'หนองคาย', 'หนองบัวลำภู', 
+    'อ่างทอง', 'อุดรธานี', 'อุตรดิตถ์', 'อุทัยธานี', 'อุบลราชธานี', 'อำนาจเจริญ'
+];
 
 function Page1({ inputValues, setInputValues }) {
     const navigate = useNavigate();
-    const [showWelcome, setShowWelcome] = useState(true); // State to control welcome message visibility
-    const [fadeOut, setFadeOut] = useState(false); // State to handle fade out effect
+    const [showWelcome, setShowWelcome] = useState(true); 
+    const [fadeOut, setFadeOut] = useState(false); 
 
     useEffect(() => {
-        // Set a timer to start fading out the welcome message after 8 seconds
         const fadeOutTimer = setTimeout(() => {
             setFadeOut(true);
         }, 1000);
 
-        // Set a timer to hide the welcome message completely after 10 seconds
         const hideMessageTimer = setTimeout(() => {
             setShowWelcome(false);
         }, 1000);
@@ -36,6 +49,7 @@ function Page1({ inputValues, setInputValues }) {
     const handleNextClick = () => {
         navigate('/Page2' , { state: { inputValues } });
     };
+
     const firstColors = {
         'ทบ.': '#8B0000',
         'ทร.': '#003aff',
@@ -43,28 +57,7 @@ function Page1({ inputValues, setInputValues }) {
         'ตร.': '#510808'
     };
 
-    // Set the background color dynamically based on the selected Service
-    const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; // Default color
-
-    const secColors = {
-        'ทบ.': '#FF0000',
-        'ทร.': '#0093ff',
-        'ทอ.': '#00ecff',
-        'ตร.': '#831818'
-    };
-
-    // Set the background color dynamically based on the selected Service
-    const selectedsecColor = secColors[inputValues.Service] || "#831818"; // Default color
-
-    const thirdColors = {
-        'ทบ.': '#FFA07A',
-        'ทร.': '#00c5ff',
-        'ทอ.': '#48fff6',
-        'ตร.': '#bb6969'
-    };
-
-    // Set the background color dynamically based on the selected Service
-    const selectedthirdColor = thirdColors[inputValues.Service] || "#bb6969"; // Default color
+    const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; 
 
     return (
         <div style={{
@@ -78,7 +71,7 @@ function Page1({ inputValues, setInputValues }) {
             color: 'white',
             fontFamily: "'Kanit', sans-serif",
             position: 'relative',
-            justifyContent: "flex-end", // Aligns the text at the bottom
+            justifyContent: "flex-end",
             gap: "0.5rem",
             alignItems: "center",
             overflow: "hidden",
@@ -95,16 +88,15 @@ function Page1({ inputValues, setInputValues }) {
             }} />
 
             {showWelcome ? (
-                // Show welcome message with fade-out effect
                 <div
                     style={{
                         zIndex: 1,
                         color: '#FFFFFF',
                         fontSize: '1.5rem',
                         textAlign: 'center',
-                        marginBottom: '20vh', // Space from the bottom
-                        opacity: fadeOut ? 0 : 1, // Fade out effect
-                        transition: 'opacity 2s ease', // Smooth transition effect
+                        marginBottom: '20vh',
+                        opacity: fadeOut ? 0 : 1,
+                        transition: 'opacity 2s ease',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'start',
@@ -117,13 +109,9 @@ function Page1({ inputValues, setInputValues }) {
                 >
                     <p style={{ textAlign: 'start', padding: 0, margin: 0 }}>สายสัมพันธ์...</p>
                     <p style={{ alignSelf: 'end', padding: 0, margin: 0 }}>ไม่มีวันเปลี่ยนแปลง</p>
-
                 </div>
             ) : (
-                // Show the form with fade-in effect
-                <>     
-            
-
+                <>
                     <div style={{
                         marginLeft: "3rem",
                         justifyContent: "left",
@@ -136,8 +124,7 @@ function Page1({ inputValues, setInputValues }) {
                         width: "100%",
                         marginBottom: "10px",
                         zIndex: 1,
-                        animation: 'fadeIn 2s forwards', // Fade-in animation
-
+                        animation: 'fadeIn 2s forwards',
                     }}>
                         กรอกข้อมูล
 
@@ -175,8 +162,8 @@ function Page1({ inputValues, setInputValues }) {
                             paddingTop: "40px",
                             paddingBottom: "70px",
                             zIndex: 1,
-                            opacity: 0, // Initial state for fade-in effect
-                            animation: 'fadeIn 2s forwards', // Fade-in animation
+                            opacity: 0,
+                            animation: 'fadeIn 2s forwards',
                         }}
                     >
 
@@ -256,13 +243,19 @@ function Page1({ inputValues, setInputValues }) {
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>ที่อยู่</div>
-                                <TextArea
-                                    variant='filled'
-                                    placeholder='บ้านเลขที่ ....'
+                                <Select
+                                    placeholder='เลือกจังหวัด'
+                                    style={{ width: '100%' }}
                                     value={inputValues.Address}
-                                    onChange={(e) => handleInputChange(e, 'Address')}
+                                    onChange={(value) => setInputValues({ ...inputValues, Address: value })}
                                     size='large'
-                                />
+                                >
+                                    {provinces.map(province => (
+                                        <Select.Option key={province} value={province}>
+                                            {province}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </div>
                         </div>
 
@@ -285,7 +278,6 @@ function Page1({ inputValues, setInputValues }) {
                         </div>
                     </div>
                 </>
-
             )}
         </div>
     );
