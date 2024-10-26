@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Select, Radio } from 'antd';
+import MapPicker from 'react-google-map-picker';
 import bgImage from './assets/afaps48-bg.png';
 
 const { TextArea } = Input;
@@ -19,11 +20,16 @@ const provinces = [
     'อ่างทอง', 'อุดรธานี', 'อุตรดิตถ์', 'อุทัยธานี', 'อุบลราชธานี', 'อำนาจเจริญ'
 ];
 
+const DefaultLocation = { lat: 13.736717, lng: 100.523186 }; // Bangkok
+const DefaultZoom = 10;
+
 function Page1({ inputValues, setInputValues }) {
     const navigate = useNavigate();
     const [showWelcome, setShowWelcome] = useState(true); 
     const [fadeOut, setFadeOut] = useState(false); 
     const [addressOption, setAddressOption] = useState('A'); // Track selected option
+    const [location, setLocation] = useState(DefaultLocation);
+    const [zoom, setZoom] = useState(DefaultZoom);
 
     useEffect(() => {
         const fadeOutTimer = setTimeout(() => {
@@ -47,8 +53,17 @@ function Page1({ inputValues, setInputValues }) {
         });
     };
 
+    const handleChangeLocation = (lat, lng) => {
+        setLocation({ lat, lng });
+        setInputValues({ ...inputValues, Address: `${lat}, ${lng}` });
+    };
+
+    const handleChangeZoom = (newZoom) => {
+        setZoom(newZoom);
+    };
+
     const handleNextClick = () => {
-        navigate('/Page2' , { state: { inputValues } });
+        navigate('/Page2', { state: { inputValues } });
     };
 
     const firstColors = {
@@ -105,7 +120,6 @@ function Page1({ inputValues, setInputValues }) {
                         width: '300px',
                         padding: '20px',
                         gap: '30px',
-
                     }}
                 >
                     <p style={{ textAlign: 'start', padding: 0, margin: 0 }}>สายสัมพันธ์...</p>
@@ -266,23 +280,15 @@ function Page1({ inputValues, setInputValues }) {
                                         ))}
                                     </Select>
                                 ) : (
-                                    <button
-                                        style={{
-                                            width: '100%',
-                                            padding: '10px',
-                                            fontSize: '1rem',
-                                            textAlign: 'center',
-                                            backgroundColor: '#f0f0f0',
-                                            border: '1px solid #d9d9d9',
-                                            borderRadius: '4px'
-                                        }}
-                                        onClick={() => {
-                                            // Add functionality to open Google Maps or location picker
-                                            alert('Open Google Maps location picker');
-                                        }}
-                                    >
-                                        เลือกสถานที่จาก Google Map
-                                    </button>
+                                    <MapPicker 
+                                        defaultLocation={DefaultLocation}
+                                        zoom={zoom}
+                                        mapTypeId="roadmap"
+                                        style={{ height: '400px', width: '100%', marginTop: '20px' }}
+                                        onChangeLocation={handleChangeLocation} 
+                                        onChangeZoom={handleChangeZoom}
+                                        apiKey='YOUR_GOOGLE_MAPS_API_KEY'
+                                    />
                                 )}
                             </div>
                         </div>
