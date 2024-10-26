@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Select } from 'antd';
+import { Input, Select, Radio } from 'antd';
 import bgImage from './assets/afaps48-bg.png';
 
 const { TextArea } = Input;
@@ -23,6 +23,7 @@ function Page1({ inputValues, setInputValues }) {
     const navigate = useNavigate();
     const [showWelcome, setShowWelcome] = useState(true); 
     const [fadeOut, setFadeOut] = useState(false); 
+    const [addressOption, setAddressOption] = useState('A'); // Track selected option
 
     useEffect(() => {
         const fadeOutTimer = setTimeout(() => {
@@ -233,7 +234,6 @@ function Page1({ inputValues, setInputValues }) {
                                     value={inputValues.Tel}
                                     onChange={(e) => handleInputChange(e, 'Tel')}
                                     size='large'
-                                    
                                 />
                             </div>
 
@@ -243,19 +243,47 @@ function Page1({ inputValues, setInputValues }) {
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>ที่อยู่</div>
-                                <Select
-                                    placeholder='เลือกจังหวัด'
-                                    style={{ width: '100%' }}
-                                    value={inputValues.Address}
-                                    onChange={(value) => setInputValues({ ...inputValues, Address: value })}
-                                    size='large'
+                                <Radio.Group
+                                    onChange={(e) => setAddressOption(e.target.value)}
+                                    value={addressOption}
+                                    style={{ marginBottom: '0.5rem' }}
                                 >
-                                    {provinces.map(province => (
-                                        <Select.Option key={province} value={province}>
-                                            {province}
-                                        </Select.Option>
-                                    ))}
-                                </Select>
+                                    <Radio value="A">Option A</Radio>
+                                    <Radio value="B">Option B</Radio>
+                                </Radio.Group>
+                                {addressOption === 'A' ? (
+                                    <Select
+                                        placeholder='เลือกจังหวัด'
+                                        style={{ width: '100%' }}
+                                        value={inputValues.Address}
+                                        onChange={(value) => setInputValues({ ...inputValues, Address: value })}
+                                        size='large'
+                                    >
+                                        {provinces.map(province => (
+                                            <Select.Option key={province} value={province}>
+                                                {province}
+                                            </Select.Option>
+                                        ))}
+                                    </Select>
+                                ) : (
+                                    <button
+                                        style={{
+                                            width: '100%',
+                                            padding: '10px',
+                                            fontSize: '1rem',
+                                            textAlign: 'center',
+                                            backgroundColor: '#f0f0f0',
+                                            border: '1px solid #d9d9d9',
+                                            borderRadius: '4px'
+                                        }}
+                                        onClick={() => {
+                                            // Add functionality to open Google Maps or location picker
+                                            alert('Open Google Maps location picker');
+                                        }}
+                                    >
+                                        เลือกสถานที่จาก Google Map
+                                    </button>
+                                )}
                             </div>
                         </div>
 
