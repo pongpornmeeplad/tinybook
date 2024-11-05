@@ -287,7 +287,7 @@ function Page1({ inputValues, setInputValues }) {
                                         style={{ height: '400px', width: '100%', marginTop: '20px' }}
                                         onChangeLocation={handleChangeLocation} 
                                         onChangeZoom={handleChangeZoom}
-                                        apiKey='YOUR_GOOGLE_MAPS_API_KEY'
+                                        apiKey='AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y'
                                     />
                                 )}
                             </div>
