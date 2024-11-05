@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Select, Radio } from 'antd';
 import MapPicker from 'react-google-map-picker';
+import { LoadScript, StandaloneSearchBox } from '@react-google-maps/api';
 import bgImage from './assets/afaps48-bg.png';
 
 const { TextArea } = Input;
@@ -27,18 +28,14 @@ function Page1({ inputValues, setInputValues }) {
     const navigate = useNavigate();
     const [showWelcome, setShowWelcome] = useState(true); 
     const [fadeOut, setFadeOut] = useState(false); 
-    const [addressOption, setAddressOption] = useState('A'); // Track selected option
+    const [addressOption, setAddressOption] = useState('A'); 
     const [location, setLocation] = useState(DefaultLocation);
     const [zoom, setZoom] = useState(DefaultZoom);
+    const searchBoxRef = useRef(null);
 
     useEffect(() => {
-        const fadeOutTimer = setTimeout(() => {
-            setFadeOut(true);
-        }, 1000);
-
-        const hideMessageTimer = setTimeout(() => {
-            setShowWelcome(false);
-        }, 1000);
+        const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
+        const hideMessageTimer = setTimeout(() => setShowWelcome(false), 1000);
 
         return () => {
             clearTimeout(fadeOutTimer);
@@ -64,6 +61,17 @@ function Page1({ inputValues, setInputValues }) {
 
     const handleNextClick = () => {
         navigate('/Page2', { state: { inputValues } });
+    };
+
+    const handlePlacesChanged = () => {
+        const places = searchBoxRef.current.getPlaces();
+        if (places && places.length > 0) {
+            const location = places[0].geometry.location;
+            const lat = location.lat();
+            const lng = location.lng();
+            handleChangeLocation(lat, lng);
+            setZoom(15);
+        }
     };
 
     const firstColors = {
@@ -102,6 +110,27 @@ function Page1({ inputValues, setInputValues }) {
                 opacity: 0.8,
                 zIndex: 0
             }} />
+             <LoadScript googleMapsApiKey="AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y" libraries={['places']}>
+                {addressOption === 'B' && (
+                    <>
+                        <StandaloneSearchBox
+                            onLoad={ref => searchBoxRef.current = ref}
+                            onPlacesChanged={handlePlacesChanged}
+                        >
+                            <Input placeholder="ค้นหาสถานที่" style={{ width: '100%', marginBottom: '10px' }} />
+                        </StandaloneSearchBox>
+                        <MapPicker
+                            defaultLocation={DefaultLocation}
+                            zoom={zoom}
+                            mapTypeId="roadmap"
+                            style={{ height: '400px', width: '100%', marginTop: '20px' }}
+                            onChangeLocation={handleChangeLocation}
+                            onChangeZoom={handleChangeZoom}
+                            apiKey="AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y"
+                        />
+                    </>
+                )}
+            </LoadScript>
 
             {showWelcome ? (
                 <div
