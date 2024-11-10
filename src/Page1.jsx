@@ -28,20 +28,14 @@ function Page1({ inputValues, setInputValues }) {
     const navigate = useNavigate();
     const [showWelcome, setShowWelcome] = useState(true); 
     const [fadeOut, setFadeOut] = useState(false); 
-    const [addressOption, setAddressOption] = useState('A'); // Track selected option
+    const [addressOption, setAddressOption] = useState('A'); 
     const [location, setLocation] = useState(DefaultLocation);
     const [zoom, setZoom] = useState(DefaultZoom);
-    const mapRef = useRef(null); // Reference to map for setting place from search
+    const mapRef = useRef(null); 
 
     useEffect(() => {
-        const fadeOutTimer = setTimeout(() => {
-            setFadeOut(true);
-        }, 1000);
-
-        const hideMessageTimer = setTimeout(() => {
-            setShowWelcome(false);
-        }, 1000);
-
+        const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
+        const hideMessageTimer = setTimeout(() => setShowWelcome(false), 1000);
         return () => {
             clearTimeout(fadeOutTimer);
             clearTimeout(hideMessageTimer);
@@ -60,13 +54,9 @@ function Page1({ inputValues, setInputValues }) {
         setInputValues({ ...inputValues, Address: `${lat}, ${lng}` });
     };
 
-    const handleChangeZoom = (newZoom) => {
-        setZoom(newZoom);
-    };
+    const handleChangeZoom = (newZoom) => setZoom(newZoom);
 
-    const handleNextClick = () => {
-        navigate('/Page2', { state: { inputValues } });
-    };
+    const handleNextClick = () => navigate('/Page2', { state: { inputValues } });
 
     const firstColors = {
         'ทบ.': '#8B0000',
@@ -77,13 +67,13 @@ function Page1({ inputValues, setInputValues }) {
 
     const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; 
 
-    // Function to initialize Google Places Autocomplete
     const initializeAutocomplete = () => {
         if (window.google && window.google.maps && window.google.maps.places) {
             const autocomplete = new window.google.maps.places.Autocomplete(
-                mapRef.current,
+                mapRef.current.input, 
                 { types: ['geocode'] }
             );
+
             autocomplete.addListener("place_changed", () => {
                 const place = autocomplete.getPlace();
                 if (place.geometry) {
@@ -94,10 +84,7 @@ function Page1({ inputValues, setInputValues }) {
         }
     };
 
-    useEffect(() => {
-        initializeAutocomplete();
-    }, []);
-
+    useEffect(() => initializeAutocomplete(), []);
     return (
         <div style={{
             width: "100vw",
