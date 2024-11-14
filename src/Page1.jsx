@@ -23,7 +23,6 @@ function Page1({ inputValues, setInputValues }) {
     const [location, setLocation] = useState(DefaultLocation);
     const [zoom, setZoom] = useState(DefaultZoom);
     const mapRef = useRef(null); 
-    const autocompleteRef = useRef(null);
 
     useEffect(() => {
         const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
@@ -59,16 +58,16 @@ function Page1({ inputValues, setInputValues }) {
 
     const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; 
 
-    // Initialize Autocomplete for Search component
+    // ฟังก์ชันเริ่มต้น Autocomplete
     const initializeAutocomplete = () => {
         if (window.google && window.google.maps && window.google.maps.places) {
-            autocompleteRef.current = new window.google.maps.places.Autocomplete(
+            const autocomplete = new window.google.maps.places.Autocomplete(
                 mapRef.current.input,
                 { types: ['geocode'] }
             );
 
-            autocompleteRef.current.addListener("place_changed", () => {
-                const place = autocompleteRef.current.getPlace();
+            autocomplete.addListener("place_changed", () => {
+                const place = autocomplete.getPlace();
                 if (place.geometry) {
                     const { lat, lng } = place.geometry.location;
                     handleChangeLocation(lat(), lng());
@@ -96,24 +95,36 @@ function Page1({ inputValues, setInputValues }) {
             alignItems: "center",
             overflow: "hidden",
         }}>
-            {/* Background and Welcome Section */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: selectedfirstColor,
+                opacity: 0.8,
+                zIndex: 0
+            }} />
+
             {showWelcome ? (
-                <div style={{
-                    zIndex: 1,
-                    color: '#FFFFFF',
-                    fontSize: '1.5rem',
-                    textAlign: 'center',
-                    marginBottom: '20vh',
-                    opacity: fadeOut ? 0 : 1,
-                    transition: 'opacity 2s ease',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'start',
-                    alignItems: 'start',
-                    width: '300px',
-                    padding: '20px',
-                    gap: '30px',
-                }}>
+                <div
+                    style={{
+                        zIndex: 1,
+                        color: '#FFFFFF',
+                        fontSize: '1.5rem',
+                        textAlign: 'center',
+                        marginBottom: '20vh',
+                        opacity: fadeOut ? 0 : 1,
+                        transition: 'opacity 2s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'start',
+                        alignItems: 'start',
+                        width: '300px',
+                        padding: '20px',
+                        gap: '30px',
+                    }}
+                >
                     <p style={{ textAlign: 'start', padding: 0, margin: 0 }}>สายสัมพันธ์...</p>
                     <p style={{ alignSelf: 'end', padding: 0, margin: 0 }}>ไม่มีวันเปลี่ยนแปลง</p>
                 </div>
@@ -134,6 +145,7 @@ function Page1({ inputValues, setInputValues }) {
                         animation: 'fadeIn 2s forwards',
                     }}>
                         กรอกข้อมูล
+
                         <div style={{
                             width: '35px',
                             height: '35px',
@@ -150,31 +162,36 @@ function Page1({ inputValues, setInputValues }) {
                             }}>1</span>
                         </div>
                     </div>
-                    <div style={{
-                        width: "100vw",
-                        height: "70vh",
-                        backgroundColor: "#ffffff",
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        color: 'white',
-                        overflow: 'scroll',
-                        position: 'relative',
-                        boxSizing: "border-box",
-                        padding: "20px",
-                        borderRadius: "30px 30px 0px 0px",
-                        maxWidth: "1000px",
-                        paddingTop: "40px",
-                        paddingBottom: "70px",
-                        zIndex: 1,
-                        opacity: 0,
-                        animation: 'fadeIn 2s forwards',
-                    }}>
+                    <div
+                        style={{
+                            width: "100vw",
+                            height: "70vh",
+                            backgroundColor: "#ffffff",
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            color: 'white',
+                            overflow: 'scroll',
+                            position: 'relative',
+                            boxSizing: "border-box",
+                            padding: "20px",
+                            borderRadius: "30px 30px 0px 0px",
+                            maxWidth: "1000px",
+                            paddingTop: "40px",
+                            paddingBottom: "70px",
+                            zIndex: 1,
+                            opacity: 0,
+                            animation: 'fadeIn 2s forwards',
+                        }}
+                    >
 
-                        {/* Form fields including MapPicker */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                             <div>
-                                <div style={{ color: selectedfirstColor, fontSize: "1.2rem", marginBottom: "0.2rem" }}>เหล่า</div>
+                                <div style={{
+                                    color: selectedfirstColor,
+                                    fontSize: "1.2rem",
+                                    marginBottom: "0.2rem",
+                                }}>เหล่า</div>
                                 <Select
                                     style={{ width: "100%" }}
                                     variant='filled'
@@ -191,9 +208,58 @@ function Page1({ inputValues, setInputValues }) {
                                 />
                             </div>
 
-                            {/* Other form fields */}
                             <div>
-                                <div style={{ color: selectedfirstColor, fontSize: "1.2rem", marginBottom: "0.2rem" }}>ที่อยู่</div>
+                                <div style={{
+                                    color: selectedfirstColor,
+                                    fontSize: "1.2rem",
+                                    marginBottom: "0.2rem"
+                                }}>คำนำหน้า ชื่อ สกุล</div>
+                                <Input
+                                    variant='filled'
+                                    placeholder='ร.ท.รักชาติ ยิ่งชีพ'
+                                    value={inputValues.Name}
+                                    onChange={(e) => handleInputChange(e, 'Name')}
+                                    size='large'
+                                />
+                            </div>
+
+                            <div>
+                                <div style={{
+                                    color: selectedfirstColor,
+                                    fontSize: "1.2rem",
+                                    marginBottom: "0.2rem"
+                                }}>ชื่อเล่น/ฉายา</div>
+                                <Input
+                                    variant='filled'
+                                    placeholder='ปาล์ม'
+                                    value={inputValues.Nickname}
+                                    onChange={(e) => handleInputChange(e, 'Nickname')}
+                                    size='large'
+                                />
+                            </div>
+
+                            <div>
+                                <div style={{
+                                    color: selectedfirstColor,
+                                    fontSize: "1.2rem",
+                                    marginBottom: "0.2rem"
+                                }}>เบอร์โทร</div>
+                                <Input
+                                    variant='filled'
+                                    type='number'
+                                    placeholder='0957777777'
+                                    value={inputValues.Tel}
+                                    onChange={(e) => handleInputChange(e, 'Tel')}
+                                    size='large'
+                                />
+                            </div>
+
+                            <div>
+                                <div style={{
+                                    color: selectedfirstColor,
+                                    fontSize: "1.2rem",
+                                    marginBottom: "0.2rem"
+                                }}>ที่อยู่</div>
                                 <Radio.Group
                                     onChange={(e) => setAddressOption(e.target.value)}
                                     value={addressOption}
@@ -232,14 +298,13 @@ function Page1({ inputValues, setInputValues }) {
                                             style={{ height: '400px', width: '100%' }}
                                             onChangeLocation={handleChangeLocation} 
                                             onChangeZoom={handleChangeZoom}
-                                            apiKey='YOUR_API_KEY'
+                                            apiKey='AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y'
                                         />
                                     </>
                                 )}
                             </div>
                         </div>
 
-                        {/* Next button */}
                         <div style={{
                             alignSelf: "center",
                             marginTop: "20px",
@@ -254,6 +319,7 @@ function Page1({ inputValues, setInputValues }) {
                                 borderRadius: "30px",
                                 width: "90%",
                                 alignSelf: "center",
+
                             }} onClick={handleNextClick}>ต่อไป</button>
                         </div>
                     </div>
