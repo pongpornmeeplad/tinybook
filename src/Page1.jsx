@@ -50,8 +50,9 @@ function Page1({ inputValues, setInputValues }) {
 
     const handleChangeLocation = (lat, lng) => {
         setLocation({ lat, lng });
-        setInputValues({ ...inputValues, Address: ${lat}, ${lng} });
+        setInputValues({ ...inputValues, Address: `${lat}, ${lng}` });
     };
+    
 
     const handleChangeZoom = (newZoom) => setZoom(newZoom);
 
