@@ -89,7 +89,7 @@ function Page1({ inputValues, setInputValues }) {
         <div style={{
             width: "100vw",
             height: "100vh",
-            backgroundImage: url(${bgImage}),
+            backgroundImage: `url(${bgImage})`, 
             backgroundSize: 'cover',
             backgroundPosition: '700px center',
             display: 'flex',
@@ -102,6 +102,7 @@ function Page1({ inputValues, setInputValues }) {
             alignItems: "center",
             overflow: "hidden",
         }}>
+        
             <div style={{
                 position: 'absolute',
                 top: 0,
