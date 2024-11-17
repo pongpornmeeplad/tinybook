@@ -1,4 +1,3 @@
-import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Select, Radio } from 'antd';
 import MapPicker from 'react-google-map-picker';
@@ -9,7 +8,16 @@ const { Search } = Input;
 
 const provinces = [
     'กรุงเทพมหานคร', 'กระบี่', 'กาญจนบุรี', 'กาฬสินธุ์', 'กำแพงเพชร', 'ขอนแก่น', 
-    // ... รายชื่อจังหวัดทั้งหมด
+    'จันทบุรี', 'ฉะเชิงเทรา', 'ชลบุรี', 'ชัยนาท', 'ชัยภูมิ', 'ชุมพร', 'เชียงราย', 
+    'เชียงใหม่', 'ตรัง', 'ตราด', 'ตาก', 'นครนายก', 'นครปฐม', 'นครพนม', 'นครราชสีมา', 
+    'นครศรีธรรมราช', 'นครสวรรค์', 'นนทบุรี', 'นราธิวาส', 'น่าน', 'บึงกาฬ', 'บุรีรัมย์', 
+    'ปทุมธานี', 'ประจวบคีรีขันธ์', 'ปราจีนบุรี', 'ปัตตานี', 'พระนครศรีอยุธยา', 'พังงา', 
+    'พัทลุง', 'พิจิตร', 'พิษณุโลก', 'เพชรบุรี', 'เพชรบูรณ์', 'แพร่', 'ภูเก็ต', 'มหาสารคาม', 
+    'มุกดาหาร', 'แม่ฮ่องสอน', 'ยโสธร', 'ยะลา', 'ร้อยเอ็ด', 'ระนอง', 'ระยอง', 'ราชบุรี', 
+    'ลพบุรี', 'ลำปาง', 'ลำพูน', 'เลย', 'ศรีสะเกษ', 'สกลนคร', 'สงขลา', 'สตูล', 
+    'สมุทรปราการ', 'สมุทรสงคราม', 'สมุทรสาคร', 'สระบุรี', 'สระแก้ว', 'สิงห์บุรี', 
+    'สุโขทัย', 'สุพรรณบุรี', 'สุราษฎร์ธานี', 'สุรินทร์', 'หนองคาย', 'หนองบัวลำภู', 
+    'อ่างทอง', 'อุดรธานี', 'อุตรดิตถ์', 'อุทัยธานี', 'อุบลราชธานี', 'อำนาจเจริญ'
 ];
 
 const DefaultLocation = { lat: 13.736717, lng: 100.523186 }; // Bangkok
@@ -45,7 +53,7 @@ function Page1({ inputValues, setInputValues }) {
         setInputValues({ ...inputValues, Address: ${lat}, ${lng} });
     };
 
-    
+    const handleChangeZoom = (newZoom) => setZoom(newZoom);
 
     const handleNextClick = () => navigate('/Page2', { state: { inputValues } });
 
@@ -58,11 +66,10 @@ function Page1({ inputValues, setInputValues }) {
 
     const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; 
 
-    // ฟังก์ชันเริ่มต้น Autocomplete
     const initializeAutocomplete = () => {
         if (window.google && window.google.maps && window.google.maps.places) {
             const autocomplete = new window.google.maps.places.Autocomplete(
-                mapRef.current.input,
+                mapRef.current.input, 
                 { types: ['geocode'] }
             );
 
@@ -77,7 +84,6 @@ function Page1({ inputValues, setInputValues }) {
     };
 
     useEffect(() => initializeAutocomplete(), []);
-
     return (
         <div style={{
             width: "100vw",
