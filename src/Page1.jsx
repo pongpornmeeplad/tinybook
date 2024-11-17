@@ -8,7 +8,7 @@ const { TextArea } = Input;
 const { Search } = Input;
 
 const provinces = [
-    'กรุงเทพมหานคร', 'กระบี่', 'กาญจนบุรี', 'กาฬสินธุ์', 'กำแพงเพชร', 'ขอนแก่น',
+    'กรุงเทพมหานคร', 'กระบี่', 'กาญจนบุรี', 'กาฬสินธุ์', 'กำแพงเพชร', 'ขอนแก่น', 
     // ... รายชื่อจังหวัดทั้งหมด
 ];
 
@@ -17,12 +17,12 @@ const DefaultZoom = 10;
 
 function Page1({ inputValues, setInputValues }) {
     const navigate = useNavigate();
-    const [showWelcome, setShowWelcome] = useState(true);
-    const [fadeOut, setFadeOut] = useState(false);
-    const [addressOption, setAddressOption] = useState('A');
+    const [showWelcome, setShowWelcome] = useState(true); 
+    const [fadeOut, setFadeOut] = useState(false); 
+    const [addressOption, setAddressOption] = useState('A'); 
     const [location, setLocation] = useState(DefaultLocation);
     const [zoom, setZoom] = useState(DefaultZoom);
-    const mapRef = useRef(null);
+    const mapRef = useRef(null); 
 
     useEffect(() => {
         const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
@@ -56,27 +56,25 @@ function Page1({ inputValues, setInputValues }) {
         'ตร.': '#510808'
     };
 
-    const selectedfirstColor = firstColors[inputValues.Service] || "#510808";
+    const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; 
 
-    // ฟังก์ชันเริ่มต้น Autocomplete
     // ฟังก์ชันเริ่มต้น Autocomplete
     const initializeAutocomplete = () => {
         if (window.google && window.google.maps && window.google.maps.places) {
             const autocomplete = new window.google.maps.places.Autocomplete(
-                mapRef.current.input, // ใช้ ref ที่ผูกกับ Search input
-                { types: ['geocode'] } // หรือ types: ['(cities)'] สำหรับค้นหาเฉพาะเมือง
+                mapRef.current.input,
+                { types: ['geocode'] }
             );
 
             autocomplete.addListener("place_changed", () => {
                 const place = autocomplete.getPlace();
                 if (place.geometry) {
                     const { lat, lng } = place.geometry.location;
-                    handleChangeLocation(lat(), lng()); // อัปเดตตำแหน่งแผนที่
+                    handleChangeLocation(lat(), lng());
                 }
             });
         }
     };
-
 
     useEffect(() => initializeAutocomplete(), []);
 
@@ -286,24 +284,19 @@ function Page1({ inputValues, setInputValues }) {
                                     </Select>
                                 ) : (
                                     <>
-                                        <Search
+                                        <Search 
+                                            ref={mapRef}
                                             placeholder="ค้นหาสถานที่..."
                                             enterButton="ค้นหา"
                                             size="large"
                                             style={{ marginBottom: "20px" }}
-                                            ref={(node) => {
-                                                if (node) {
-                                                    mapRef.current = node.input; 
-                                                }
-                                            }}
                                         />
-
-                                        <MapPicker
+                                        <MapPicker 
                                             defaultLocation={DefaultLocation}
                                             zoom={zoom}
                                             mapTypeId="roadmap"
                                             style={{ height: '400px', width: '100%' }}
-                                            onChangeLocation={handleChangeLocation}
+                                            onChangeLocation={handleChangeLocation} 
                                             onChangeZoom={handleChangeZoom}
                                             apiKey='AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y'
                                         />
@@ -317,8 +310,8 @@ function Page1({ inputValues, setInputValues }) {
                             marginTop: "20px",
                             borderRadius: "30px",
                             width: "100%",
-                            display: 'flex',
-                            justifyContent: 'center'
+                            display:'flex',
+                            justifyContent:'center'
                         }}>
                             <button style={{
                                 color: "#ffffff",
