@@ -45,7 +45,7 @@ function Page1({ inputValues, setInputValues }) {
         setInputValues({ ...inputValues, Address: ${lat}, ${lng} });
     };
 
-    const handleChangeZoom = (newZoom) => setZoom(newZoom);
+    
 
     const handleNextClick = () => navigate('/Page2', { state: { inputValues } });
 
