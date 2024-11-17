@@ -12,7 +12,7 @@ const provinces = [
     // ... รายชื่อจังหวัดทั้งหมด
 ];
 
-const DefaultLocation = { lat: 13.736717, lng: 100.523186 }; // Bangkok
+const DefaultLocation = { lat: 13.736717, lng: 100.523186 }; // พิกัดกรุงเทพ
 const DefaultZoom = 10;
 
 function Page1({ inputValues, setInputValues }) {
@@ -22,7 +22,10 @@ function Page1({ inputValues, setInputValues }) {
     const [addressOption, setAddressOption] = useState('A');
     const [location, setLocation] = useState(DefaultLocation);
     const [zoom, setZoom] = useState(DefaultZoom);
+    const [destination, setDestination] = useState(null); // ปลายทางสำหรับ Directions
     const mapRef = useRef(null);
+    const mapInstance = useRef(null); // เก็บ Google Map Instance
+    const markerRef = useRef(null); // เก็บ Marker Instance
 
     useEffect(() => {
         const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
@@ -59,12 +62,11 @@ function Page1({ inputValues, setInputValues }) {
     const selectedfirstColor = firstColors[inputValues.Service] || "#510808";
 
     // ฟังก์ชันเริ่มต้น Autocomplete
-    // ฟังก์ชันเริ่มต้น Autocomplete
     const initializeAutocomplete = () => {
         if (window.google && window.google.maps && window.google.maps.places) {
             const autocomplete = new window.google.maps.places.Autocomplete(
-                mapRef.current.input, // ใช้ ref ที่ผูกกับ Search input
-                { types: ['geocode'] } // หรือ types: ['(cities)'] สำหรับค้นหาเฉพาะเมือง
+                mapRef.current.input,
+                { types: ['geocode'] }
             );
 
             autocomplete.addListener("place_changed", () => {
@@ -77,8 +79,66 @@ function Page1({ inputValues, setInputValues }) {
         }
     };
 
+    // เพิ่ม Custom Marker บนแผนที่
+    const addCustomMarker = (map, position) => {
+        if (markerRef.current) {
+            markerRef.current.setMap(null); // ลบ Marker เดิม
+        }
 
-    useEffect(() => initializeAutocomplete(), []);
+        markerRef.current = new window.google.maps.Marker({
+            position,
+            map,
+            icon: {
+                url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png', // Marker สีฟ้า
+                scaledSize: new window.google.maps.Size(40, 40)
+            }
+        });
+    };
+
+    // วาดเส้นทางระหว่างต้นทางและปลายทาง
+    const drawDirections = (map, origin, destination) => {
+        const directionsService = new window.google.maps.DirectionsService();
+        const directionsRenderer = new window.google.maps.DirectionsRenderer();
+
+        directionsRenderer.setMap(map);
+
+        directionsService.route(
+            {
+                origin,
+                destination,
+                travelMode: window.google.maps.TravelMode.DRIVING
+            },
+            (result, status) => {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(result);
+                } else {
+                    console.error('Directions request failed:', status);
+                }
+            }
+        );
+    };
+
+    useEffect(() => {
+        initializeAutocomplete();
+
+        // สร้าง Map Instance
+        if (window.google && window.google.maps) {
+            mapInstance.current = new window.google.maps.Map(document.getElementById('map'), {
+                center: DefaultLocation,
+                zoom: DefaultZoom
+            });
+
+            // เพิ่ม Marker เริ่มต้น
+            addCustomMarker(mapInstance.current, DefaultLocation);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (destination && mapInstance.current) {
+            drawDirections(mapInstance.current, location, destination);
+        }
+    }, [destination]);
+
 
     return (
         <div style={{
@@ -293,7 +353,7 @@ function Page1({ inputValues, setInputValues }) {
                                             style={{ marginBottom: "20px" }}
                                             ref={(node) => {
                                                 if (node) {
-                                                    mapRef.current = node.input; // เข้าถึง DOM ของ input
+                                                    mapRef.current = node.input; 
                                                 }
                                             }}
                                         />
@@ -320,14 +380,20 @@ function Page1({ inputValues, setInputValues }) {
                             display: 'flex',
                             justifyContent: 'center'
                         }}>
-                            <button style={{
-                                color: "#ffffff",
+                             <button
+                            style={{
+                                marginTop: "10px",
+                                width: "100%",
+                                padding: "10px",
+                                borderRadius: "20px",
                                 backgroundColor: selectedfirstColor,
-                                borderRadius: "30px",
-                                width: "90%",
-                                alignSelf: "center",
-
-                            }} onClick={handleNextClick}>ต่อไป</button>
+                                color: "#fff",
+                                border: "none"
+                            }}
+                            onClick={() => setDestination({ lat: 13.75, lng: 100.5 })}
+                        >
+                            แสดงเส้นทางไปยังปลายทาง
+                        </button>
                         </div>
                     </div>
                 </>
