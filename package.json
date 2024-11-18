@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@line/liff": "^2.24.0",
+    "@react-google-maps/api": "^2.20.3",
     "antd": "^5.20.5",
     "axios": "^1.7.7",
     "firebase": "^10.13.0",

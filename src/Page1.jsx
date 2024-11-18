@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Input, Select, Radio, Typography } from 'antd';
 import MapPicker from 'react-google-map-picker';
 import bgImage from './assets/afaps48-bg.png';
-
+import { GoogleMap, LoadScript, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 const { TextArea } = Input;
 const { Search } = Input;
@@ -400,6 +400,7 @@ const GoogleMapWithSearch = () => {
                                                     <p>พิกัด: {location.lat}, {location.lng}</p>
                                                 </div>
                                             </div>
+                                            
                                             {/* <Search 
                                             ref={mapRef}
                                             placeholder="ค้นหาสถานที่..."
