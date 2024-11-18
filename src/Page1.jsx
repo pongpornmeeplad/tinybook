@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Select, Radio } from 'antd';
+import { Input, Select, Radio, Typography } from 'antd';
 import MapPicker from 'react-google-map-picker';
 import bgImage from './assets/afaps48-bg.png';
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 const { TextArea } = Input;
 const { Search } = Input;
@@ -293,6 +294,7 @@ function Page1({ inputValues, setInputValues }) {
                                     </Select>
                                 ) : (
                                     <>
+                                        <Typography></Typography>
                                         <Search 
                                             ref={mapRef}
                                             placeholder="ค้นหาสถานที่..."
@@ -300,6 +302,9 @@ function Page1({ inputValues, setInputValues }) {
                                             size="large"
                                             style={{ marginBottom: "20px" }}
                                         />
+                                        <Googlemapreact>
+                                            
+                                        </Googlemapreact>
                                         <MapPicker 
                                             defaultLocation={DefaultLocation}
                                             zoom={zoom}
