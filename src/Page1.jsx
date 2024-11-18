@@ -9,306 +9,398 @@ const { TextArea } = Input;
 const { Search } = Input;
 
 const provinces = [
-    'กรุงเทพมหานคร', 'กระบี่', 'กาญจนบุรี', 'กาฬสินธุ์', 'กำแพงเพชร', 'ขอนแก่น', 
-    'จันทบุรี', 'ฉะเชิงเทรา', 'ชลบุรี', 'ชัยนาท', 'ชัยภูมิ', 'ชุมพร', 'เชียงราย', 
-    'เชียงใหม่', 'ตรัง', 'ตราด', 'ตาก', 'นครนายก', 'นครปฐม', 'นครพนม', 'นครราชสีมา', 
-    'นครศรีธรรมราช', 'นครสวรรค์', 'นนทบุรี', 'นราธิวาส', 'น่าน', 'บึงกาฬ', 'บุรีรัมย์', 
-    'ปทุมธานี', 'ประจวบคีรีขันธ์', 'ปราจีนบุรี', 'ปัตตานี', 'พระนครศรีอยุธยา', 'พังงา', 
-    'พัทลุง', 'พิจิตร', 'พิษณุโลก', 'เพชรบุรี', 'เพชรบูรณ์', 'แพร่', 'ภูเก็ต', 'มหาสารคาม', 
-    'มุกดาหาร', 'แม่ฮ่องสอน', 'ยโสธร', 'ยะลา', 'ร้อยเอ็ด', 'ระนอง', 'ระยอง', 'ราชบุรี', 
-    'ลพบุรี', 'ลำปาง', 'ลำพูน', 'เลย', 'ศรีสะเกษ', 'สกลนคร', 'สงขลา', 'สตูล', 
-    'สมุทรปราการ', 'สมุทรสงคราม', 'สมุทรสาคร', 'สระบุรี', 'สระแก้ว', 'สิงห์บุรี', 
-    'สุโขทัย', 'สุพรรณบุรี', 'สุราษฎร์ธานี', 'สุรินทร์', 'หนองคาย', 'หนองบัวลำภู', 
+    'กรุงเทพมหานคร', 'กระบี่', 'กาญจนบุรี', 'กาฬสินธุ์', 'กำแพงเพชร', 'ขอนแก่น',
+    'จันทบุรี', 'ฉะเชิงเทรา', 'ชลบุรี', 'ชัยนาท', 'ชัยภูมิ', 'ชุมพร', 'เชียงราย',
+    'เชียงใหม่', 'ตรัง', 'ตราด', 'ตาก', 'นครนายก', 'นครปฐม', 'นครพนม', 'นครราชสีมา',
+    'นครศรีธรรมราช', 'นครสวรรค์', 'นนทบุรี', 'นราธิวาส', 'น่าน', 'บึงกาฬ', 'บุรีรัมย์',
+    'ปทุมธานี', 'ประจวบคีรีขันธ์', 'ปราจีนบุรี', 'ปัตตานี', 'พระนครศรีอยุธยา', 'พังงา',
+    'พัทลุง', 'พิจิตร', 'พิษณุโลก', 'เพชรบุรี', 'เพชรบูรณ์', 'แพร่', 'ภูเก็ต', 'มหาสารคาม',
+    'มุกดาหาร', 'แม่ฮ่องสอน', 'ยโสธร', 'ยะลา', 'ร้อยเอ็ด', 'ระนอง', 'ระยอง', 'ราชบุรี',
+    'ลพบุรี', 'ลำปาง', 'ลำพูน', 'เลย', 'ศรีสะเกษ', 'สกลนคร', 'สงขลา', 'สตูล',
+    'สมุทรปราการ', 'สมุทรสงคราม', 'สมุทรสาคร', 'สระบุรี', 'สระแก้ว', 'สิงห์บุรี',
+    'สุโขทัย', 'สุพรรณบุรี', 'สุราษฎร์ธานี', 'สุรินทร์', 'หนองคาย', 'หนองบัวลำภู',
     'อ่างทอง', 'อุดรธานี', 'อุตรดิตถ์', 'อุทัยธานี', 'อุบลราชธานี', 'อำนาจเจริญ'
 ];
 
-const DefaultLocation = { lat: 13.736717, lng: 100.523186 }; // Bangkok
-const DefaultZoom = 10;
-
-function Page1({ inputValues, setInputValues }) {
-    const navigate = useNavigate();
-    const [showWelcome, setShowWelcome] = useState(true); 
-    const [fadeOut, setFadeOut] = useState(false); 
-    const [addressOption, setAddressOption] = useState('A'); 
-    const [location, setLocation] = useState(DefaultLocation);
-    const [zoom, setZoom] = useState(DefaultZoom);
-    const mapRef = useRef(null); 
+// const DefaultLocation = { lat: 13.736717, lng: 100.523186 }; // Bangkok
+// const DefaultZoom = 10;
+const GoogleMapWithSearch = () => {
+    const mapRef = useRef(null);
+    const searchRef = useRef(null);
+    const [map, setMap] = useState(null);
+    const [marker, setMarker] = useState(null);
+    const [location, setLocation] = useState({ lat: 13.736717, lng: 100.523186 }); // Default to Bangkok
 
     useEffect(() => {
-        const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
-        const hideMessageTimer = setTimeout(() => setShowWelcome(false), 1000);
-        return () => {
-            clearTimeout(fadeOutTimer);
-            clearTimeout(hideMessageTimer);
-        };
-    }, []);
+        // Initialize map and marker
+        if (window.google && mapRef.current) {
+            const mapInstance = new window.google.maps.Map(mapRef.current, {
+                center: location,
+                zoom: 12,
+            });
+            const markerInstance = new window.google.maps.Marker({
+                position: location,
+                map: mapInstance,
+                draggable: true,
+            });
 
-    const handleInputChange = (e, field) => {
-        setInputValues({
-            ...inputValues,
-            [field]: e.target.value
-        });
-    };
+            setMap(mapInstance);
+            setMarker(markerInstance);
 
-    const handleChangeLocation = (lat, lng) => {
-        setLocation({ lat, lng });
-        setInputValues({ ...inputValues, Address: `${lat}, ${lng}` });
-    };
-
-    const handleSearch = (value) => {
-        if (!value) return;
-    
-        const geocoder = new window.google.maps.Geocoder();
-        geocoder.geocode({ address: value }, (results, status) => {
-          if (status === "OK") {
-            const newLocation = results[0].geometry.location;
-            setLocation({ lat: newLocation.lat(), lng: newLocation.lng() });
-          } else {
-            alert("ไม่พบสถานที่: " + status);
-          }
-        });
-      };
- 
-    const handleChangeZoom = (newZoom) => setZoom(newZoom);
-
-    const handleNextClick = () => navigate('/Page2', { state: { inputValues } });
-
-    const firstColors = {
-        'ทบ.': '#8B0000',
-        'ทร.': '#003aff',
-        'ทอ.': '#00c5ff',
-        'ตร.': '#510808'
-    };
-
-    const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; 
-
-    const initializeAutocomplete = () => {
-        if (window.google && window.google.maps && window.google.maps.places) {
-            const autocomplete = new window.google.maps.places.Autocomplete(
-                mapRef.current.input, 
-                { types: ['geocode'] }
-            );
-
-            autocomplete.addListener("place_changed", () => {
-                const place = autocomplete.getPlace();
-                if (place.geometry) {
-                    const { lat, lng } = place.geometry.location;
-                    handleChangeLocation(lat(), lng());
-                }
+            // Update location when dragging marker
+            markerInstance.addListener('dragend', (event) => {
+                const newLat = event.latLng.lat();
+                const newLng = event.latLng.lng();
+                setLocation({ lat: newLat, lng: newLng });
             });
         }
+    }, []);
+
+    useEffect(() => {
+        // Update marker and map center when location changes
+        if (marker) {
+            marker.setPosition(location);
+            if (map) {
+                map.setCenter(location);
+            }
+        }
+    }, [location]);
+
+    const handleSearch = () => {
+        const address = searchRef.current.value;
+        if (!address) return;
+
+        const geocoder = new window.google.maps.Geocoder();
+        geocoder.geocode({ address }, (results, status) => {
+            if (status === 'OK') {
+                const newLocation = results[0].geometry.location;
+                setLocation({ lat: newLocation.lat(), lng: newLocation.lng() });
+            } else {
+                alert(`ไม่พบสถานที่: ${status}`);
+            }
+        });
     };
 
-    useEffect(() => initializeAutocomplete(), []);
-    return (
-        <div style={{
-            width: "100vw",
-            height: "100vh",
-            backgroundImage: `url(${bgImage})`, 
-            backgroundSize: 'cover',
-            backgroundPosition: '700px center',
-            display: 'flex',
-            flexDirection: 'column',
-            color: 'white',
-            fontFamily: "'Kanit', sans-serif",
-            position: 'relative',
-            justifyContent: "flex-end",
-            gap: "0.5rem",
-            alignItems: "center",
-            overflow: "hidden",
-        }}>
-        
+    function Page1({ inputValues, setInputValues }) {
+        const navigate = useNavigate();
+        const [showWelcome, setShowWelcome] = useState(true);
+        const [fadeOut, setFadeOut] = useState(false);
+        const [addressOption, setAddressOption] = useState('A');
+        // const [location, setLocation] = useState(DefaultLocation);
+        // const [zoom, setZoom] = useState(DefaultZoom);
+        // const mapRef = useRef(null); 
+
+        useEffect(() => {
+            const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
+            const hideMessageTimer = setTimeout(() => setShowWelcome(false), 1000);
+            return () => {
+                clearTimeout(fadeOutTimer);
+                clearTimeout(hideMessageTimer);
+            };
+        }, []);
+
+        const handleInputChange = (e, field) => {
+            setInputValues({
+                ...inputValues,
+                [field]: e.target.value
+            });
+        };
+
+        // const handleChangeLocation = (lat, lng) => {
+        //     setLocation({ lat, lng });
+        //     setInputValues({ ...inputValues, Address: `${lat}, ${lng}` });
+        // };
+
+        // const handleSearch = (value) => {
+        //     if (!value) return;
+
+        //     const geocoder = new window.google.maps.Geocoder();
+        //     geocoder.geocode({ address: value }, (results, status) => {
+        //       if (status === "OK") {
+        //         const newLocation = results[0].geometry.location;
+        //         setLocation({ lat: newLocation.lat(), lng: newLocation.lng() });
+        //       } else {
+        //         alert("ไม่พบสถานที่: " + status);
+        //       }
+        //     });
+        //   };
+
+        // const handleChangeZoom = (newZoom) => setZoom(newZoom);
+
+        const handleNextClick = () => navigate('/Page2', { state: { inputValues } });
+
+        const firstColors = {
+            'ทบ.': '#8B0000',
+            'ทร.': '#003aff',
+            'ทอ.': '#00c5ff',
+            'ตร.': '#510808'
+        };
+
+        const selectedfirstColor = firstColors[inputValues.Service] || "#510808";
+
+        // const initializeAutocomplete = () => {
+        //     if (window.google && window.google.maps && window.google.maps.places) {
+        //         const autocomplete = new window.google.maps.places.Autocomplete(
+        //             mapRef.current.input, 
+        //             { types: ['geocode'] }
+        //         );
+
+        //         autocomplete.addListener("place_changed", () => {
+        //             const place = autocomplete.getPlace();
+        //             if (place.geometry) {
+        //                 const { lat, lng } = place.geometry.location;
+        //                 handleChangeLocation(lat(), lng());
+        //             }
+        //         });
+        //     }
+        // };
+
+        useEffect(() => initializeAutocomplete(), []);
+        return (
             <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                backgroundColor: selectedfirstColor,
-                opacity: 0.8,
-                zIndex: 0
-            }} />
+                width: "100vw",
+                height: "100vh",
+                backgroundImage: `url(${bgImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: '700px center',
+                display: 'flex',
+                flexDirection: 'column',
+                color: 'white',
+                fontFamily: "'Kanit', sans-serif",
+                position: 'relative',
+                justifyContent: "flex-end",
+                gap: "0.5rem",
+                alignItems: "center",
+                overflow: "hidden",
+            }}>
 
-            {showWelcome ? (
-                <div
-                    style={{
-                        zIndex: 1,
-                        color: '#FFFFFF',
-                        fontSize: '1.5rem',
-                        textAlign: 'center',
-                        marginBottom: '20vh',
-                        opacity: fadeOut ? 0 : 1,
-                        transition: 'opacity 2s ease',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'start',
-                        alignItems: 'start',
-                        width: '300px',
-                        padding: '20px',
-                        gap: '30px',
-                    }}
-                >
-                    <p style={{ textAlign: 'start', padding: 0, margin: 0 }}>สายสัมพันธ์...</p>
-                    <p style={{ alignSelf: 'end', padding: 0, margin: 0 }}>ไม่มีวันเปลี่ยนแปลง</p>
-                </div>
-            ) : (
-                <>
-                    <div style={{
-                        marginLeft: "3rem",
-                        justifyContent: "left",
-                        color: '#FFFFFF',
-                        fontSize: '30px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        maxWidth: "1000px",
-                        width: "100%",
-                        marginBottom: "10px",
-                        zIndex: 1,
-                        animation: 'fadeIn 2s forwards',
-                    }}>
-                        กรอกข้อมูล
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: selectedfirstColor,
+                    opacity: 0.8,
+                    zIndex: 0
+                }} />
 
-                        <div style={{
-                            width: '35px',
-                            height: '35px',
-                            backgroundColor: 'white',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            borderRadius: '10px',
-                        }}>
-                            <span style={{
-                                color: selectedfirstColor,
-                                fontSize: '18px',
-                                fontWeight: 'bold'
-                            }}>1</span>
-                        </div>
-                    </div>
+                {showWelcome ? (
                     <div
                         style={{
-                            width: "100vw",
-                            height: "70vh",
-                            backgroundColor: "#ffffff",
+                            zIndex: 1,
+                            color: '#FFFFFF',
+                            fontSize: '1.5rem',
+                            textAlign: 'center',
+                            marginBottom: '20vh',
+                            opacity: fadeOut ? 0 : 1,
+                            transition: 'opacity 2s ease',
                             display: 'flex',
                             flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            color: 'white',
-                            overflow: 'scroll',
-                            position: 'relative',
-                            boxSizing: "border-box",
-                            padding: "20px",
-                            borderRadius: "30px 30px 0px 0px",
-                            maxWidth: "1000px",
-                            paddingTop: "40px",
-                            paddingBottom: "70px",
-                            zIndex: 1,
-                            opacity: 0,
-                            animation: 'fadeIn 2s forwards',
+                            justifyContent: 'start',
+                            alignItems: 'start',
+                            width: '300px',
+                            padding: '20px',
+                            gap: '30px',
                         }}
                     >
+                        <p style={{ textAlign: 'start', padding: 0, margin: 0 }}>สายสัมพันธ์...</p>
+                        <p style={{ alignSelf: 'end', padding: 0, margin: 0 }}>ไม่มีวันเปลี่ยนแปลง</p>
+                    </div>
+                ) : (
+                    <>
+                        <div style={{
+                            marginLeft: "3rem",
+                            justifyContent: "left",
+                            color: '#FFFFFF',
+                            fontSize: '30px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            maxWidth: "1000px",
+                            width: "100%",
+                            marginBottom: "10px",
+                            zIndex: 1,
+                            animation: 'fadeIn 2s forwards',
+                        }}>
+                            กรอกข้อมูล
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                            <div>
-                                <div style={{
+                            <div style={{
+                                width: '35px',
+                                height: '35px',
+                                backgroundColor: 'white',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: '10px',
+                            }}>
+                                <span style={{
                                     color: selectedfirstColor,
-                                    fontSize: "1.2rem",
-                                    marginBottom: "0.2rem",
-                                }}>เหล่า</div>
-                                <Select
-                                    style={{ width: "100%" }}
-                                    variant='filled'
-                                    size='large'
-                                    placeholder='เลือกเหล่า'
-                                    value={inputValues.Service}
-                                    onChange={(value) => setInputValues({ ...inputValues, Service: value })}
-                                    options={[
-                                        { value: 'ทบ.', label: 'ทบ.' },
-                                        { value: 'ทร.', label: 'ทร.' },
-                                        { value: 'ทอ.', label: 'ทอ.' },
-                                        { value: 'ตร.', label: 'ตร.' },
-                                    ]}
-                                />
+                                    fontSize: '18px',
+                                    fontWeight: 'bold'
+                                }}>1</span>
                             </div>
+                        </div>
+                        <div
+                            style={{
+                                width: "100vw",
+                                height: "70vh",
+                                backgroundColor: "#ffffff",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-between',
+                                color: 'white',
+                                overflow: 'scroll',
+                                position: 'relative',
+                                boxSizing: "border-box",
+                                padding: "20px",
+                                borderRadius: "30px 30px 0px 0px",
+                                maxWidth: "1000px",
+                                paddingTop: "40px",
+                                paddingBottom: "70px",
+                                zIndex: 1,
+                                opacity: 0,
+                                animation: 'fadeIn 2s forwards',
+                            }}
+                        >
 
-                            <div>
-                                <div style={{
-                                    color: selectedfirstColor,
-                                    fontSize: "1.2rem",
-                                    marginBottom: "0.2rem"
-                                }}>คำนำหน้า ชื่อ สกุล</div>
-                                <Input
-                                    variant='filled'
-                                    placeholder='ร.ท.รักชาติ ยิ่งชีพ'
-                                    value={inputValues.Name}
-                                    onChange={(e) => handleInputChange(e, 'Name')}
-                                    size='large'
-                                />
-                            </div>
-
-                            <div>
-                                <div style={{
-                                    color: selectedfirstColor,
-                                    fontSize: "1.2rem",
-                                    marginBottom: "0.2rem"
-                                }}>ชื่อเล่น/ฉายา</div>
-                                <Input
-                                    variant='filled'
-                                    placeholder='ปาล์ม'
-                                    value={inputValues.Nickname}
-                                    onChange={(e) => handleInputChange(e, 'Nickname')}
-                                    size='large'
-                                />
-                            </div>
-
-                            <div>
-                                <div style={{
-                                    color: selectedfirstColor,
-                                    fontSize: "1.2rem",
-                                    marginBottom: "0.2rem"
-                                }}>เบอร์โทร</div>
-                                <Input
-                                    variant='filled'
-                                    type='number'
-                                    placeholder='0957777777'
-                                    value={inputValues.Tel}
-                                    onChange={(e) => handleInputChange(e, 'Tel')}
-                                    size='large'
-                                />
-                            </div>
-
-                            <div>
-                                <div style={{
-                                    color: selectedfirstColor,
-                                    fontSize: "1.2rem",
-                                    marginBottom: "0.2rem"
-                                }}>ที่อยู่</div>
-                                <Radio.Group
-                                    onChange={(e) => setAddressOption(e.target.value)}
-                                    value={addressOption}
-                                    style={{ marginBottom: '0.5rem' }}
-                                >
-                                    <Radio value="A">Option A</Radio>
-                                    <Radio value="B">Option B</Radio>
-                                </Radio.Group>
-                                {addressOption === 'A' ? (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                                <div>
+                                    <div style={{
+                                        color: selectedfirstColor,
+                                        fontSize: "1.2rem",
+                                        marginBottom: "0.2rem",
+                                    }}>เหล่า</div>
                                     <Select
-                                        placeholder='เลือกจังหวัด'
-                                        style={{ width: '100%' }}
-                                        value={inputValues.Address}
-                                        onChange={(value) => setInputValues({ ...inputValues, Address: value })}
+                                        style={{ width: "100%" }}
+                                        variant='filled'
                                         size='large'
+                                        placeholder='เลือกเหล่า'
+                                        value={inputValues.Service}
+                                        onChange={(value) => setInputValues({ ...inputValues, Service: value })}
+                                        options={[
+                                            { value: 'ทบ.', label: 'ทบ.' },
+                                            { value: 'ทร.', label: 'ทร.' },
+                                            { value: 'ทอ.', label: 'ทอ.' },
+                                            { value: 'ตร.', label: 'ตร.' },
+                                        ]}
+                                    />
+                                </div>
+
+                                <div>
+                                    <div style={{
+                                        color: selectedfirstColor,
+                                        fontSize: "1.2rem",
+                                        marginBottom: "0.2rem"
+                                    }}>คำนำหน้า ชื่อ สกุล</div>
+                                    <Input
+                                        variant='filled'
+                                        placeholder='ร.ท.รักชาติ ยิ่งชีพ'
+                                        value={inputValues.Name}
+                                        onChange={(e) => handleInputChange(e, 'Name')}
+                                        size='large'
+                                    />
+                                </div>
+
+                                <div>
+                                    <div style={{
+                                        color: selectedfirstColor,
+                                        fontSize: "1.2rem",
+                                        marginBottom: "0.2rem"
+                                    }}>ชื่อเล่น/ฉายา</div>
+                                    <Input
+                                        variant='filled'
+                                        placeholder='ปาล์ม'
+                                        value={inputValues.Nickname}
+                                        onChange={(e) => handleInputChange(e, 'Nickname')}
+                                        size='large'
+                                    />
+                                </div>
+
+                                <div>
+                                    <div style={{
+                                        color: selectedfirstColor,
+                                        fontSize: "1.2rem",
+                                        marginBottom: "0.2rem"
+                                    }}>เบอร์โทร</div>
+                                    <Input
+                                        variant='filled'
+                                        type='number'
+                                        placeholder='0957777777'
+                                        value={inputValues.Tel}
+                                        onChange={(e) => handleInputChange(e, 'Tel')}
+                                        size='large'
+                                    />
+                                </div>
+
+                                <div>
+                                    <div style={{
+                                        color: selectedfirstColor,
+                                        fontSize: "1.2rem",
+                                        marginBottom: "0.2rem"
+                                    }}>ที่อยู่</div>
+                                    <Radio.Group
+                                        onChange={(e) => setAddressOption(e.target.value)}
+                                        value={addressOption}
+                                        style={{ marginBottom: '0.5rem' }}
                                     >
-                                        {provinces.map(province => (
-                                            <Select.Option key={province} value={province}>
-                                                {province}
-                                            </Select.Option>
-                                        ))}
-                                    </Select>
-                                ) : (
-                                    <>
-                                        
-                                        <Search 
+                                        <Radio value="A">Option A</Radio>
+                                        <Radio value="B">Option B</Radio>
+                                    </Radio.Group>
+                                    {addressOption === 'A' ? (
+                                        <Select
+                                            placeholder='เลือกจังหวัด'
+                                            style={{ width: '100%' }}
+                                            value={inputValues.Address}
+                                            onChange={(value) => setInputValues({ ...inputValues, Address: value })}
+                                            size='large'
+                                        >
+                                            {provinces.map(province => (
+                                                <Select.Option key={province} value={province}>
+                                                    {province}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                    ) : (
+                                        <>
+
+                                            <div>
+                                                <div style={{ marginBottom: '10px' }}>
+                                                    <input
+                                                        ref={searchRef}
+                                                        type="text"
+                                                        placeholder="ค้นหาสถานที่..."
+                                                        style={{
+                                                            width: '80%',
+                                                            padding: '10px',
+                                                            marginRight: '10px',
+                                                            borderRadius: '4px',
+                                                            border: '1px solid #ccc',
+                                                        }}
+                                                    />
+                                                    <button
+                                                        onClick={handleSearch}
+                                                        style={{
+                                                            padding: '10px 15px',
+                                                            borderRadius: '4px',
+                                                            backgroundColor: '#007bff',
+                                                            color: '#fff',
+                                                            border: 'none',
+                                                            cursor: 'pointer',
+                                                        }}
+                                                    >
+                                                        ค้นหา
+                                                    </button>
+                                                </div>
+                                                <div
+                                                    ref={mapRef}
+                                                    style={{ height: '400px', width: '100%', borderRadius: '10px' }}
+                                                />
+                                                <div style={{ marginTop: '10px' }}>
+                                                    <p>พิกัด: {location.lat}, {location.lng}</p>
+                                                </div>
+                                            </div>
+                                            {/* <Search 
                                             ref={mapRef}
                                             placeholder="ค้นหาสถานที่..."
                                             enterButton="ค้นหา"
@@ -326,34 +418,34 @@ function Page1({ inputValues, setInputValues }) {
                                             onChangeLocation={handleChangeLocation} 
                                             onChangeZoom={handleChangeZoom}
                                             apiKey='AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y'
-                                        />
-                                    </>
-                                )}
+                                        /> */}
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div style={{
+                                alignSelf: "center",
+                                marginTop: "20px",
+                                borderRadius: "30px",
+                                width: "100%",
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
+                                <button style={{
+                                    color: "#ffffff",
+                                    backgroundColor: selectedfirstColor,
+                                    borderRadius: "30px",
+                                    width: "90%",
+                                    alignSelf: "center",
+
+                                }} onClick={handleNextClick}>ต่อไป</button>
                             </div>
                         </div>
+                    </>
+                )}
+            </div>
+        );
+    }
 
-                        <div style={{
-                            alignSelf: "center",
-                            marginTop: "20px",
-                            borderRadius: "30px",
-                            width: "100%",
-                            display:'flex',
-                            justifyContent:'center'
-                        }}>
-                            <button style={{
-                                color: "#ffffff",
-                                backgroundColor: selectedfirstColor,
-                                borderRadius: "30px",
-                                width: "90%",
-                                alignSelf: "center",
-
-                            }} onClick={handleNextClick}>ต่อไป</button>
-                        </div>
-                    </div>
-                </>
-            )}
-        </div>
-    );
-}
-
-export default Page1;
+    export default Page1;
