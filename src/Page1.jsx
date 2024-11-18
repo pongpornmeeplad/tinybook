@@ -68,7 +68,15 @@ function Page1({ inputValues, setInputValues }) {
           }
         });
       };
-
+      const geocoder = new window.google.maps.Geocoder();
+      geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+          if (status === "OK" && results[0]) {
+              setInputValues({ ...inputValues, Address: results[0].formatted_address });
+          } else {
+              alert(`ไม่สามารถดึงข้อมูลที่อยู่: ${status}`);
+          }
+      });
+      
     const handleChangeZoom = (newZoom) => setZoom(newZoom);
 
     const handleNextClick = () => navigate('/Page2', { state: { inputValues } });
