@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Input, Select, Radio, Typography } from 'antd';
 import MapPicker from 'react-google-map-picker';
 import bgImage from './assets/afaps48-bg.png';
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+
 
 const { TextArea } = Input;
 const { Search } = Input;
@@ -54,7 +54,20 @@ function Page1({ inputValues, setInputValues }) {
         setLocation({ lat, lng });
         setInputValues({ ...inputValues, Address: `${lat}, ${lng}` });
     };
+
+    const handleSearch = (value) => {
+        if (!value) return;
     
+        const geocoder = new window.google.maps.Geocoder();
+        geocoder.geocode({ address: value }, (results, status) => {
+          if (status === "OK") {
+            const newLocation = results[0].geometry.location;
+            setLocation({ lat: newLocation.lat(), lng: newLocation.lng() });
+          } else {
+            alert("ไม่พบสถานที่: " + status);
+          }
+        });
+      };
 
     const handleChangeZoom = (newZoom) => setZoom(newZoom);
 
@@ -294,21 +307,21 @@ function Page1({ inputValues, setInputValues }) {
                                     </Select>
                                 ) : (
                                     <>
-                                        <Typography></Typography>
+                                        
                                         <Search 
                                             ref={mapRef}
                                             placeholder="ค้นหาสถานที่..."
                                             enterButton="ค้นหา"
                                             size="large"
                                             style={{ marginBottom: "20px" }}
+                                            onSearch={handleSearch}
                                         />
-                                        <Googlemapreact>
-                                            
-                                        </Googlemapreact>
+                                       
                                         <MapPicker 
                                             defaultLocation={DefaultLocation}
                                             zoom={zoom}
                                             mapTypeId="roadmap"
+                                            location={location}
                                             style={{ height: '400px', width: '100%' }}
                                             onChangeLocation={handleChangeLocation} 
                                             onChangeZoom={handleChangeZoom}
