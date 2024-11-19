@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Select, Radio, Typography } from 'antd';
-import MapPicker from 'react-google-map-picker';
+
 import bgImage from './assets/afaps48-bg.png';
-import { GoogleMap, LoadScript, Marker, useJsApiLoader } from '@react-google-maps/api';
+import MapComponent from './MapComponent';
 
 const { TextArea } = Input;
 const { Search } = Input;
@@ -22,73 +22,17 @@ const provinces = [
     'อ่างทอง', 'อุดรธานี', 'อุตรดิตถ์', 'อุทัยธานี', 'อุบลราชธานี', 'อำนาจเจริญ'
 ];
 
-// const DefaultLocation = { lat: 13.736717, lng: 100.523186 }; // Bangkok
-// const DefaultZoom = 10;
-const GoogleMapWithSearch = () => {
-    const mapRef = useRef(null);
-    const searchRef = useRef(null);
-    const [map, setMap] = useState(null);
-    const [marker, setMarker] = useState(null);
-    const [location, setLocation] = useState({ lat: 13.736717, lng: 100.523186 }); // Default to Bangkok
 
-    useEffect(() => {
-        // Initialize map and marker
-        if (window.google && mapRef.current) {
-            const mapInstance = new window.google.maps.Map(mapRef.current, {
-                center: location,
-                zoom: 12,
-            });
-            const markerInstance = new window.google.maps.Marker({
-                position: location,
-                map: mapInstance,
-                draggable: true,
-            });
 
-            setMap(mapInstance);
-            setMarker(markerInstance);
 
-            // Update location when dragging marker
-            markerInstance.addListener('dragend', (event) => {
-                const newLat = event.latLng.lat();
-                const newLng = event.latLng.lng();
-                setLocation({ lat: newLat, lng: newLng });
-            });
-        }
-    }, []);
-
-    useEffect(() => {
-        // Update marker and map center when location changes
-        if (marker) {
-            marker.setPosition(location);
-            if (map) {
-                map.setCenter(location);
-            }
-        }
-    }, [location]);
-
-    const handleSearch = () => {
-        const address = searchRef.current.value;
-        if (!address) return;
-
-        const geocoder = new window.google.maps.Geocoder();
-        geocoder.geocode({ address }, (results, status) => {
-            if (status === 'OK') {
-                const newLocation = results[0].geometry.location;
-                setLocation({ lat: newLocation.lat(), lng: newLocation.lng() });
-            } else {
-                alert(`ไม่พบสถานที่: ${status}`);
-            }
-        });
-    };
+    
 
     function Page1({ inputValues, setInputValues }) {
         const navigate = useNavigate();
         const [showWelcome, setShowWelcome] = useState(true);
         const [fadeOut, setFadeOut] = useState(false);
         const [addressOption, setAddressOption] = useState('A');
-        // const [location, setLocation] = useState(DefaultLocation);
-        // const [zoom, setZoom] = useState(DefaultZoom);
-        // const mapRef = useRef(null); 
+     
 
         useEffect(() => {
             const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
@@ -106,26 +50,7 @@ const GoogleMapWithSearch = () => {
             });
         };
 
-        // const handleChangeLocation = (lat, lng) => {
-        //     setLocation({ lat, lng });
-        //     setInputValues({ ...inputValues, Address: `${lat}, ${lng}` });
-        // };
-
-        // const handleSearch = (value) => {
-        //     if (!value) return;
-
-        //     const geocoder = new window.google.maps.Geocoder();
-        //     geocoder.geocode({ address: value }, (results, status) => {
-        //       if (status === "OK") {
-        //         const newLocation = results[0].geometry.location;
-        //         setLocation({ lat: newLocation.lat(), lng: newLocation.lng() });
-        //       } else {
-        //         alert("ไม่พบสถานที่: " + status);
-        //       }
-        //     });
-        //   };
-
-        // const handleChangeZoom = (newZoom) => setZoom(newZoom);
+       
 
         const handleNextClick = () => navigate('/Page2', { state: { inputValues } });
 
@@ -138,24 +63,8 @@ const GoogleMapWithSearch = () => {
 
         const selectedfirstColor = firstColors[inputValues.Service] || "#510808";
 
-        // const initializeAutocomplete = () => {
-        //     if (window.google && window.google.maps && window.google.maps.places) {
-        //         const autocomplete = new window.google.maps.places.Autocomplete(
-        //             mapRef.current.input, 
-        //             { types: ['geocode'] }
-        //         );
-
-        //         autocomplete.addListener("place_changed", () => {
-        //             const place = autocomplete.getPlace();
-        //             if (place.geometry) {
-        //                 const { lat, lng } = place.geometry.location;
-        //                 handleChangeLocation(lat(), lng());
-        //             }
-        //         });
-        //     }
-        // };
-
-        useEffect(() => initializeAutocomplete(), []);
+       
+   
         return (
             <div style={{
                 width: "100vw",
@@ -364,62 +273,9 @@ const GoogleMapWithSearch = () => {
                                     ) : (
                                         <>
 
-                                            <div>
-                                                <div style={{ marginBottom: '10px' }}>
-                                                    <input
-                                                        ref={searchRef}
-                                                        type="text"
-                                                        placeholder="ค้นหาสถานที่..."
-                                                        style={{
-                                                            width: '80%',
-                                                            padding: '10px',
-                                                            marginRight: '10px',
-                                                            borderRadius: '4px',
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    />
-                                                    <button
-                                                        onClick={handleSearch}
-                                                        style={{
-                                                            padding: '10px 15px',
-                                                            borderRadius: '4px',
-                                                            backgroundColor: '#007bff',
-                                                            color: '#fff',
-                                                            border: 'none',
-                                                            cursor: 'pointer',
-                                                        }}
-                                                    >
-                                                        ค้นหา
-                                                    </button>
-                                                </div>
-                                                <div
-                                                    ref={mapRef}
-                                                    style={{ height: '400px', width: '100%', borderRadius: '10px' }}
-                                                />
-                                                <div style={{ marginTop: '10px' }}>
-                                                    <p>พิกัด: {location.lat}, {location.lng}</p>
-                                                </div>
-                                            </div>
+                                            <MapComponent></MapComponent>
                                             
-                                            {/* <Search 
-                                            ref={mapRef}
-                                            placeholder="ค้นหาสถานที่..."
-                                            enterButton="ค้นหา"
-                                            size="large"
-                                            style={{ marginBottom: "20px" }}
-                                            onSearch={handleSearch}
-                                        />
-                                       
-                                        <MapPicker 
-                                            defaultLocation={DefaultLocation}
-                                            zoom={zoom}
-                                            mapTypeId="roadmap"
-                                            location={location}
-                                            style={{ height: '400px', width: '100%' }}
-                                            onChangeLocation={handleChangeLocation} 
-                                            onChangeZoom={handleChangeZoom}
-                                            apiKey='AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y'
-                                        /> */}
+                                            
                                         </>
                                     )}
                                 </div>
