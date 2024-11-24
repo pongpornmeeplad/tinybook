@@ -4,6 +4,7 @@ import { Input, Select, Radio, Typography } from 'antd';
 
 import bgImage from './assets/afaps48-bg.png';
 import MapComponent from './MapComponent';
+import CombinedLocationSearch from './CombinedLocationSearch';
 
 const { TextArea } = Input;
 const { Search } = Input;
@@ -273,7 +274,7 @@ const provinces = [
                                     ) : (
                                         <>
 
-                                            <MapComponent></MapComponent>
+                                            <CombinedLocationSearch></CombinedLocationSearch>
                                             
                                             
                                         </>
