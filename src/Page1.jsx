@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Input, Select, Radio, Typography } from 'antd';
 
 import bgImage from './assets/afaps48-bg.png';
-import MapComponent from './MapComponent';
+
 import CombinedLocationSearch from './CombinedLocationSearch';
 
 const { TextArea } = Input;
