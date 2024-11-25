@@ -64,7 +64,13 @@ const provinces = [
 
         const selectedfirstColor = firstColors[inputValues.Service] || "#510808";
 
-       
+        const handleLocationChange = ({ address, latlong }) => {
+            setInputValues({
+              ...inputValues,
+              Address: address, // Update the address
+              LatLong: latlong, // Add latlong field
+            });
+          };
    
         return (
             <div style={{
@@ -274,7 +280,7 @@ const provinces = [
                                     ) : (
                                         <>
 
-                                            <CombinedLocationSearch></CombinedLocationSearch>
+                                            <CombinedLocationSearch onLocationChange={handleLocationChange}></CombinedLocationSearch>
                                             
                                             
                                         </>

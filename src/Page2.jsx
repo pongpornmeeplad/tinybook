@@ -68,7 +68,8 @@ function Page2({ inputValues, setInputValues }) {
                 Business: inputValues.field3,
                 Detail: inputValues.field4,
                 LineId: inputValues.LineId,
-                Picpic: inputValues.picpic
+                Picpic: inputValues.picpic,
+                Latlong :inputValues.Latlong
             });
             console.log("Document successfully written!");
 
