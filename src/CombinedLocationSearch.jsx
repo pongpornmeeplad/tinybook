@@ -10,62 +10,52 @@ const libraries = ["places"]; // Include places library
 const mapContainerStyle = { width: "100%", height: "400px" };
 const center = { lat: 13.736717, lng: 100.523186 }; // Default center
 
-const CombinedLocationSearch = () => {
+const CombinedLocationSearch = ({ onLocationChange }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y", // Replace with your API key
     libraries,
   });
 
   const [autocomplete, setAutocomplete] = useState(null);
-  const [selectedPosition, setSelectedPosition] = useState(null);
+  const [selectedLatlong, setSelectedLatlong] = useState(null);
   const [address, setAddress] = useState("");
-  const [searchInput, setSearchInput] = useState(""); // Add state for input value
-  const mapRef = useRef(null);
+  const [searchInput, setSearchInput] = useState("");
 
-  // Function to get address from Geocoder
   const fetchAddressFromLatLng = (lat, lng) => {
     const geocoder = new google.maps.Geocoder();
     const latlng = { lat, lng };
 
     geocoder.geocode({ location: latlng }, (results, status) => {
-      if (status === "OK") {
-        if (results[0]) {
-          setAddress(results[0].formatted_address);
-        } else {
-          setAddress("No address found");
-        }
-      } else {
-        setAddress(`Geocoder failed: ${status}`);
+      if (status === "OK" && results[0]) {
+        const formattedAddress = results[0].formatted_address;
+        setAddress(formattedAddress);
+        onLocationChange({ address: formattedAddress, latlong: { lat, lng } }); // Send data to parent
       }
     });
   };
 
-  // Handle place selection from autocomplete
   const handlePlaceSelect = () => {
     if (autocomplete) {
       const place = autocomplete.getPlace();
-      if (place && place.geometry) {
+      if (place.geometry) {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
-        setSelectedPosition({ lat, lng });
+        setSelectedLatlong({ lat, lng });
         setAddress(place.formatted_address);
-        setSearchInput(""); // Clear input value after place is selected
+        onLocationChange({ address: place.formatted_address, latlong: { lat, lng } }); // Send data to parent
       }
     }
   };
 
-  // Handle map click to select a location
   const handleMapClick = (event) => {
     if (event.latLng) {
       const lat = event.latLng.lat();
       const lng = event.latLng.lng();
-      setSelectedPosition({ lat, lng });
+      setSelectedLatlong({ lat, lng });
       fetchAddressFromLatLng(lat, lng);
-      setSearchInput(""); // Clear input value when clicking on map
     }
   };
 
-  // Handle autocomplete instance load
   const handleLoad = (autocompleteInstance) => {
     setAutocomplete(autocompleteInstance);
   };
@@ -74,39 +64,31 @@ const CombinedLocationSearch = () => {
 
   return (
     <div>
-      {/* Autocomplete Input */}
       <Autocomplete onLoad={handleLoad} onPlaceChanged={handlePlaceSelect}>
         <input
           type="text"
           placeholder="Search for a location"
-          value={searchInput} // Bind input value to state
-          onChange={(e) => setSearchInput(e.target.value)} // Update state on input change
-          style={{
-            width: "100%",
-            padding: "12px",
-            marginBottom: "10px",
-          }}
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          style={{ width: "100%", padding: "12px", marginBottom: "10px" }}
         />
       </Autocomplete>
 
-      {/* Google Map */}
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        center={selectedPosition || center}
+        center={selectedLatlong || center}
         zoom={10}
         onClick={handleMapClick}
       >
-        {/* Marker */}
-        {selectedPosition && <Marker position={selectedPosition} />}
+        {selectedLatlong && <Marker position={selectedLatlong} />}
       </GoogleMap>
 
-      {/* Location Details */}
       <div style={{ marginTop: "20px", color: "black" }}>
         <h3>Selected Address:</h3>
         <p>{address}</p>
         <h3>Selected Coordinates:</h3>
         <p>
-          Latitude: {selectedPosition?.lat}, Longitude: {selectedPosition?.lng}
+          Latitude: {selectedLatlong?.lat}, Longitude: {selectedLatlong?.lng}
         </p>
       </div>
     </div>
