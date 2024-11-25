@@ -19,6 +19,7 @@ const CombinedLocationSearch = () => {
   const [autocomplete, setAutocomplete] = useState(null);
   const [selectedPosition, setSelectedPosition] = useState(null);
   const [address, setAddress] = useState("");
+  const [searchInput, setSearchInput] = useState(""); // Add state for input value
   const mapRef = useRef(null);
 
   // Function to get address from Geocoder
@@ -48,6 +49,7 @@ const CombinedLocationSearch = () => {
         const lng = place.geometry.location.lng();
         setSelectedPosition({ lat, lng });
         setAddress(place.formatted_address);
+        setSearchInput(""); // Clear input value after place is selected
       }
     }
   };
@@ -59,6 +61,7 @@ const CombinedLocationSearch = () => {
       const lng = event.latLng.lng();
       setSelectedPosition({ lat, lng });
       fetchAddressFromLatLng(lat, lng);
+      setSearchInput(""); // Clear input value when clicking on map
     }
   };
 
@@ -76,6 +79,8 @@ const CombinedLocationSearch = () => {
         <input
           type="text"
           placeholder="Search for a location"
+          value={searchInput} // Bind input value to state
+          onChange={(e) => setSearchInput(e.target.value)} // Update state on input change
           style={{
             width: "100%",
             padding: "12px",
