@@ -96,7 +96,7 @@ const CombinedLocationSearch = () => {
       </GoogleMap>
 
       {/* Location Details */}
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: "20px", color: "black" }}>
         <h3>Selected Address:</h3>
         <p>{address}</p>
         <h3>Selected Coordinates:</h3>
