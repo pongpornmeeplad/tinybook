@@ -69,7 +69,7 @@ function Page2({ inputValues, setInputValues }) {
                 Detail: inputValues.field4,
                 LineId: inputValues.LineId,
                 Picpic: inputValues.picpic,
-                Latlong :inputValues.Latlong
+                Latlong :inputValues.Latlong,
             });
             console.log("Document successfully written!");
 
