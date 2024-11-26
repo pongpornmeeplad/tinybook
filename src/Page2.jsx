@@ -56,6 +56,7 @@ function Page2({ inputValues, setInputValues }) {
     const handleNextClick = async () => {
         console.log('inputValues', inputValues);
         try {
+            const latlong = inputValues.Latlong || { lat: 0, lng: 0 };
             // Save data to Firestore
             await addDoc(collection(db, "users"), {
                 Service: inputValues.Service,
@@ -69,7 +70,7 @@ function Page2({ inputValues, setInputValues }) {
                 Detail: inputValues.field4,
                 LineId: inputValues.LineId,
                 Picpic: inputValues.picpic,
-                Latlong :inputValues.Latlong,
+                Latlong : latlong,
             });
             console.log("Document successfully written!");
 
