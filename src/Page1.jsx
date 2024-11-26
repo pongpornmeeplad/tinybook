@@ -54,10 +54,10 @@ function Page1({ inputValues, setInputValues }) {
     useEffect(() => {
         setInputValues((prevValues) => ({
             ...prevValues,
-            LatLong: { lat: null, lng: null }, // Ensure Latlong is always initialized
+            Latlong: { lat: 0, lng: 0 }, // ค่าเริ่มต้นสำหรับ Latlong
         }));
     }, []);
-
+    
     const handleNextClick = () => {
         console.log("inputValues before navigation:", inputValues); // Debugging
         navigate("/Page2", { state: { inputValues } });
@@ -72,12 +72,14 @@ function Page1({ inputValues, setInputValues }) {
     const selectedfirstColor = firstColors[inputValues.Service] || "#510808";
 
     const handleLocationChange = ({ address, latlong }) => {
-        setInputValues({
-            ...inputValues,
-            Address: address, // Update the address
-            LatLong: latlong, // Add latlong field
-        });
+        setInputValues((prevValues) => ({
+            ...prevValues,
+            Address: address || "", // ใช้ค่า address หรือ default เป็น "" 
+            Latlong: latlong || { lat: 0, lng: 0 }, // ใช้ค่า latlong หรือ default { lat: 0, lng: 0 }
+        }));
     };
+    console.log("Input values before saving:", inputValues);
+
 
     return (
         <div style={{

@@ -54,10 +54,13 @@ function Page2({ inputValues, setInputValues }) {
 
     // Handle form submission
     const handleNextClick = async () => {
-        console.log('inputValues', inputValues);
+        if (!inputValues.Latlong || !inputValues.Latlong.lat || !inputValues.Latlong.lng) {
+            showErrorNotification("กรุณาเลือกตำแหน่งบนแผนที่");
+            return;
+        }
+    
         try {
-            const latlong = inputValues.Latlong || { lat: 0, lng: 0 };
-            // Save data to Firestore
+            const latlong = inputValues.Latlong;
             await addDoc(collection(db, "users"), {
                 Service: inputValues.Service,
                 Name: inputValues.Name,
@@ -70,17 +73,15 @@ function Page2({ inputValues, setInputValues }) {
                 Detail: inputValues.field4,
                 LineId: inputValues.LineId,
                 Picpic: inputValues.picpic,
-                Latlong : latlong,
+                Latlong: latlong,
             });
-            console.log("Document successfully written!");
-
             navigate('/Register', { state: { Service: inputValues.Service } });
-        
-    } catch (error) {
-        console.error("Error adding document: ", error);
-        showErrorNotification("Failed to submit data. Please try again."); // Show error notification
-    }
-};
+        } catch (error) {
+            console.error("Error adding document: ", error);
+            showErrorNotification("Failed to submit data. Please try again.");
+        }
+    };
+    
 
 return (
     <div style={{
