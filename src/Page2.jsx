@@ -60,7 +60,7 @@ function Page2({ inputValues, setInputValues }) {
         }
     
         try {
-            const latlong = inputValues.Latlong;
+            
             await addDoc(collection(db, "users"), {
                 Service: inputValues.Service,
                 Name: inputValues.Name,
@@ -73,7 +73,7 @@ function Page2({ inputValues, setInputValues }) {
                 Detail: inputValues.field4,
                 LineId: inputValues.LineId,
                 Picpic: inputValues.picpic,
-                Latlong: latlong,
+                Latlong: inputValues.Latlong,
             });
             navigate('/Register', { state: { Service: inputValues.Service } });
         } catch (error) {
