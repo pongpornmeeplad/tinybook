@@ -7,6 +7,7 @@ import { MdOutlineHomeRepairService } from "react-icons/md";
 import { FaRegQuestionCircle, FaRegListAlt } from "react-icons/fa";
 import { getDocs, query, where, collection, updateDoc } from 'firebase/firestore';
 import { db } from './Firebase';
+import CombinedLocationSearch from './CombinedLocationSearch';
 
 
 const firstColors = {
@@ -460,6 +461,8 @@ function Profile() {
                     )}
                 </div>
             </div>
+
+            <CombinedLocationSearch></CombinedLocationSearch>
 
             {/* Other Information Section */}
             <div style={{
