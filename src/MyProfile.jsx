@@ -461,8 +461,8 @@ function Profile() {
                     )}
                 </div>
             </div>
-
-            <CombinedLocationSearch></CombinedLocationSearch>
+                    <div><CombinedLocationSearch></CombinedLocationSearch></div>
+            
 
             {/* Other Information Section */}
             <div style={{
