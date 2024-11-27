@@ -383,7 +383,7 @@ function Page1({ inputValues, setInputValues }) {
                                     }}
                                     size='large'
                                 >
-                                    {province.name.map(province => (
+                                    {provincesData.map(province => (
                                         <Select.Option key={province.name} value={province.name}>
                                             {province.name}
                                         </Select.Option>
