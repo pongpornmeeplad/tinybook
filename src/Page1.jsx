@@ -137,11 +137,11 @@ function Page1({ inputValues, setInputValues }) {
             Latlong: { lat: 0, lng: 0 }, // ค่าเริ่มต้นสำหรับ Latlong
         }));
     }, []);
-    
+
     const handleNextClick = () => {
         console.log("inputValues before navigation:", inputValues); // Debugging
         navigate("/Page2", { state: { inputValues } });
-      };
+    };
     const firstColors = {
         'ทบ.': '#8B0000',
         'ทร.': '#003aff',
@@ -367,29 +367,29 @@ function Page1({ inputValues, setInputValues }) {
                                     //     ))}
                                     // </Select>
                                     <Select
-                                    placeholder='เลือกจังหวัด'
-                                    style={{ width: '100%' }}
-                                    value={inputValues.Address}
-                                    onChange={(value) => {
-                                        // ค้นหาพิกัดจากจังหวัดที่เลือก
-                                        const selectedProvince = provincesData.find(province => province.name === value);
-                                
-                                        // อัปเดต inputValues พร้อม Latlong
-                                        setInputValues({
-                                            ...inputValues,
-                                            Address: value,
-                                            Latlong: selectedProvince ? { lat: selectedProvince.lat, lng: selectedProvince.lng } : null
-                                        });
-                                    }}
-                                    size='large'
-                                >
-                                    {provincesData.map(province => (
-                                        <Select.Option key={province.name} value={province.name}>
-                                            {province.name}
-                                        </Select.Option>
-                                    ))}
-                                </Select>
-                                
+                                        placeholder='เลือกจังหวัด'
+                                        style={{ width: '100%' }}
+                                        value={inputValues.Address}
+                                        onChange={(value) => {
+                                            // ค้นหาพิกัดจากจังหวัดที่เลือก
+                                            const selectedProvince = provincesData.find(province => province.name === value);
+
+                                            // อัปเดต inputValues พร้อม Latlong
+                                            setInputValues({
+                                                ...inputValues,
+                                                Address: value,
+                                                Latlong: selectedProvince ? { lat: selectedProvince.lat, lng: selectedProvince.lng } : null
+                                            });
+                                        }}
+                                        size='large'
+                                    >
+                                        {provincesData.map((province) => (
+                                            <Select.Option key={province.name} value={province.name}>
+                                                {province.name}
+                                            </Select.Option>
+                                        ))}
+                                    </Select>
+
                                 ) : (
                                     <>
 
