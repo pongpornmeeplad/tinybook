@@ -352,7 +352,7 @@ function Page1({ inputValues, setInputValues }) {
                                     <Radio value="A">Option A</Radio>
                                     <Radio value="B">Option B</Radio>
                                 </Radio.Group> */}
-                                {/* {addressOption === 'A' ? ( */}
+                                {addressOption === 'A' ? (
                                     <>
                                     <Select
                                         placeholder='เลือกจังหวัด'
@@ -380,14 +380,14 @@ function Page1({ inputValues, setInputValues }) {
                                     </>
                                     
 
-                                {/* ) : (
+                                ) : (
                                     <>
 
                                         <CombinedLocationSearch onLocationChange={handleLocationChange}></CombinedLocationSearch>
 
 
                                     </>
-                                )} */}
+                                )}
                             </div>
                         </div>
 
