@@ -5,6 +5,8 @@ import {
   Autocomplete,
   Marker,
 } from "@react-google-maps/api";
+import { Input } from "antd"; // Import Ant Design Input component
+import "antd/dist/antd.css"; // Import Ant Design styles
 
 const libraries = ["places"]; // Include places library
 const mapContainerStyle = { width: "100%", height: "400px" };
@@ -52,6 +54,7 @@ const CombinedLocationSearch = ({
           address: place.formatted_address,
           latlong: { lat, lng },
         }); // Send data to parent
+        setSearchInput(place.formatted_address); // Update search input
       }
     }
   };
@@ -74,12 +77,12 @@ const CombinedLocationSearch = ({
   return (
     <div>
       <Autocomplete onLoad={handleLoad} onPlaceChanged={handlePlaceSelect}>
-        <input
-          type="text"
-          placeholder="Search for a location"
+        <Input
+          placeholder="ค้นหาสถานที่" // "Search for a location" in Thai
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          style={{ width: "100%", padding: "12px", marginBottom: "10px" }}
+          style={{ width: "100%", marginBottom: "10px" }}
+          size="large"
         />
       </Autocomplete>
 
@@ -93,11 +96,11 @@ const CombinedLocationSearch = ({
       </GoogleMap>
 
       <div style={{ marginTop: "20px", color: "black" }}>
-        <h3>Selected Address:</h3>
+        <h3>ที่อยู่ที่เลือก:</h3> {/* "Selected Address" in Thai */}
         <p>{address}</p>
-        <h3>Selected Coordinates:</h3>
+        <h3>พิกัดที่เลือก:</h3> {/* "Selected Coordinates" in Thai */}
         <p>
-          Latitude: {selectedLatlong?.lat}, Longitude: {selectedLatlong?.lng}
+          ละติจูด: {selectedLatlong?.lat}, ลองจิจูด: {selectedLatlong?.lng}
         </p>
       </div>
     </div>
