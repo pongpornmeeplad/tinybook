@@ -43,7 +43,6 @@ function Profile() {
     const { id } = useParams();
     const [user, setUser] = useState(null);
     const [showEditButton, setShowEditButton] = useState(false);
-    // Combined state for all the form data and editing toggle
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         Nickname: '',
@@ -54,11 +53,12 @@ function Profile() {
         Detail: '',
         Name: '',
         Service: '',
-        Position: ''
+        Position: '',
+        Latlong: null,
     });
     // Set the background color dynamically based on the selected Service
 
-    const selectedService = formData.Service ; // Default to 'ทบ.' if not set
+    const selectedService = formData.Service; // Default to 'ทบ.' if not set
     const selectedFirstColor = firstColors[selectedService];
     const selectedSecColor = secColors[selectedService];
     const selectedThirdColor = thirdColors[selectedService];
@@ -92,7 +92,9 @@ function Profile() {
                         Detail: userData.Detail || '',
                         Name: userData.Name || '',
                         Service: userData.Service || '',
-                        Position: userData.Position || ''
+                        Position: userData.Position || '',
+                        Latlong: userData.Latlong || null,
+
                     });
                 } else {
                     console.error("No such user!");
@@ -126,6 +128,13 @@ function Profile() {
         } catch (error) {
             console.error("Error updating user: ", error);
         }
+    };
+    const handleLocationChange = (locationData) => {
+        setFormData({
+            ...formData,
+            Address: locationData.address,
+            Latlong: locationData.latlong,
+        });
     };
 
     if (!user) {
@@ -417,7 +426,7 @@ function Profile() {
                                 font: 'inherit'
                             }}
                         /></>
-                        
+
                     ) : (
                         <div >{user.Address || '-'}</div>
                     )}
@@ -427,7 +436,7 @@ function Profile() {
                 <div style={{
                     backgroundColor: selectedSecColor,
                     display: "flex",
-                    flexDirection : 'row',
+                    flexDirection: 'column',
                     justifyContent: "space-between",
                     margin: "5px 15px",
                     padding: "10px",
@@ -440,30 +449,41 @@ function Profile() {
                     </div>
                     {isEditing ? (
                         <>
-                        <input
-                            name="Workplace"
-                            value={formData.Workplace}
-                            onChange={handleChange}
-                            style={{
-                                backgroundColor: selectedSecColor,
-                                border: 'none',
-                                width: '50%',
-                                fontSize: '1rem',
-                                color: 'white',
-                                textAlign: 'right',
-                                outline: 'none',
-                                font: 'inherit'
-                            }}
-                        /><CombinedLocationSearch></CombinedLocationSearch>
+                            <input
+                                name="Workplace"
+                                value={formData.Workplace}
+                                onChange={handleChange}
+                                style={{
+                                    backgroundColor: selectedSecColor,
+                                    border: 'none',
+                                    width: '50%',
+                                    fontSize: '1rem',
+                                    color: 'white',
+                                    textAlign: 'right',
+                                    outline: 'none',
+                                    font: 'inherit'
+                                }}
+                            /><CombinedLocationSearch
+                                onLocationChange={handleLocationChange}
+                                initialLatlong={formData?.Latlong}
+                                initialAddress={formData?.Address} />
                         </>
-                        
+
                     ) : (
-                        <div >{user.Workplace || '-'}</div>
-                        
+                        <div style={{ marginTop: "10px", color: "white" }}>
+                            <p>{user.Workplace || "-"}</p>
+                            <p>{user.Address || "-"}</p>
+                            {user.Latlong && (
+                                <p>
+                                    Latitude: {user.Latlong.lat}, Longitude: {user.Latlong.lng}
+                                </p>
+                            )}
+                        </div>
+
                     )}
                 </div>
             </div>
-            
+
 
             {/* Other Information Section */}
             <div style={{
