@@ -1,6 +1,6 @@
 // CombinedLocationSearch.jsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   useLoadScript,
   GoogleMap,
@@ -17,7 +17,8 @@ const defaultCenter = { lat: 13.736717, lng: 100.523186 }; // Default center
 const CombinedLocationSearch = ({
   onLocationChange,
   initialLatlong,
-  initialWorkplace,
+  initialAddress,
+  isEditable = true,
 }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y", // Replace with your API key
@@ -28,8 +29,15 @@ const CombinedLocationSearch = ({
   const [selectedLatlong, setSelectedLatlong] = useState(
     initialLatlong || defaultCenter
   );
-  const [workplace, setWorkplace] = useState(initialWorkplace || "");
-  const [searchInput, setSearchInput] = useState(initialWorkplace || "");
+  const [workplace, setWorkplace] = useState(initialAddress || "");
+  const [searchInput, setSearchInput] = useState(initialAddress || "");
+
+  // Update state when initial values change
+  useEffect(() => {
+    setSelectedLatlong(initialLatlong || defaultCenter);
+    setWorkplace(initialAddress || "");
+    setSearchInput(initialAddress || "");
+  }, [initialLatlong, initialAddress]);
 
   const fetchWorkplaceFromLatLng = (lat, lng) => {
     const geocoder = new window.google.maps.Geocoder();
@@ -40,7 +48,12 @@ const CombinedLocationSearch = ({
         const formattedAddress = results[0].formatted_address;
         setWorkplace(formattedAddress);
         setSearchInput(formattedAddress);
-        onLocationChange({ workplace: formattedAddress, latlong: { lat, lng } }); // Send data to parent
+        if (isEditable && onLocationChange) {
+          onLocationChange({
+            workplace: formattedAddress,
+            latlong: { lat, lng },
+          }); // Send data to parent
+        }
       } else {
         console.error("Geocoder failed due to: " + status);
       }
@@ -56,17 +69,19 @@ const CombinedLocationSearch = ({
         setSelectedLatlong({ lat, lng });
         const formattedAddress = place.formatted_address;
         setWorkplace(formattedAddress);
-        onLocationChange({
-          workplace: formattedAddress,
-          latlong: { lat, lng },
-        }); // Send data to parent
         setSearchInput(formattedAddress); // Update search input
+        if (isEditable && onLocationChange) {
+          onLocationChange({
+            workplace: formattedAddress,
+            latlong: { lat, lng },
+          }); // Send data to parent
+        }
       }
     }
   };
 
   const handleMapClick = (event) => {
-    if (event.latLng) {
+    if (isEditable && event.latLng) {
       const lat = event.latLng.lat();
       const lng = event.latLng.lng();
       setSelectedLatlong({ lat, lng });
@@ -89,6 +104,7 @@ const CombinedLocationSearch = ({
           onChange={(e) => setSearchInput(e.target.value)}
           style={{ width: "100%", marginBottom: "10px" }}
           size="large"
+          disabled={!isEditable}
         />
       </Autocomplete>
 
@@ -96,7 +112,13 @@ const CombinedLocationSearch = ({
         mapContainerStyle={mapContainerStyle}
         center={selectedLatlong}
         zoom={10}
-        onClick={handleMapClick}
+        onClick={isEditable ? handleMapClick : undefined}
+        options={{
+          draggable: isEditable,
+          zoomControl: isEditable,
+          scrollwheel: isEditable,
+          disableDoubleClickZoom: !isEditable,
+        }}
       >
         {selectedLatlong && <Marker position={selectedLatlong} />}
       </GoogleMap>
