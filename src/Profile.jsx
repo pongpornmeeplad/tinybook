@@ -437,6 +437,7 @@ function Profile() {
                         <span>สถานที่ทำงาน</span>
                     </div>
                     {isEditing ? (
+                        <>
                         <input
                             name="Workplace"
                             value={formData.Workplace}
@@ -451,9 +452,11 @@ function Profile() {
                                 outline: 'none',
                                 font: 'inherit'
                             }}
-                        />
+                        /><CombinedLocationSearch></CombinedLocationSearch>
+                        </>
+                        
                     ) : (
-                        <div >{user.Workplace || '-'}<><CombinedLocationSearch></CombinedLocationSearch></></div>
+                        <div >{user.Workplace || '-'}</div>
                         
                     )}
                 </div>
