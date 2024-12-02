@@ -457,11 +457,13 @@ function Profile() {
                             }}
                         />
                     ) : (
-                        <div >{user.Workplace || '-'}</div>
+                        <div >{user.Workplace || '-'}
+                        <><CombinedLocationSearch></CombinedLocationSearch></>
+                        </div>
                     )}
                 </div>
             </div>
-                    <div><CombinedLocationSearch></CombinedLocationSearch></div>
+            
             
 
             {/* Other Information Section */}
