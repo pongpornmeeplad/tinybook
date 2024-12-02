@@ -7,7 +7,7 @@ import { MdOutlineHomeRepairService } from "react-icons/md";
 import { FaRegQuestionCircle, FaRegListAlt } from "react-icons/fa";
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from './Firebase';
-
+import CombinedLocationSearch from './CombinedLocationSearch';
 const firstColors = {
     'ทบ.': '#8B0000',
     'ทร.': '#003aff',
@@ -453,7 +453,8 @@ function Profile() {
                             }}
                         />
                     ) : (
-                        <div >{user.Workplace || '-'}</div>
+                        <div >{user.Workplace || '-'}<><CombinedLocationSearch></CombinedLocationSearch></></div>
+                        
                     )}
                 </div>
             </div>
