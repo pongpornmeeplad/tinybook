@@ -17,7 +17,7 @@ const CombinedLocationSearch = ({
   initialWorkplace,
 }) => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y", // Replace with your API key
+    googleMapsApiKey: "YOUR_API_KEY", // Replace with your API key
     libraries,
   });
 
@@ -34,9 +34,9 @@ const CombinedLocationSearch = ({
 
     geocoder.geocode({ location: latlng }, (results, status) => {
       if (status === "OK" && results[0]) {
-        const formattedWorkplace = results[0].formatted_workplace;
-        setWorkplace(formattedWorkplace);
-        onLocationChange({ workplace: formattedWorkplace, latlong: { lat, lng } }); // Send data to parent
+        const formattedAddress = results[0].formatted_address;
+        setWorkplace(formattedAddress);
+        onLocationChange({ workplace: formattedAddress, latlong: { lat, lng } }); // Send data to parent
       }
     });
   };
@@ -48,12 +48,13 @@ const CombinedLocationSearch = ({
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
         setSelectedLatlong({ lat, lng });
-        setWorkplace(place.formatted_workplace);
+        const formattedAddress = place.formatted_address;
+        setWorkplace(formattedAddress);
         onLocationChange({
-          workplace: place.formatted_Workplace,
+          workplace: formattedAddress,
           latlong: { lat, lng },
         }); // Send data to parent
-        setSearchInput(place.formatted_workplace); // Update search input
+        setSearchInput(formattedAddress); // Update search input
       }
     }
   };
