@@ -27,7 +27,14 @@ const firstColors = {
     'ทอ.': '#00c5ff',
     'ตร.': '#510808'
 };
-
+const handleLocationChange = ({ address, latlong }) => {
+        setInputValues((prevValues) => ({
+            ...prevValues,
+            Address: address || "", // ใช้ค่า address หรือ default เป็น "" 
+            Latlong: latlong || { lat: 0, lng: 0 }, // ใช้ค่า latlong หรือ default { lat: 0, lng: 0 }
+        }));
+    };
+    console.log("Input values before saving:", inputValues);
 
 function Page2({ inputValues, setInputValues }) {
     const navigate = useNavigate();
@@ -197,12 +204,12 @@ function Page2({ inputValues, setInputValues }) {
                             size='large'
 
                         />
-                        <>
+                        {/* <>
 
                             <CombinedLocationSearch onLocationChange={handleLocationChange}></CombinedLocationSearch>
 
 
-                        </>
+                        </> */}
                     </div>
 
                     {/* Business Field */}
