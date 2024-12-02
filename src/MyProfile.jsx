@@ -456,9 +456,10 @@ function Profile() {
                                 font: 'inherit'
                             }}
                         />
+                        
                     ) : (
                         <div >{user.Workplace || '-'}
-                        <><CombinedLocationSearch></CombinedLocationSearch></>
+                        <CombinedLocationSearch></CombinedLocationSearch>
                         </div>
                     )}
                 </div>
