@@ -27,7 +27,14 @@ const firstColors = {
     'ทอ.': '#00c5ff',
     'ตร.': '#510808'
 };
-
+const handleLocationChange = ({ address, latlong }) => {
+    setInputValues((prevValues) => ({
+        ...prevValues,
+        Address: address || "", // ใช้ค่า address หรือ default เป็น "" 
+        Latlong: latlong || { lat: 0, lng: 0 }, // ใช้ค่า latlong หรือ default { lat: 0, lng: 0 }
+    }));
+};
+console.log("Input values before saving:", inputValues);
 
 function Page2({ inputValues, setInputValues }) {
     const navigate = useNavigate();
@@ -58,9 +65,9 @@ function Page2({ inputValues, setInputValues }) {
             showErrorNotification("กรุณาเลือกตำแหน่งบนแผนที่");
             return;
         }
-    
+
         try {
-            
+
             await addDoc(collection(db, "users"), {
                 Service: inputValues.Service,
                 Name: inputValues.Name,
@@ -81,180 +88,186 @@ function Page2({ inputValues, setInputValues }) {
             showErrorNotification("Failed to submit data. Please try again.");
         }
     };
-    
 
-return (
-    <div style={{
-        width: "100vw",
-        height: "100vh",
-        backgroundImage: `url(${bgImage})`, // Use the same background as Page1
-        backgroundSize: 'contain',
-        display: 'flex',
-        flexDirection: 'column',
-        color: 'white',
-        fontFamily: "'Kanit', sans-serif",
-        overflow: 'hidden',
-        position: 'relative',
-        justifyContent: "end",
-        gap: "0.5rem",
-        alignItems: "center",
-    }}>
-        {/* Red Overlay */}
-        <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            backgroundColor: selectedfirstColor,
-            opacity: 0.8,
-            zIndex: 0
-        }} />
 
-        <div style={{
-            marginLeft: "3rem",
-            justifyContent: "left",
-            color: '#FFFFFF',
-            fontSize: '30px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            maxWidth: "1000px",
-            width: "100%",
-            marginBottom: "10px",
-            zIndex: 1
-        }}>
-            กรอกข้อมูล
-
-            <div style={{
-                width: '35px',
-                height: '35px',
-                backgroundColor: 'white',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '10px',
-            }}>
-                <span style={{
-                    color: selectedfirstColor,
-                    fontSize: '18px',
-                    fontWeight: 'bold'
-                }}>2</span>
-            </div>
-        </div>
-
-        {/* Form Section */}
+    return (
         <div style={{
             width: "100vw",
-            height: "70vh",
-            backgroundColor: "#ffffff",
+            height: "100vh",
+            backgroundImage: `url(${bgImage})`, // Use the same background as Page1
+            backgroundSize: 'contain',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
             color: 'white',
-            overflow: 'scroll',
+            fontFamily: "'Kanit', sans-serif",
+            overflow: 'hidden',
             position: 'relative',
-            boxSizing: "border-box",
-            padding: "20px",
-            borderRadius: "30px 30px 0px 0px",
-            maxWidth: "1000px",
-            paddingTop: "40px",
-            paddingBottom: "70px",
-            zIndex: 1,
+            justifyContent: "end",
+            gap: "0.5rem",
+            alignItems: "center",
         }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {/* Position Field */}
-                <div>
-                    <div style={{
+            {/* Red Overlay */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: selectedfirstColor,
+                opacity: 0.8,
+                zIndex: 0
+            }} />
+
+            <div style={{
+                marginLeft: "3rem",
+                justifyContent: "left",
+                color: '#FFFFFF',
+                fontSize: '30px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                maxWidth: "1000px",
+                width: "100%",
+                marginBottom: "10px",
+                zIndex: 1
+            }}>
+                กรอกข้อมูล
+
+                <div style={{
+                    width: '35px',
+                    height: '35px',
+                    backgroundColor: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '10px',
+                }}>
+                    <span style={{
                         color: selectedfirstColor,
-                        fontSize: "1.2rem",
-                        marginBottom: "0.2rem",
-                    }}>ตำแหน่ง สังกัด</div>
-
-                    <Input variant='filled'
-                        type="text"
-                        placeholder='ผบ......'
-                        value={inputValues.field1}
-                        onChange={(e) => handleInputChange(e, 'field1')}
-                        size='large'
-
-                    />
-                </div>
-
-                {/* Workplace Field */}
-                <div>
-                    <div style={{
-                        color: selectedfirstColor,
-                        fontSize: "1.2rem",
-                        marginBottom: "0.2rem",
-                    }}>สถานที่ทำงาน</div>
-
-                    <Input variant='filled'
-                        type="text"
-                        placeholder='โรงเรียน....'
-                        value={inputValues.field2}
-                        onChange={(e) => handleInputChange(e, 'field2')}
-                        size='large'
-
-                    />
-                </div>
-
-                {/* Business Field */}
-                <div>
-                    <div style={{
-                        color: selectedfirstColor,
-                        fontSize: "1.2rem",
-                        marginBottom: "0.2rem",
-                    }}>ธุรกิจส่วนตัว</div>
-
-                    <Input variant='filled'
-                        type="text"
-                        placeholder='ร้านอาหาร...'
-                        value={inputValues.field3}
-                        onChange={(e) => handleInputChange(e, 'field3')}
-                        size='large'
-
-                    />
-                </div>
-
-                {/* Detail Field */}
-                <div>
-                    <div style={{
-                        color: selectedfirstColor,
-                        fontSize: "1.2rem",
-                        marginBottom: "0.2rem",
-                    }}>รายละเอียดเพิ่มเติม</div>
-
-                    <TextArea variant='filled' type="text"
-                        placeholder='........'
-                        value={inputValues.field4}
-                        onChange={(e) => handleInputChange(e, 'field4')}
-                        size='large'
-
-                    />
+                        fontSize: '18px',
+                        fontWeight: 'bold'
+                    }}>2</span>
                 </div>
             </div>
 
-            {/* Submit Button */}
+            {/* Form Section */}
             <div style={{
-                alignSelf: "center",
-                marginTop: "20px",
-                borderRadius: "30px",
-                width: "100%",
+                width: "100vw",
+                height: "70vh",
+                backgroundColor: "#ffffff",
                 display: 'flex',
-                justifyContent: 'center'
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                color: 'white',
+                overflow: 'scroll',
+                position: 'relative',
+                boxSizing: "border-box",
+                padding: "20px",
+                borderRadius: "30px 30px 0px 0px",
+                maxWidth: "1000px",
+                paddingTop: "40px",
+                paddingBottom: "70px",
+                zIndex: 1,
             }}>
-                <button style={{
-                    color: "#ffffff",
-                    backgroundColor: selectedfirstColor,
-                    borderRadius: "30px",
-                    width: "90%",
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {/* Position Field */}
+                    <div>
+                        <div style={{
+                            color: selectedfirstColor,
+                            fontSize: "1.2rem",
+                            marginBottom: "0.2rem",
+                        }}>ตำแหน่ง สังกัด</div>
+
+                        <Input variant='filled'
+                            type="text"
+                            placeholder='ผบ......'
+                            value={inputValues.field1}
+                            onChange={(e) => handleInputChange(e, 'field1')}
+                            size='large'
+
+                        />
+                    </div>
+
+                    {/* Workplace Field */}
+                    <div>
+                        <div style={{
+                            color: selectedfirstColor,
+                            fontSize: "1.2rem",
+                            marginBottom: "0.2rem",
+                        }}>สถานที่ทำงาน</div>
+
+                        {/* <Input variant='filled'
+                            type="text"
+                            placeholder='โรงเรียน....'
+                            value={inputValues.field2}
+                            onChange={(e) => handleInputChange(e, 'field2')}
+                            size='large'
+
+                        /> */}
+                        <>
+
+                            <CombinedLocationSearch onLocationChange={handleLocationChange}></CombinedLocationSearch>
+
+
+                        </>
+                    </div>
+
+                    {/* Business Field */}
+                    <div>
+                        <div style={{
+                            color: selectedfirstColor,
+                            fontSize: "1.2rem",
+                            marginBottom: "0.2rem",
+                        }}>ธุรกิจส่วนตัว</div>
+
+                        <Input variant='filled'
+                            type="text"
+                            placeholder='ร้านอาหาร...'
+                            value={inputValues.field3}
+                            onChange={(e) => handleInputChange(e, 'field3')}
+                            size='large'
+
+                        />
+                    </div>
+
+                    {/* Detail Field */}
+                    <div>
+                        <div style={{
+                            color: selectedfirstColor,
+                            fontSize: "1.2rem",
+                            marginBottom: "0.2rem",
+                        }}>รายละเอียดเพิ่มเติม</div>
+
+                        <TextArea variant='filled' type="text"
+                            placeholder='........'
+                            value={inputValues.field4}
+                            onChange={(e) => handleInputChange(e, 'field4')}
+                            size='large'
+
+                        />
+                    </div>
+                </div>
+
+                {/* Submit Button */}
+                <div style={{
                     alignSelf: "center",
-                }} onClick={handleNextClick}>ต่อไป</button>
+                    marginTop: "20px",
+                    borderRadius: "30px",
+                    width: "100%",
+                    display: 'flex',
+                    justifyContent: 'center'
+                }}>
+                    <button style={{
+                        color: "#ffffff",
+                        backgroundColor: selectedfirstColor,
+                        borderRadius: "30px",
+                        width: "90%",
+                        alignSelf: "center",
+                    }} onClick={handleNextClick}>ต่อไป</button>
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
 }
 
 export default Page2;

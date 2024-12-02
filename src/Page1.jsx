@@ -344,28 +344,16 @@ function Page1({ inputValues, setInputValues }) {
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
                                 }}>ที่อยู่</div>
-                                <Radio.Group
+                                {/* <Radio.Group
                                     onChange={(e) => setAddressOption(e.target.value)}
                                     value={addressOption}
                                     style={{ marginBottom: '0.5rem' }}
                                 >
                                     <Radio value="A">Option A</Radio>
                                     <Radio value="B">Option B</Radio>
-                                </Radio.Group>
-                                {addressOption === 'A' ? (
-                                    // <Select
-                                    //     placeholder='เลือกจังหวัด'
-                                    //     style={{ width: '100%' }}
-                                    //     value={inputValues.Address}
-                                    //     onChange={(value) => setInputValues({ ...inputValues, Address: value })}
-                                    //     size='large'
-                                    // >
-                                    //     {provinces.map(province => (
-                                    //         <Select.Option key={province} value={province}>
-                                    //             {province}
-                                    //         </Select.Option>
-                                    //     ))}
-                                    // </Select>
+                                </Radio.Group> */}
+                                {/* {addressOption === 'A' ? ( */}
+                                    <>
                                     <Select
                                         placeholder='เลือกจังหวัด'
                                         style={{ width: '100%' }}
@@ -389,15 +377,17 @@ function Page1({ inputValues, setInputValues }) {
                                             </Select.Option>
                                         ))}
                                     </Select>
+                                    </>
+                                    
 
-                                ) : (
+                                {/* ) : (
                                     <>
 
                                         <CombinedLocationSearch onLocationChange={handleLocationChange}></CombinedLocationSearch>
 
 
                                     </>
-                                )}
+                                )} */}
                             </div>
                         </div>
 
