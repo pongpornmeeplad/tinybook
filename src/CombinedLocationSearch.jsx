@@ -14,7 +14,7 @@ const defaultCenter = { lat: 13.736717, lng: 100.523186 }; // Default center
 const CombinedLocationSearch = ({
   onLocationChange,
   initialLatlong,
-  initialAddress,
+  initialWorkplace,
 }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y", // Replace with your API key
@@ -25,18 +25,18 @@ const CombinedLocationSearch = ({
   const [selectedLatlong, setSelectedLatlong] = useState(
     initialLatlong || null
   );
-  const [address, setAddress] = useState(initialAddress || "");
+  const [workplace, setWorkplace] = useState(initialWorkplace || "");
   const [searchInput, setSearchInput] = useState("");
 
-  const fetchAddressFromLatLng = (lat, lng) => {
+  const fetchWorkplaceFromLatLng = (lat, lng) => {
     const geocoder = new window.google.maps.Geocoder();
     const latlng = { lat, lng };
 
     geocoder.geocode({ location: latlng }, (results, status) => {
       if (status === "OK" && results[0]) {
-        const formattedAddress = results[0].formatted_address;
-        setAddress(formattedAddress);
-        onLocationChange({ address: formattedAddress, latlong: { lat, lng } }); // Send data to parent
+        const formattedWorkplace = results[0].formatted_workplace;
+        setWorkplace(formattedWorkplace);
+        onLocationChange({ workplace: formattedWorkplace, latlong: { lat, lng } }); // Send data to parent
       }
     });
   };
@@ -48,12 +48,12 @@ const CombinedLocationSearch = ({
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
         setSelectedLatlong({ lat, lng });
-        setAddress(place.formatted_address);
+        setWorkplace(place.formatted_workplace);
         onLocationChange({
-          address: place.formatted_address,
+          workplace: place.formatted_Workplace,
           latlong: { lat, lng },
         }); // Send data to parent
-        setSearchInput(place.formatted_address); // Update search input
+        setSearchInput(place.formatted_workplace); // Update search input
       }
     }
   };
@@ -63,7 +63,7 @@ const CombinedLocationSearch = ({
       const lat = event.latLng.lat();
       const lng = event.latLng.lng();
       setSelectedLatlong({ lat, lng });
-      fetchAddressFromLatLng(lat, lng);
+      fetchWorkplaceFromLatLng(lat, lng);
     }
   };
 
@@ -96,7 +96,7 @@ const CombinedLocationSearch = ({
 
       <div style={{ marginTop: "20px", color: "black" }}>
         <h3>ที่อยู่ที่เลือก:</h3> {/* "Selected Address" in Thai */}
-        <p>{address}</p>
+        <p>{workplace}</p>
         <h3>พิกัดที่เลือก:</h3> {/* "Selected Coordinates" in Thai */}
         <p>
           ละติจูด: {selectedLatlong?.lat}, ลองจิจูด: {selectedLatlong?.lng}
