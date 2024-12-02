@@ -452,7 +452,7 @@ function Profile() {
                                 outline: 'none',
                                 font: 'inherit'
                             }}
-                        />
+                        /><CombinedLocationSearch></CombinedLocationSearch>
                         </>
                         
                     ) : (
@@ -461,7 +461,7 @@ function Profile() {
                     )}
                 </div>
             </div>
-            <CombinedLocationSearch></CombinedLocationSearch>
+            
 
             {/* Other Information Section */}
             <div style={{
