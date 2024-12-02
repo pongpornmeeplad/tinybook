@@ -402,7 +402,7 @@ function Profile() {
                         <span>ที่อยู่</span>
                     </div>
                     {isEditing ? (
-                        <input
+                        <><input
                             name="Address"
                             value={formData.Address}
                             onChange={handleChange}
@@ -416,7 +416,8 @@ function Profile() {
                                 outline: 'none',
                                 font: 'inherit'
                             }}
-                        />
+                        /><CombinedLocationSearch></CombinedLocationSearch></>
+                        
                     ) : (
                         <div >{user.Address || '-'}</div>
                     )}
@@ -452,7 +453,7 @@ function Profile() {
                                 outline: 'none',
                                 font: 'inherit'
                             }}
-                        /><CombinedLocationSearch></CombinedLocationSearch>
+                        />
                         </>
                         
                     ) : (
