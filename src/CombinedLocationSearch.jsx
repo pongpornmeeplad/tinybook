@@ -6,7 +6,6 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import { Input } from "antd"; // Import Ant Design Input component
-import "antd/dist/antd.css"; // Import Ant Design styles
 
 const libraries = ["places"]; // Include places library
 const mapContainerStyle = { width: "100%", height: "400px" };
