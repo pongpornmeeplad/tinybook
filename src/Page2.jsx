@@ -75,7 +75,7 @@ function Page2({ inputValues, setInputValues }) {
                 Tel: inputValues.Tel,
                 Address: inputValues.Address,
                 Position: inputValues.field1,
-                Workplace: inputValues.workplace,
+                Workplace: inputValues.Workplace,
                 Business: inputValues.field3,
                 Detail: inputValues.field4,
                 LineId: inputValues.LineId,
