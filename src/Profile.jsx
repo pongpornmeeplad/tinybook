@@ -436,26 +436,24 @@ function Profile() {
             <span>สถานที่ทำงาน</span>
           </div>
           <div style={{ marginTop: "10px", color: "white" }}>
-            {isEditing ? (
-              <>
-                <input
-                  name="Workplace"
-                  value={formData.Workplace}
-                  onChange={handleChange}
-                  style={{
-                    backgroundColor: selectedSecColor,
-                    border: 'none',
-                    width: '100%',
-                    fontSize: '1rem',
-                    color: 'white',
-                    textAlign: 'left',
-                    outline: 'none',
-                    font: 'inherit'
-                  }}
-                />
-              </>
-            ) : (
-              <p>{user.Workplace || "-"}</p>
+            {/* Remove the <p>{user.Workplace || "-"}</p> */}
+            {/* Show the input field only when editing */}
+            {isEditing && (
+              <input
+                name="Workplace"
+                value={formData.Workplace}
+                onChange={handleChange}
+                style={{
+                  backgroundColor: selectedSecColor,
+                  border: 'none',
+                  width: '100%',
+                  fontSize: '1rem',
+                  color: 'white',
+                  textAlign: 'left',
+                  outline: 'none',
+                  font: 'inherit'
+                }}
+              />
             )}
             {/* Map Component */}
             <CombinedLocationSearch

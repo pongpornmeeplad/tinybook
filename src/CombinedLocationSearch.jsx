@@ -17,7 +17,7 @@ const defaultCenter = { lat: 13.736717, lng: 100.523186 }; // Default center
 const CombinedLocationSearch = ({
   onLocationChange,
   initialLatlong,
-  initialAddress,
+  initialWorkplace,
   isEditable = true,
 }) => {
   const { isLoaded } = useLoadScript({
@@ -29,15 +29,15 @@ const CombinedLocationSearch = ({
   const [selectedLatlong, setSelectedLatlong] = useState(
     initialLatlong || defaultCenter
   );
-  const [workplace, setWorkplace] = useState(initialAddress || "");
-  const [searchInput, setSearchInput] = useState(initialAddress || "");
+  const [workplace, setWorkplace] = useState(initialWorkplace || "");
+  const [searchInput, setSearchInput] = useState(initialWorkplace || "");
 
   // Update state when initial values change
   useEffect(() => {
     setSelectedLatlong(initialLatlong || defaultCenter);
-    setWorkplace(initialAddress || "");
-    setSearchInput(initialAddress || "");
-  }, [initialLatlong, initialAddress]);
+    setWorkplace(initialWorkplace || "");
+    setSearchInput(initialWorkplace || "");
+  }, [initialLatlong, initialWorkplace]);
 
   const fetchWorkplaceFromLatLng = (lat, lng) => {
     const geocoder = new window.google.maps.Geocoder();
