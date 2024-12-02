@@ -65,9 +65,8 @@ function Page2({ inputValues, setInputValues }) {
             showErrorNotification("กรุณาเลือกตำแหน่งบนแผนที่");
             return;
         }
-
+    
         try {
-
             await addDoc(collection(db, "users"), {
                 Service: inputValues.Service,
                 Name: inputValues.Name,
@@ -75,7 +74,7 @@ function Page2({ inputValues, setInputValues }) {
                 Tel: inputValues.Tel,
                 Address: inputValues.Address,
                 Position: inputValues.field1,
-                Workplace: inputValues.Workplace,
+                Workplace: inputValues.Workplace, // Corrected reference
                 Business: inputValues.field3,
                 Detail: inputValues.field4,
                 LineId: inputValues.LineId,
@@ -88,7 +87,7 @@ function Page2({ inputValues, setInputValues }) {
             showErrorNotification("Failed to submit data. Please try again.");
         }
     };
-
+    
 
     return (
         <div style={{
