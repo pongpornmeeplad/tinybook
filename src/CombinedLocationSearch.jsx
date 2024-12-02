@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   useLoadScript,
   GoogleMap,
@@ -8,21 +8,27 @@ import {
 
 const libraries = ["places"]; // Include places library
 const mapContainerStyle = { width: "100%", height: "400px" };
-const center = { lat: 13.736717, lng: 100.523186 }; // Default center
+const defaultCenter = { lat: 13.736717, lng: 100.523186 }; // Default center
 
-const CombinedLocationSearch = ({ onLocationChange }) => {
+const CombinedLocationSearch = ({
+  onLocationChange,
+  initialLatlong,
+  initialAddress,
+}) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y", // Replace with your API key
     libraries,
   });
 
   const [autocomplete, setAutocomplete] = useState(null);
-  const [selectedLatlong, setSelectedLatlong] = useState(null);
-  const [address, setAddress] = useState("");
+  const [selectedLatlong, setSelectedLatlong] = useState(
+    initialLatlong || null
+  );
+  const [address, setAddress] = useState(initialAddress || "");
   const [searchInput, setSearchInput] = useState("");
 
   const fetchAddressFromLatLng = (lat, lng) => {
-    const geocoder = new google.maps.Geocoder();
+    const geocoder = new window.google.maps.Geocoder();
     const latlng = { lat, lng };
 
     geocoder.geocode({ location: latlng }, (results, status) => {
@@ -42,7 +48,10 @@ const CombinedLocationSearch = ({ onLocationChange }) => {
         const lng = place.geometry.location.lng();
         setSelectedLatlong({ lat, lng });
         setAddress(place.formatted_address);
-        onLocationChange({ address: place.formatted_address, latlong: { lat, lng } }); // Send data to parent
+        onLocationChange({
+          address: place.formatted_address,
+          latlong: { lat, lng },
+        }); // Send data to parent
       }
     }
   };
@@ -76,7 +85,7 @@ const CombinedLocationSearch = ({ onLocationChange }) => {
 
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        center={selectedLatlong || center}
+        center={selectedLatlong || defaultCenter}
         zoom={10}
         onClick={handleMapClick}
       >
