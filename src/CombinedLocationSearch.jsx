@@ -1,3 +1,5 @@
+// CombinedLocationSearch.jsx
+
 import React, { useState } from "react";
 import {
   useLoadScript,
@@ -6,6 +8,7 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import { Input } from "antd"; // Import Ant Design Input component
+import "antd/dist/antd.css"; // Import Ant Design styles
 
 const libraries = ["places"]; // Include places library
 const mapContainerStyle = { width: "100%", height: "400px" };
@@ -23,10 +26,10 @@ const CombinedLocationSearch = ({
 
   const [autocomplete, setAutocomplete] = useState(null);
   const [selectedLatlong, setSelectedLatlong] = useState(
-    initialLatlong || null
+    initialLatlong || defaultCenter
   );
   const [workplace, setWorkplace] = useState(initialWorkplace || "");
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState(initialWorkplace || "");
 
   const fetchWorkplaceFromLatLng = (lat, lng) => {
     const geocoder = new window.google.maps.Geocoder();
@@ -36,7 +39,10 @@ const CombinedLocationSearch = ({
       if (status === "OK" && results[0]) {
         const formattedAddress = results[0].formatted_address;
         setWorkplace(formattedAddress);
+        setSearchInput(formattedAddress);
         onLocationChange({ workplace: formattedAddress, latlong: { lat, lng } }); // Send data to parent
+      } else {
+        console.error("Geocoder failed due to: " + status);
       }
     });
   };
@@ -88,7 +94,7 @@ const CombinedLocationSearch = ({
 
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        center={selectedLatlong || defaultCenter}
+        center={selectedLatlong}
         zoom={10}
         onClick={handleMapClick}
       >
@@ -100,7 +106,7 @@ const CombinedLocationSearch = ({
         <p>{workplace}</p>
         <h3>พิกัดที่เลือก:</h3> {/* "Selected Coordinates" in Thai */}
         <p>
-          ละติจูด: {selectedLatlong?.lat}, ลองจิจูด: {selectedLatlong?.lng}
+          ละติจูด: {selectedLatlong.lat}, ลองจิจูด: {selectedLatlong.lng}
         </p>
       </div>
     </div>
