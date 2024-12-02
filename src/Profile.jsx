@@ -115,7 +115,7 @@ function Profile() {
     setFormData({
       ...formData,
       Workplace: locationData.workplace,
-      Address: locationData.workplace, // Update both Workplace and Address if needed
+      // Address is no longer updated here
       Latlong: locationData.latlong,
     });
   };
@@ -461,7 +461,7 @@ function Profile() {
             <CombinedLocationSearch
               onLocationChange={handleLocationChange}
               initialLatlong={isEditing ? formData?.Latlong : user?.Latlong}
-              initialAddress={isEditing ? formData?.Workplace : user?.Workplace}
+              initialWorkplace={isEditing ? formData?.Workplace : user?.Workplace}
               isEditable={isEditing}
             />
           </div>
