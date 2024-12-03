@@ -241,12 +241,15 @@ function AlbumPage() {
             </div>
             <div>
               <div>{item.Name}</div>
-              <div style={{
-                color: selectedthirdColor
-              }}>{item?.Nickname}</div>
-              <div style={{
-                color: selectedthirdColor
-              }}>{item?.Tel}</div>
+              {/* Show Nickname only when searchType is "name" */}
+              {searchType === "name" && (
+                <div style={{ color: selectedthirdColor }}>{item?.Nickname}</div>
+              )}
+              {/* Show Tel only when searchType is "name" */}
+              {searchType === "name" && (
+                <div style={{ color: selectedthirdColor }}>{item?.Tel}</div>
+              )}
+              {/* Show Workplace only when searchType is "workplace" */}
               {searchType === "workplace" && (
                 <div style={{ color: selectedthirdColor }}>{item?.Workplace}</div>
               )}
