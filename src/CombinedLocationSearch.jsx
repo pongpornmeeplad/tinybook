@@ -102,7 +102,7 @@ const CombinedLocationSearch = ({
           placeholder="ค้นหาสถานที่" // "Search for a location" in Thai
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          style={{ width: "100%", marginBottom: "10px" }}
+          style={{ width: "100%", marginBottom: "10px", backgroundColor:"white", color:"grey"}}
           size="large"
           disabled={!isEditable}
         />
