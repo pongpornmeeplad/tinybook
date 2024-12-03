@@ -438,7 +438,7 @@ function Profile() {
           <div style={{ marginTop: "10px", color: "white" }}>
             {/* Remove the <p>{user.Workplace || "-"}</p> */}
             {/* Show the input field only when editing */}
-            {isEditing && (
+            {/* {isEditing && (
               <input
                 name="Workplace"
                 value={formData.Workplace}
@@ -454,7 +454,7 @@ function Profile() {
                   font: 'inherit'
                 }}
               />
-            )}
+            )} */}
             {/* Map Component */}
             <CombinedLocationSearch
               onLocationChange={handleLocationChange}
