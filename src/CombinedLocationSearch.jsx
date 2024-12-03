@@ -123,14 +123,16 @@ const CombinedLocationSearch = ({
         {selectedLatlong && <Marker position={selectedLatlong} />}
       </GoogleMap>
 
-      <div style={{ marginTop: "20px", color: "black" }}>
-        <h3>ที่อยู่ที่เลือก:</h3> {/* "Selected Address" in Thai */}
+      {/* <div style={{ marginTop: "20px", color: "black" }}>
+        <h3>ที่อยู่ที่เลือก:</h3> 
         <p>{workplace}</p>
-        <h3>พิกัดที่เลือก:</h3> {/* "Selected Coordinates" in Thai */}
+        <h3>พิกัดที่เลือก:</h3> 
         <p>
           ละติจูด: {selectedLatlong.lat}, ลองจิจูด: {selectedLatlong.lng}
         </p>
-      </div>
+      </div> */}
+
+
     </div>
   );
 };
