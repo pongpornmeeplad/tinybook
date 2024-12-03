@@ -1,11 +1,10 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IoMdSearch } from 'react-icons/io';
 import { RiArrowDropDownLine } from 'react-icons/ri';
-import { useNavigate ,useLocation} from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from "./Firebase"; // Import db from firebase.js
-
 
 const firstColors = {
   'ทบ.': '#8B0000',
@@ -35,35 +34,27 @@ function AlbumPage() {
   const [query, setQuery] = useState("");
   const [showList, setShowList] = useState(false);
   const [users, setUsers] = useState([]);
- 
+  const [searchType, setSearchType] = useState("name"); // New state for search type
 
   useEffect(() => {
     // Function to fetch Instagram images
     const fetchInstagramImages = async () => {
       try {
-       
-
         // Making request to Instagram API
         const targetUrl = 'http://localhost:7221/instagram-images';
-        
-        const response = await axios.get(targetUrl)
-        
-        
-        // Handle compressed responses
 
-
-        // Parse the response
+        const response = await axios.get(targetUrl);
 
         // Extract images from the response
-        console.log('response', response)
-        const fetchedImages = response?.data?.data.top?.sections.flatMap(section => 
+        console.log('response', response);
+        const fetchedImages = response?.data?.data.top?.sections.flatMap(section =>
           section.layout_content.medias?.map(mediaItem => ({
             src: mediaItem?.media?.image_versions2?.candidates?.[0]?.url || '',  // Ensure a valid URL
             alt: mediaItem?.media?.accessibility_caption || 'Instagram Image',  // Provide a default alt text
           })) || []  // Return an empty array if `medias` is undefined
         );
-        
-        console.log('fetchedImages', fetchedImages)
+
+        console.log('fetchedImages', fetchedImages);
         setImages(fetchedImages || []);
         setLoading(false);
       } catch (error) {
@@ -77,13 +68,24 @@ function AlbumPage() {
   }, []);
 
   const navigate = useNavigate();
-  
+
+  // Updated search function to consider searchType
   const search = (data) => {
-    return data.filter((item) => 
-      (item.Name && item.Name.toLowerCase().includes(query.toLowerCase())) ||
-      (item.Nickname && item.Nickname.toLowerCase().includes(query.toLowerCase()))
-    );
+    return data.filter((item) => {
+      if (searchType === "name") {
+        return (
+          (item.Name && item.Name.toLowerCase().includes(query.toLowerCase())) ||
+          (item.Nickname && item.Nickname.toLowerCase().includes(query.toLowerCase()))
+        );
+      } else if (searchType === "workplace") {
+        return (
+          item.Workplace && item.Workplace.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+      return false;
+    });
   };
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -109,19 +111,17 @@ function AlbumPage() {
   };
 
   const handleSeeAll = () => {
-    navigate('/All',{state: {Service}});
+    navigate('/All', { state: { Service } });
   };
 
   const location = useLocation(); // Get the location object
-    const { Service } = location.state || {}; // Retrieve Service from location state
-    const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
-    const selectedsecColor = secColors[Service] || "#831818"; // Default color
-    const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default color
+  const { Service } = location.state || {}; // Retrieve Service from location state
+  const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
+  const selectedsecColor = secColors[Service] || "#831818"; // Default color
+  const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default color
   if (loading) {
     return <div>Loading images...</div>;
   }
-
-
 
   return (
     <div style={{
@@ -135,7 +135,7 @@ function AlbumPage() {
       position: 'relative',
       alignItems: "center"
     }}>
-       <div style={{
+      <div style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-around",
@@ -171,8 +171,28 @@ function AlbumPage() {
             fontSize: '1rem',
             backgroundColor: 'transparent',
             fontFamily: "'Kanit', sans-serif",
-          }} type="text" placeholder="ค้นหารายชื่อ" onFocus={() => setShowList(true)} onChange={(e) => setQuery(e.target.value)} />
+          }} type="text" placeholder={searchType === "name" ? "ค้นหารายชื่อ" : "ค้นหาสถานที่ทำงาน"} onFocus={() => setShowList(true)} onChange={(e) => setQuery(e.target.value)} />
         </div>
+
+        {/* Dropdown Menu for Search Type */}
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          style={{
+            borderRadius: '30px',
+            padding: '10px',
+            outline: 'none',
+            border: 'none',
+            fontFamily: "'Kanit', sans-serif",
+            cursor: 'pointer',
+            backgroundColor: '#fff',
+            color: selectedfirstColor,
+          }}
+        >
+          <option value="name">ค้นหารายชื่อ</option>
+          <option value="workplace">ค้นหาสถานที่ทำงาน</option>
+        </select>
+
         <div style={{
           color: selectedthirdColor,
           marginLeft: "auto",
@@ -182,71 +202,68 @@ function AlbumPage() {
         </div>
       </div>
 
-        <div style={{
-          width: "100%",
-          height: "100vh",
-          backgroundColor: selectedsecColor,
-          borderRadius: "30px 30px 0px 0px ",
-          boxSizing: "border-box",
-          padding: "20px",
-          overflow: "scroll",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-          maxWidth: "1000px"
-        }}>
-          {search(users).map((item) => (
-            <div 
-              key={item.id} 
-              style={{
-                display: "flex",
-                gap: "2rem",
-                alignItems: "center",
-                cursor: "pointer" // Added cursor pointer for better UX
-              }} 
-              onClick={() => handleProfile(item.id)} // Pass the specific user's id
-            >
-              <div style={{
-                width: '4rem',
-                height: '4rem',
-                borderRadius: '50%',
-                border: '5px solid white',
-                overflow: 'hidden',
-              }}>
-                <img src={item.Picpic} alt="Profile" style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }} />
-              </div>
-              <div>
-                <div>{item.Name}</div>
-                <div style={{
-                  color: selectedthirdColor
-                }}>{item?.Nickname}</div>
-                <div style={{
-                  color: selectedthirdColor
-                }}>{item?.Tel}</div>
-              </div>
+      <div style={{
+        width: "100%",
+        height: "100vh",
+        backgroundColor: selectedsecColor,
+        borderRadius: "30px 30px 0px 0px ",
+        boxSizing: "border-box",
+        padding: "20px",
+        overflow: "scroll",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        maxWidth: "1000px"
+      }}>
+        {search(users).map((item) => (
+          <div
+            key={item.id}
+            style={{
+              display: "flex",
+              gap: "2rem",
+              alignItems: "center",
+              cursor: "pointer" // Added cursor pointer for better UX
+            }}
+            onClick={() => handleProfile(item.id)} // Pass the specific user's id
+          >
+            <div style={{
+              width: '4rem',
+              height: '4rem',
+              borderRadius: '50%',
+              border: '5px solid white',
+              overflow: 'hidden',
+            }}>
+              <img src={item.Picpic} alt="Profile" style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }} />
             </div>
-          ))}
-
-          <div style={{
-            display: "flex",
-            justifyContent: "center",
-            cursor: "pointer"
-          }} onClick={handleSeeAll}>
-            <RiArrowDropDownLine style={{ fontSize: "30px" }} />
-            ดูทั้งหมด
+            <div>
+              <div>{item.Name}</div>
+              <div style={{
+                color: selectedthirdColor
+              }}>{item?.Nickname}</div>
+              <div style={{
+                color: selectedthirdColor
+              }}>{item?.Tel}</div>
+              {searchType === "workplace" && (
+                <div style={{ color: selectedthirdColor }}>{item?.Workplace}</div>
+              )}
+            </div>
           </div>
-          
+        ))}
+
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          cursor: "pointer"
+        }} onClick={handleSeeAll}>
+          <RiArrowDropDownLine style={{ fontSize: "30px" }} />
+          ดูทั้งหมด
         </div>
-        
-      
 
-
-
-
+      </div>
     </div>
   );
 }
