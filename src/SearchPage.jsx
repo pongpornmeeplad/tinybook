@@ -251,6 +251,10 @@ function AlbumPage() {
               )}
               {/* Show Workplace only when searchType is "workplace" */}
               {searchType === "workplace" && (
+                <div style={{ color: selectedthirdColor }}>{item?.Nickname}</div>
+              )}
+              {searchType === "workplace" && (
+                
                 <div style={{ color: selectedthirdColor }}>{item?.Workplace}</div>
               )}
             </div>
