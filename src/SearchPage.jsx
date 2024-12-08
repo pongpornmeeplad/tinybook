@@ -187,11 +187,11 @@ function AlbumPage() {
             cursor: 'pointer',
             backgroundColor: '#fff',
             color: selectedfirstColor,
-            width: '40%',
+            width: '45%',
           }}
         >
-          <option value="name">ค้นหารายชื่อ</option>
-          <option value="workplace">ค้นหาสถานที่ทำงาน</option>
+          <option value="name">ค้นหาชื่อ</option>
+          <option value="workplace">ค้นหาที่ทำงาน</option>
         </select>
 
         <div style={{
