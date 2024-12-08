@@ -132,6 +132,14 @@ function Profile() {
             console.error("Error updating user: ", error);
         }
     };
+    const handleLocationChange = (locationData) => {
+        setFormData({
+          ...formData,
+          Workplace: locationData.workplace,
+          // Address is no longer updated here
+          Latlong: locationData.latlong,
+        });
+      };
 
     if (!user) {
         return (
