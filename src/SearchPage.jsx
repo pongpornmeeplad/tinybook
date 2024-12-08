@@ -216,15 +216,14 @@ function AlbumPage() {
         maxWidth: "1000px"
       }}>
         {search(users).map((item) => (
-          <div
-            key={item.id}
-            style={{
-              display: "flex",
-              gap: "2rem",
-              alignItems: "center",
-              cursor: "pointer" // Added cursor pointer for better UX
-            }}
-            onClick={() => handleProfile(item.id)} // Pass the specific user's id
+          <div style={{
+            display: "flex",
+            gap: "2rem",
+            alignItems: "center",
+            cursor: "pointer", // Added cursor pointer for better UX
+            overflow: "hidden", // Prevent container from expanding
+          }}
+          onClick={() => handleProfile(item.id)} // Pass the specific user's id
           >
             <div style={{
               width: '4rem',
@@ -236,29 +235,45 @@ function AlbumPage() {
               <img src={item.Picpic} alt="Profile" style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover'
+                objectFit: 'cover',
               }} />
             </div>
-            <div>
-              <div>{item.Name}</div>
+            <div style={{ flex: 1, minWidth: '0' }}> {/* Ensure text container doesn't force layout change */}
+              <div style={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}>{item.Name}</div>
               {/* Show Nickname only when searchType is "name" */}
               {searchType === "name" && (
-                <div style={{ color: selectedthirdColor }}>{item?.Nickname}</div>
+                <div style={{
+                  color: selectedthirdColor,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}>{item?.Nickname}</div>
               )}
               {/* Show Tel only when searchType is "name" */}
               {searchType === "name" && (
-                <div style={{ color: selectedthirdColor }}>{item?.Tel}</div>
+                <div style={{
+                  color: selectedthirdColor,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}>{item?.Tel}</div>
               )}
               {/* Show Workplace only when searchType is "workplace" */}
               {searchType === "workplace" && (
-                <div style={{ color: selectedthirdColor }}>{item?.Nickname}</div>
-              )}
-              {searchType === "workplace" && (
-                
-                <div style={{ color: selectedthirdColor }}>{item?.Workplace}</div>
+                <div style={{
+                  color: selectedthirdColor,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}>{item?.Workplace}</div>
               )}
             </div>
           </div>
+          
         ))}
 
         <div style={{
