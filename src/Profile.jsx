@@ -31,7 +31,12 @@ const thirdColors = {
   'ทอ.': '#48fff6',
   'ตร.': '#bb6969'
 };
-
+const serviceImg = {
+  'ทบ.': 'https://f.ptcdn.info/400/063/000/ppqeh86vhn39NbDw0Lw-o.jpg',
+  'ทร.': 'https://cdn.pixabay.com/photo/2024/03/29/17/54/ship-8663314_960_720.jpg',
+  'ทอ.': 'https://png.pngtree.com/thumb_back/fh260/background/20230424/pngtree-fighter-jet-being-blown-away-by-the-ocean-waves-image_2507862.jpg',
+  'ตร.': 'https://file.chobrod.com/2018/06/23/nkNHHn8K/1-dodge-charger-purs-896b.jpg'
+};
 function Profile() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
@@ -445,7 +450,7 @@ function Profile() {
             />
           </div>
         </div>
-        
+
       </div>
 
       {/* Other Information Section */}
