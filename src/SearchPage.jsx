@@ -187,7 +187,7 @@ function AlbumPage() {
             cursor: 'pointer',
             backgroundColor: '#fff',
             color: selectedfirstColor,
-            width: '20%',
+            width: '40%',
           }}
         >
           <option value="name">ค้นหารายชื่อ</option>
