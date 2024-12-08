@@ -436,26 +436,7 @@ function Profile() {
             <span>สถานที่ทำงาน</span>
           </div>
           <div style={{ marginTop: "10px", color: "white" }}>
-            {/* Remove the <p>{user.Workplace || "-"}</p> */}
-            {/* Show the input field only when editing */}
-            {/* {isEditing && (
-              <input
-                name="Workplace"
-                value={formData.Workplace}
-                onChange={handleChange}
-                style={{
-                  backgroundColor: selectedSecColor,
-                  border: 'none',
-                  width: '100%',
-                  fontSize: '1rem',
-                  color: 'white',
-                  textAlign: 'left',
-                  outline: 'none',
-                  font: 'inherit'
-                }}
-              />
-            )} */}
-            {/* Map Component */}
+         
             <CombinedLocationSearch
               onLocationChange={handleLocationChange}
               initialLatlong={isEditing ? formData?.Latlong : user?.Latlong}
@@ -464,6 +445,7 @@ function Profile() {
             />
           </div>
         </div>
+        
       </div>
 
       {/* Other Information Section */}

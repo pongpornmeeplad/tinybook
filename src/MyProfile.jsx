@@ -427,42 +427,29 @@ function Profile() {
                 </div>
 
                 {/* Workplace Field */}
-                <div style={{
-                    backgroundColor: selectedSecColor,
-                    display: "flex",
-                    justifyContent: "space-between",
-                    margin: "5px 15px",
-                    padding: "10px",
-                    borderRadius: "10px",
-                    alignItems: "center"
-                }} >
-                    <div style={labelContainerStyle}>
-                        <MdOutlineHomeRepairService size={20} />
-                        <span>สถานที่ทำงาน</span>
-                    </div>
-                    {isEditing ? (
-                        <input
-                            name="Workplace"
-                            value={formData.Workplace}
-                            onChange={handleChange}
-                            style={{
-                                backgroundColor: selectedSecColor,
-                                border: 'none',
-                                width: '50%',
-                                fontSize: '1rem',
-                                color: 'white',
-                                textAlign: 'right',
-                                outline: 'none',
-                                font: 'inherit'
-                            }}
-                        />
-                        
-                    ) : (
-                        <div >{user.Workplace || '-'}
-                        <CombinedLocationSearch></CombinedLocationSearch>
-                        </div>
-                    )}
-                </div>
+                <div
+          style={{
+            backgroundColor: selectedSecColor,
+            margin: "5px 15px",
+            padding: "10px",
+            borderRadius: "10px",
+          }}
+        >
+          <div style={labelContainerStyle}>
+            <MdOutlineHomeRepairService size={20} />
+            <span>สถานที่ทำงาน</span>
+          </div>
+          <div style={{ marginTop: "10px", color: "white" }}>
+         
+            <CombinedLocationSearch
+              onLocationChange={handleLocationChange}
+              initialLatlong={isEditing ? formData?.Latlong : user?.Latlong}
+              initialWorkplace={isEditing ? formData?.Workplace : user?.Workplace}
+              isEditable={isEditing}
+            />
+          </div>
+        </div>
+
             </div>
             
             
