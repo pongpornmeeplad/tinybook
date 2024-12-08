@@ -175,7 +175,24 @@ function AlbumPage() {
         </div>
 
         {/* Dropdown Menu for Search Type */}
-
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          style={{
+            borderRadius: '30px',
+            padding: '10px',
+            outline: 'none',
+            border: 'none',
+            fontFamily: "'Kanit', sans-serif",
+            cursor: 'pointer',
+            backgroundColor: '#fff',
+            color: selectedfirstColor,
+            width: '20%',
+          }}
+        >
+          <option value="name">ค้นหารายชื่อ</option>
+          <option value="workplace">ค้นหาสถานที่ทำงาน</option>
+        </select>
 
         <div style={{
           color: selectedthirdColor,
@@ -185,23 +202,7 @@ function AlbumPage() {
           ยกเลิก
         </div>
       </div>
-      <select
-        value={searchType}
-        onChange={(e) => setSearchType(e.target.value)}
-        style={{
-          borderRadius: '30px',
-          padding: '10px',
-          outline: 'none',
-          border: 'none',
-          fontFamily: "'Kanit', sans-serif",
-          cursor: 'pointer',
-          backgroundColor: '#fff',
-          color: selectedfirstColor,
-        }}
-      >
-        <option value="name">ค้นหารายชื่อ</option>
-        <option value="workplace">ค้นหาสถานที่ทำงาน</option>
-      </select>
+
       <div style={{
         width: "100%",
         height: "100vh",
@@ -223,7 +224,7 @@ function AlbumPage() {
             cursor: "pointer", // Added cursor pointer for better UX
             // overflow: "hidden", // Prevent container from expanding
           }}
-            onClick={() => handleProfile(item.id)} // Pass the specific user's id
+          onClick={() => handleProfile(item.id)} // Pass the specific user's id
           >
             <div style={{
               width: '4rem',
@@ -273,7 +274,7 @@ function AlbumPage() {
               )}
             </div>
           </div>
-
+          
         ))}
 
         <div style={{
