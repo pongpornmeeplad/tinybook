@@ -221,7 +221,7 @@ function AlbumPage() {
             gap: "2rem",
             alignItems: "center",
             cursor: "pointer", // Added cursor pointer for better UX
-            overflow: "hidden", // Prevent container from expanding
+            // overflow: "hidden", // Prevent container from expanding
           }}
           onClick={() => handleProfile(item.id)} // Pass the specific user's id
           >
