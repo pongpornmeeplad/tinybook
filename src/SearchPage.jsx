@@ -243,19 +243,19 @@ function AlbumPage() {
               <div>{item.Name}</div>
               {/* Show Nickname only when searchType is "name" */}
               {searchType === "name" && (
-                <div style={{ color: selectedthirdColor }}>{item?.Nickname}</div>
+                <div style={{ color: selectedthirdColor  ,overflow: 'hidden',}}>{item?.Nickname}</div>
               )}
               {/* Show Tel only when searchType is "name" */}
               {searchType === "name" && (
-                <div style={{ color: selectedthirdColor }}>{item?.Tel}</div>
+                <div style={{ color: selectedthirdColor  ,overflow: 'hidden',}}>{item?.Tel}</div>
               )}
               {/* Show Workplace only when searchType is "workplace" */}
               {searchType === "workplace" && (
-                <div style={{ color: selectedthirdColor }}>{item?.Nickname}</div>
+                <div style={{ color: selectedthirdColor  ,overflow: 'hidden',}}>{item?.Nickname}</div>
               )}
               {searchType === "workplace" && (
                 
-                <div style={{ color: selectedthirdColor }}>{item?.Workplace}</div>
+                <div style={{ color: selectedthirdColor  ,overflow: 'hidden',}}>{item?.Workplace}</div>
               )}
             </div>
           </div>
