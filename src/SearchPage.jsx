@@ -181,6 +181,7 @@ function AlbumPage() {
           style={{
             borderRadius: '30px',
             padding: '10px',
+            paddingRight: '35px',
             outline: 'none',
             border: 'none',
             fontFamily: "'Kanit', sans-serif",
