@@ -6,10 +6,11 @@ import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line, RiEdit2Line } from "react-icons/ri";
 import { MdOutlineHomeRepairService } from "react-icons/md";
-import { FaRegQuestionCircle, FaRegListAlt } from "react-icons/fa";
+import { FaRegQuestionCircle, FaRegListAlt, FaChevronLeft } from "react-icons/fa";
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from './Firebase';
 import CombinedLocationSearch from './CombinedLocationSearch';
+import { useNavigate } from 'react-router-dom';
 
 const firstColors = {
   'ทบ.': '#8B0000',
@@ -39,6 +40,7 @@ const serviceImg = {
 };
 function Profile() {
   const { id } = useParams();
+  const navigate = useNavigate()
   const [user, setUser] = useState(null);
   const [showEditButton, setShowEditButton] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -170,6 +172,19 @@ function Profile() {
       paddingBottom: '20px'
     }}>
       {/* Header Section */}
+      <div 
+                style={{
+                    position: 'absolute',
+                    top: '20px',
+                    left: '20px',
+                    cursor: 'pointer',
+                    padding: '5px',
+                    zIndex: 9999 
+                }} 
+                onClick={() => navigate('/Album')}
+            >
+                <FaChevronLeft size={25} color="#FFFFFF" />
+            </div>
       <div style={{
         width: "100%",
         height: "35vh",

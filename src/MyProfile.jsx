@@ -175,8 +175,6 @@ function Profile() {
                     top: '20px',
                     left: '20px',
                     cursor: 'pointer',
-                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                    borderRadius: '50%',
                     padding: '5px',
                     zIndex: 9999 
                 }} 
