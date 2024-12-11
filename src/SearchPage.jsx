@@ -36,36 +36,6 @@ function AlbumPage() {
   const [users, setUsers] = useState([]);
   const [searchType, setSearchType] = useState("name"); // New state for search type
 
-  useEffect(() => {
-    // Function to fetch Instagram images
-    const fetchInstagramImages = async () => {
-      try {
-        // Making request to Instagram API
-        const targetUrl = 'http://localhost:7221/instagram-images';
-
-        const response = await axios.get(targetUrl);
-
-        // Extract images from the response
-        console.log('response', response);
-        const fetchedImages = response?.data?.data.top?.sections.flatMap(section =>
-          section.layout_content.medias?.map(mediaItem => ({
-            src: mediaItem?.media?.image_versions2?.candidates?.[0]?.url || '',  // Ensure a valid URL
-            alt: mediaItem?.media?.accessibility_caption || 'Instagram Image',  // Provide a default alt text
-          })) || []  // Return an empty array if `medias` is undefined
-        );
-
-        console.log('fetchedImages', fetchedImages);
-        setImages(fetchedImages || []);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching Instagram images:', error);
-        setError('Error fetching images.');
-        setLoading(false);
-      }
-    };
-
-    fetchInstagramImages();
-  }, []);
 
   const navigate = useNavigate();
 
@@ -224,13 +194,6 @@ function AlbumPage() {
 </select>
 
 
-        <div style={{
-          color: selectedthirdColor,
-          marginLeft: "auto",
-          cursor: "pointer"
-        }} onClick={handleCancleClick}>
-          ยกเลิก
-        </div>
       </div>
 
       <div style={{
@@ -246,8 +209,10 @@ function AlbumPage() {
         gap: "1rem",
         maxWidth: "1000px"
       }}>
-        {search(users).map((item) => (
-          <div style={{
+        {search(users).map((item,index) => (
+          <div
+          key={index}
+          style={{
             display: "flex",
             gap: "2rem",
             alignItems: "center",
