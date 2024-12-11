@@ -102,7 +102,8 @@ function All() {
                 borderRadius: "30px 30px 0px 0px ",
                 maxWidth: "1000px",
                 gap: "1rem",
-                overflow: "scroll"
+                overflowY: "scroll",
+                overflowX: "hidden"
             }}>
                 {users.map((item) => (
                     <div key={item.id}>

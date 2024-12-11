@@ -4,7 +4,9 @@ import { IoMdSearch } from 'react-icons/io';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from "./Firebase"; // Import db from firebase.js
+import { db } from "./Firebase";
+import { Select } from 'antd';
+import { FaChevronDown } from 'react-icons/fa';
 
 const firstColors = {
   'ทบ.': '#8B0000',
@@ -34,12 +36,10 @@ function AlbumPage() {
   const [query, setQuery] = useState("");
   const [showList, setShowList] = useState(false);
   const [users, setUsers] = useState([]);
-  const [searchType, setSearchType] = useState("name"); // New state for search type
-
+  const [searchType, setSearchType] = useState("name");
 
   const navigate = useNavigate();
 
-  // Updated search function to consider searchType
   const search = (data) => {
     return data.filter((item) => {
       if (searchType === "name") {
@@ -59,7 +59,7 @@ function AlbumPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "users")); // "users" is the Firestore collection name
+        const querySnapshot = await getDocs(collection(db, "users"));
         const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setUsers(usersList);
       } catch (error) {
@@ -70,13 +70,7 @@ function AlbumPage() {
     fetchUsers();
   }, []);
 
-  const handleCancleClick = () => {
-    setShowList(false); // Hide list on cancel
-  };
-
-  // Updated handleProfile to accept userId
   const handleProfile = (userId) => {
-    console.log("Service value before navigating to Profile:", Service); // ตรวจสอบค่า
     navigate(`/Profile/${userId}`, { state: { Service } });
   };
 
@@ -84,12 +78,11 @@ function AlbumPage() {
     navigate('/All', { state: { Service } });
   };
 
-  const location = useLocation(); // Get the location object
-  const { Service } = location.state || {}; // Retrieve Service from location state
-  const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
-  const selectedsecColor = secColors[Service] || "#831818"; // Default color
-  const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default color
- 
+  const location = useLocation();
+  const { Service } = location.state || {};
+  const selectedfirstColor = firstColors[Service] || "#510808";
+  const selectedsecColor = secColors[Service] || "#831818";
+  const selectedthirdColor = thirdColors[Service] || "#bb6969";
 
   return (
     <div style={{
@@ -139,58 +132,40 @@ function AlbumPage() {
             fontSize: '1rem',
             backgroundColor: 'transparent',
             fontFamily: "'Kanit', sans-serif",
-          }} type="text" placeholder={searchType === "name" ? "ค้นหารายชื่อ" : "ค้นหาสถานที่ทำงาน"} onFocus={() => setShowList(true)} onChange={(e) => setQuery(e.target.value)} />
+          }} 
+          type="text" 
+          placeholder={searchType === "name" ? "ค้นหารายชื่อ" : "ค้นหาสถานที่ทำงาน"} 
+          onFocus={() => setShowList(true)} 
+          onChange={(e) => setQuery(e.target.value)} />
         </div>
 
-        {/* Dropdown Menu for Search Type */}
-        {/* <select
+        <Select
           value={searchType}
-          onChange={(e) => setSearchType(e.target.value)}
+          onChange={(value) => setSearchType(value)}
+          dropdownMatchSelectWidth={false}
           style={{
             borderRadius: '30px',
-            padding: '10px',
-            paddingRight: '35px',
-            outline: 'none',
-            border: 'none',
+            overflow: 'hidden',
             fontFamily: "'Kanit', sans-serif",
-            cursor: 'pointer',
             backgroundColor: '#fff',
             color: selectedfirstColor,
-            width: '45%',
+            width: '150px',
+            border: 'none',
+            fontSize: '1rem',
+            padding: '0 20px',
+          }}
+          suffixIcon={<FaChevronDown color={selectedfirstColor} />}
+          dropdownStyle={{
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            fontFamily: "'Kanit', sans-serif",
+            color: 'black'
           }}
         >
-          <option value="name">ค้นหาชื่อ</option>
-          <option value="workplace">ค้นหาที่ทำงาน</option>
-        </select> */}
-        <select
-  value={searchType}
-  onChange={(e) => setSearchType(e.target.value)}
-  style={{
-    // ทำให้ไม่มีลูกศรเดิม
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    MozAppearance: 'none',
-    
-    borderRadius: '30px',
-    padding: '10px',
-    paddingRight: '35px', // เว้นที่สำหรับไอคอนใหม่
-    outline: 'none',
-    border: 'none',
-    fontFamily: "'Kanit', sans-serif",
-    cursor: 'pointer',
-    backgroundColor: '#fff',
-    color: selectedfirstColor,
-    width: '45%',
-    backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path fill="black" d="M4 5l3 3 3-3"/></svg>')`, // ตัวอย่างลูกศรเล็กๆ
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 10px center', // ปรับตำแหน่งลูกศรตามต้องการ
-    backgroundSize: '14px 14px', // ปรับขนาดลูกศร
-  }}
->
-  <option value="name">ค้นหาชื่อ</option>
-  <option value="workplace">ค้นหาที่ทำงาน</option>
-</select>
-
+          <Select.Option value="name" style={{ fontFamily: "'Kanit', sans-serif", fontSize: '1rem' }}>ค้นหาชื่อ</Select.Option>
+          <Select.Option value="workplace" style={{ fontFamily: "'Kanit', sans-serif", fontSize: '1rem' }}>ค้นหาที่ทำงาน</Select.Option>
+        </Select>
 
       </div>
 
@@ -207,17 +182,16 @@ function AlbumPage() {
         gap: "1rem",
         maxWidth: "1000px"
       }}>
-        {search(users).map((item,index) => (
+        {search(users).map((item, index) => (
           <div
-          key={index}
-          style={{
-            display: "flex",
-            gap: "2rem",
-            alignItems: "center",
-            cursor: "pointer", // Added cursor pointer for better UX
-            // overflow: "hidden", // Prevent container from expanding
-          }}
-          onClick={() => handleProfile(item.id)} // Pass the specific user's id
+            key={index}
+            style={{
+              display: "flex",
+              gap: "2rem",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+            onClick={() => handleProfile(item.id)}
           >
             <div style={{
               width: '4rem',
@@ -232,31 +206,28 @@ function AlbumPage() {
                 objectFit: 'cover',
               }} />
             </div>
-            <div style={{ flex: 1, minWidth: '0' }}> {/* Ensure text container doesn't force layout change */}
+            <div style={{ flex: 1, minWidth: '0' }}>
               <div style={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
               }}>{item.Name}</div>
-              {/* Show Nickname only when searchType is "name" */}
               {searchType === "name" && (
-                <div style={{
-                  color: selectedthirdColor,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}>{item?.Nickname}</div>
+                <>
+                  <div style={{
+                    color: selectedthirdColor,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}>{item?.Nickname}</div>
+                  <div style={{
+                    color: selectedthirdColor,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}>{item?.Tel}</div>
+                </>
               )}
-              {/* Show Tel only when searchType is "name" */}
-              {searchType === "name" && (
-                <div style={{
-                  color: selectedthirdColor,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}>{item?.Tel}</div>
-              )}
-              {/* Show Workplace only when searchType is "workplace" */}
               {searchType === "workplace" && (
                 <div style={{
                   color: selectedthirdColor,
@@ -267,7 +238,6 @@ function AlbumPage() {
               )}
             </div>
           </div>
-          
         ))}
 
         <div style={{
