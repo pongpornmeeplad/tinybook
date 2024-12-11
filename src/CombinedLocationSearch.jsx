@@ -114,10 +114,9 @@ const CombinedLocationSearch = ({
         zoom={10}
         onClick={isEditable ? handleMapClick : undefined}
         options={{
-          draggable: isEditable,
+          draggable: true,
           zoomControl: true,
           scrollwheel: true,
-          disableDoubleClickZoom: false,
         }}
       >
        <Marker position={selectedLatlong} />
