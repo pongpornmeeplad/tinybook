@@ -14,46 +14,6 @@ function AlbumPage() {
   const [showList, setShowList] = useState(false);
   const [users, setUsers] = useState([]);
 
-
-  useEffect(() => {
-    // Function to fetch Instagram images
-    const fetchInstagramImages = async () => {
-      try {
-
-
-        // Making request to Instagram API
-        const targetUrl = 'http://localhost:7221/instagram-images';
-
-        const response = await axios.get(targetUrl)
-
-
-        // Handle compressed responses
-
-
-        // Parse the response
-
-        // Extract images from the response
-        console.log('response', response)
-        const fetchedImages = response?.data?.data.top?.sections.flatMap(section =>
-          section.layout_content.medias?.map(mediaItem => ({
-            src: mediaItem?.media?.image_versions2?.candidates?.[0]?.url || '',  // Ensure a valid URL
-            alt: mediaItem?.media?.accessibility_caption || 'Instagram Image',  // Provide a default alt text
-          })) || []  // Return an empty array if `medias` is undefined
-        );
-
-        console.log('fetchedImages', fetchedImages)
-        setImages(fetchedImages || []);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching Instagram images:', error);
-        setError('Error fetching images.');
-        setLoading(false);
-      }
-    };
-
-    fetchInstagramImages();
-  }, []);
-
   const navigate = useNavigate();
 
   const search = (data) => {
@@ -147,13 +107,7 @@ function AlbumPage() {
             fontFamily: "'Kanit', sans-serif",
           }} type="text" placeholder="ค้นหารายชื่อ" onFocus={() => setShowList(true)} onChange={(e) => setQuery(e.target.value)} />
         </div>
-        <div style={{
-          color: "#BB6969",
-          marginLeft: "auto",
-          cursor: "pointer"
-        }} onClick={handleCancleClick}>
-          ยกเลิก
-        </div>
+     
       </div>
 
 
