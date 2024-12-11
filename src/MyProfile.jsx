@@ -79,39 +79,38 @@ function Profile() {
                 }
 
                 const profile = await window?.liff?.getProfile();
-                console.log('profile', profile)
-                // const currentLineId = profile?.userId;
+                const currentLineId = profile?.userId;
 
-                // // Query Firestore for a user document where LineId matches the current user's LineId
-                // const q = query(collection(db, "users"), where("LineId", "==", currentLineId));
-                // const querySnapshot = await getDocs(q);
+                // Query Firestore for a user document where LineId matches the current user's LineId
+                const q = query(collection(db, "users"), where("LineId", "==", currentLineId));
+                const querySnapshot = await getDocs(q);
 
-                // if (!querySnapshot.empty) {
-                //     // Assuming there is only one document per LineId
-                //     const userDoc = querySnapshot.docs[0];
-                //     const userData = userDoc.data();
+                if (!querySnapshot.empty) {
+                    // Assuming there is only one document per LineId
+                    const userDoc = querySnapshot.docs[0];
+                    const userData = userDoc.data();
 
-                //     console.log('userData', userData);
-                //     setUser({ id: userDoc.id, ...userData });
+                    console.log('userData', userData);
+                    setUser({ id: userDoc.id, ...userData });
 
-                //     // Show the edit button if the LineId matches the user's profile
-                //     setShowEditButton(true);
+                    // Show the edit button if the LineId matches the user's profile
+                    setShowEditButton(true);
 
-                //     // Initialize form data with fetched data
-                //     setFormData({
-                //         Nickname: userData.Nickname || '',
-                //         Tel: userData.Tel || '',
-                //         Address: userData.Address || '',
-                //         Workplace: userData.Workplace || '',
-                //         Business: userData.Business || '',
-                //         Detail: userData.Detail || '',
-                //         Name: userData.Name || '',
-                //         Service: userData.Service || '',
-                //         Position: userData.Position || ''
-                //     });
-                // } else {
-                //     console.error("No such user with this LineId!");
-                // }
+                    // Initialize form data with fetched data
+                    setFormData({
+                        Nickname: userData.Nickname || '',
+                        Tel: userData.Tel || '',
+                        Address: userData.Address || '',
+                        Workplace: userData.Workplace || '',
+                        Business: userData.Business || '',
+                        Detail: userData.Detail || '',
+                        Name: userData.Name || '',
+                        Service: userData.Service || '',
+                        Position: userData.Position || ''
+                    });
+                } else {
+                    console.error("No such user with this LineId!");
+                }
             } catch (error) {
                 console.error("Error fetching user by LineId: ", error);
             }

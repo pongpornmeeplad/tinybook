@@ -108,7 +108,7 @@ function Page1({ inputValues, setInputValues }) {
           try {
             if (!window.liff) throw new Error('LIFF SDK is not loaded');
             await window.liff.init({ liffId: '2005857013-rP966d6R' });
-            if (window.liff.isLoggedIn()) {
+            if (window?.liff?.isLoggedIn()) {
               const profile = await window.liff.getProfile();
               
               setInputValues((prevValues) => ({
