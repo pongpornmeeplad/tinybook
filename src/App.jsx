@@ -60,6 +60,7 @@ function App() {
       gap: "0.5rem",
       alignItems: "center",
   }}>Loading ...</div>;
+}
     
 
 

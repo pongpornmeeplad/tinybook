@@ -106,7 +106,7 @@ function Page1({ inputValues, setInputValues }) {
     
 
 
-  }
+  
 
     useEffect(() => {
         const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
