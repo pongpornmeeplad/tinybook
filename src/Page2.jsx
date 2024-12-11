@@ -5,6 +5,8 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { Input, notification } from 'antd'; // Import notification from Ant Design
 import bgImage from './assets/afaps48-bg.png'; // Use the same background as Page1
 import CombinedLocationSearch from './CombinedLocationSearch';
+import { FaChevronLeft } from 'react-icons/fa';
+
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyC4dCrV6B5GYraqkFm16oQlqMwU8LMNh3E",
@@ -43,11 +45,11 @@ function Page2({ inputValues, setInputValues }) {
     const handleLocationChange = ({ workplace, latlong }) => {
         setInputValues((prevValues) => ({
             ...prevValues,
-            Workplace: workplace || "", // ใช้ค่า address หรือ default เป็น "" 
-            Latlong: latlong || { lat: 0, lng: 0 }, // ใช้ค่า latlong หรือ default { lat: 0, lng: 0 }
+            Workplace: workplace || "",
+            Latlong: latlong || { lat: 0, lng: 0 },
         }));
     };
-    // Set the background color dynamically based on the selected Service
+
     const selectedfirstColor = firstColors[inputValues.Service] || "#510808"; // Default color
 
     // Function to show error notification
@@ -61,11 +63,33 @@ function Page2({ inputValues, setInputValues }) {
 
     // Handle form submission
     const handleNextClick = async () => {
+        // Define the required fields and their labels for better messages
+        const requiredFields = [
+            { key: 'Service', label: 'เหล่า' },
+            { key: 'Name', label: 'คำนำหน้า ชื่อ สกุล' },
+            { key: 'Nickname', label: 'ชื่อเล่น' },
+            { key: 'Tel', label: 'เบอร์โทร' },
+            { key: 'Address', label: 'ที่อยู่' },
+            { key: 'field1', label: 'ตำแหน่ง สังกัด' },
+            { key: 'Workplace', label: 'สถานที่ทำงาน' },
+        ];
+
+        // Check for missing required fields
+        const missingFields = requiredFields
+            .filter(field => !inputValues[field.key] || inputValues[field.key].toString().trim() === '')
+            .map(field => field.label);
+
+        if (missingFields.length > 0) {
+            showErrorNotification(`กรุณากรอกข้อมูลให้ครบถ้วน: ${missingFields.join(', ')}`);
+            return;
+        }
+
+        // Check if Latlong is selected
         if (!inputValues.Latlong || !inputValues.Latlong.lat || !inputValues.Latlong.lng) {
             showErrorNotification("กรุณาเลือกตำแหน่งบนแผนที่");
             return;
         }
-    
+
         try {
             await addDoc(collection(db, "users"), {
                 Service: inputValues.Service,
@@ -74,7 +98,7 @@ function Page2({ inputValues, setInputValues }) {
                 Tel: inputValues.Tel,
                 Address: inputValues.Address,
                 Position: inputValues.field1,
-                Workplace: inputValues.Workplace, // Corrected reference
+                Workplace: inputValues.Workplace,
                 Business: inputValues.field3,
                 Detail: inputValues.field4,
                 LineId: inputValues.LineId,
@@ -87,13 +111,12 @@ function Page2({ inputValues, setInputValues }) {
             showErrorNotification("Failed to submit data. Please try again.");
         }
     };
-    
 
     return (
         <div style={{
             width: "100vw",
             height: "100vh",
-            backgroundImage: `url(${bgImage})`, // Use the same background as Page1
+            backgroundImage: `url(${bgImage})`,
             backgroundSize: 'contain',
             display: 'flex',
             flexDirection: 'column',
@@ -105,6 +128,21 @@ function Page2({ inputValues, setInputValues }) {
             gap: "0.5rem",
             alignItems: "center",
         }}>
+              <div
+                style={{
+                    position: 'absolute',
+                    top: '20px',
+                    left: '20px',
+                    cursor: 'pointer',
+         
+                    borderRadius: '50%',
+                    padding: '5px',
+                    zIndex: 9999
+                }}
+                onClick={() => navigate('/page1')}
+            >
+                <FaChevronLeft size={25} color="#FFFFFF" />
+            </div>
             {/* Red Overlay */}
             <div style={{
                 position: 'absolute',
@@ -131,7 +169,6 @@ function Page2({ inputValues, setInputValues }) {
                 zIndex: 1
             }}>
                 กรอกข้อมูล
-
                 <div style={{
                     width: '35px',
                     height: '35px',
@@ -176,14 +213,13 @@ function Page2({ inputValues, setInputValues }) {
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
                         }}>ตำแหน่ง สังกัด</div>
-
-                        <Input variant='filled'
+                        <Input
+                            variant='filled'
                             type="text"
                             placeholder='ผบ......'
                             value={inputValues.field1}
                             onChange={(e) => handleInputChange(e, 'field1')}
                             size='large'
-
                         />
                     </div>
 
@@ -194,21 +230,7 @@ function Page2({ inputValues, setInputValues }) {
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
                         }}>สถานที่ทำงาน</div>
-
-                        {/* <Input variant='filled'
-                        type="text"
-                        placeholder='โรงเรียน....'
-                        value={inputValues.field2}
-                        onChange={(e) => handleInputChange(e, 'field2')}
-                        size='large'
-
-                    /> */}
-                        <>
-
-                            <CombinedLocationSearch onLocationChange={handleLocationChange}></CombinedLocationSearch>
-
-
-                        </>
+                        <CombinedLocationSearch onLocationChange={handleLocationChange} />
                     </div>
 
                     {/* Business Field */}
@@ -218,14 +240,13 @@ function Page2({ inputValues, setInputValues }) {
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
                         }}>ธุรกิจส่วนตัว</div>
-
-                        <Input variant='filled'
+                        <Input
+                            variant='filled'
                             type="text"
                             placeholder='ร้านอาหาร...'
                             value={inputValues.field3}
                             onChange={(e) => handleInputChange(e, 'field3')}
                             size='large'
-
                         />
                     </div>
 
@@ -235,14 +256,14 @@ function Page2({ inputValues, setInputValues }) {
                             color: selectedfirstColor,
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
-                        }}>รายละเอียดเพิ่มเติม</div>
-
-                        <TextArea variant='filled' type="text"
+                        }}>อยากบอกอะไรกับเพื่อน</div>
+                        <TextArea
+                            variant='filled'
+                            type="text"
                             placeholder='........'
                             value={inputValues.field4}
                             onChange={(e) => handleInputChange(e, 'field4')}
                             size='large'
-
                         />
                     </div>
                 </div>

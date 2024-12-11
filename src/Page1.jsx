@@ -289,7 +289,7 @@ function Page1({ inputValues, setInputValues }) {
                                     color: selectedfirstColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
-                                }}>คำนำหน้า ชื่อ สกุล</div>
+                                }}>ยศ - ชื่อ - สกุล</div>
                                 <Input
                                     variant='filled'
                                     placeholder='ร.ท.รักชาติ ยิ่งชีพ'
@@ -319,11 +319,11 @@ function Page1({ inputValues, setInputValues }) {
                                     color: selectedfirstColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
-                                }}>เบอร์โทร</div>
+                                }}>เบอร์โทรศัพท์</div>
                                 <Input
                                     variant='filled'
                                     type='number'
-                                    placeholder='0957777777'
+                                    placeholder='098XXXXXXX'
                                     value={inputValues.Tel}
                                     onChange={(e) => handleInputChange(e, 'Tel')}
                                     size='large'
@@ -335,7 +335,7 @@ function Page1({ inputValues, setInputValues }) {
                                     color: selectedfirstColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
-                                }}>ที่อยู่</div>
+                                }}>จังหวัดที่อยู่</div>
                                 {/* <Radio.Group
                                     onChange={(e) => setAddressOption(e.target.value)}
                                     value={addressOption}

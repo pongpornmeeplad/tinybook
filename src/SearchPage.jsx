@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState, useRef } from 'react';
 import { IoMdSearch } from 'react-icons/io';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from "./Firebase";
-import { Select } from 'antd';
 import { FaChevronDown } from 'react-icons/fa';
 
 const firstColors = {
@@ -30,15 +28,21 @@ const thirdColors = {
 };
 
 function AlbumPage() {
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
   const [showList, setShowList] = useState(false);
   const [users, setUsers] = useState([]);
   const [searchType, setSearchType] = useState("name");
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const { Service } = location.state || {};
+  
+  const selectedfirstColor = firstColors[Service] || "#510808";
+  const selectedsecColor = secColors[Service] || "#831818";
+  const selectedthirdColor = thirdColors[Service] || "#bb6969";
+
+  const dropdownRef = useRef(null);
 
   const search = (data) => {
     return data.filter((item) => {
@@ -66,7 +70,6 @@ function AlbumPage() {
         console.error("Error fetching users: ", error);
       }
     };
-
     fetchUsers();
   }, []);
 
@@ -78,11 +81,27 @@ function AlbumPage() {
     navigate('/All', { state: { Service } });
   };
 
-  const location = useLocation();
-  const { Service } = location.state || {};
-  const selectedfirstColor = firstColors[Service] || "#510808";
-  const selectedsecColor = secColors[Service] || "#831818";
-  const selectedthirdColor = thirdColors[Service] || "#bb6969";
+  const handleDropdownToggle = () => {
+    setShowDropdown((prev) => !prev);
+  };
+
+  const handleOptionSelect = (optionValue) => {
+    setSearchType(optionValue);
+    setShowDropdown(false);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div style={{
@@ -107,14 +126,18 @@ function AlbumPage() {
         maxWidth: '1000px',
         width: "95%"
       }}>
-        <div style={{
-          width: '100%',
-          borderRadius: '30px',
-          backgroundColor: '#fff',
-          display: 'flex',
-          alignItems: 'center',
-          paddingLeft: '20px',
-        }}>
+        <div 
+          ref={dropdownRef}
+          style={{
+            position: 'relative',
+            width: '100%',
+            borderRadius: '30px',
+            backgroundColor: '#fff',
+            display: 'flex',
+            alignItems: 'center',
+            paddingLeft: '20px',
+          }}
+        >
           <IoMdSearch style={{
             color: selectedfirstColor,
             fontSize: "2rem"
@@ -137,36 +160,78 @@ function AlbumPage() {
           placeholder={searchType === "name" ? "ค้นหารายชื่อ" : "ค้นหาสถานที่ทำงาน"} 
           onFocus={() => setShowList(true)} 
           onChange={(e) => setQuery(e.target.value)} />
+
+          {/* Dropdown trigger */}
+          <div
+            style={{
+              backgroundColor: '#fff',
+              color: selectedfirstColor,
+              borderRadius: '30px',
+              padding: '0 20px',
+              height: '2rem',
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              fontFamily: "'Kanit', sans-serif",
+              fontSize: '1rem',
+              border: 'none',
+              position: 'absolute',
+              right: '0',
+              borderTopRightRadius: '30px',
+              borderBottomRightRadius: '30px',
+              height: '100%',
+              justifyContent: 'center'
+            }}
+            onClick={handleDropdownToggle}
+          >
+            <div style={{
+              height: '60%',
+              backgroundColor : selectedfirstColor,
+              width: '1px',
+              marginRight: '15px',
+            }}/>
+            {searchType === 'name' ? 'ค้นหาชื่อ' : 'ค้นหาที่ทำงาน'}
+            <FaChevronDown style={{ marginLeft: '10px' }} color={selectedfirstColor} />
+          </div>
+          
+          {showDropdown && (
+            <div style={{
+              position: 'absolute',
+              top: '100%',
+              right: '0',
+              backgroundColor: '#fff',
+              borderRadius: '10px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              fontFamily: "'Kanit', sans-serif",
+              color: 'black',
+              minWidth: '150px',
+              zIndex: 9999
+            }}>
+              <div
+                style={{
+                  padding: '10px 20px',
+                  cursor: 'pointer',
+                  fontSize: '1rem',
+                  whiteSpace: 'nowrap'
+                }}
+                onClick={() => handleOptionSelect('name')}
+              >
+                ค้นหาชื่อ
+              </div>
+              <div
+                style={{
+                  padding: '10px 20px',
+                  cursor: 'pointer',
+                  fontSize: '1rem',
+                  whiteSpace: 'nowrap'
+                }}
+                onClick={() => handleOptionSelect('workplace')}
+              >
+                ค้นหาที่ทำงาน
+              </div>
+            </div>
+          )}
         </div>
-
-        <Select
-          value={searchType}
-          onChange={(value) => setSearchType(value)}
-          dropdownMatchSelectWidth={false}
-          style={{
-            borderRadius: '30px',
-            overflow: 'hidden',
-            fontFamily: "'Kanit', sans-serif",
-            backgroundColor: '#fff',
-            color: selectedfirstColor,
-            width: '150px',
-            border: 'none',
-            fontSize: '1rem',
-            padding: '0 20px',
-          }}
-          suffixIcon={<FaChevronDown color={selectedfirstColor} />}
-          dropdownStyle={{
-            backgroundColor: "#fff",
-            borderRadius: "10px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-            fontFamily: "'Kanit', sans-serif",
-            color: 'black'
-          }}
-        >
-          <Select.Option value="name" style={{ fontFamily: "'Kanit', sans-serif", fontSize: '1rem' }}>ค้นหาชื่อ</Select.Option>
-          <Select.Option value="workplace" style={{ fontFamily: "'Kanit', sans-serif", fontSize: '1rem' }}>ค้นหาที่ทำงาน</Select.Option>
-        </Select>
-
       </div>
 
       <div style={{
@@ -248,7 +313,6 @@ function AlbumPage() {
           <RiArrowDropDownLine style={{ fontSize: "30px" }} />
           ดูทั้งหมด
         </div>
-
       </div>
     </div>
   );
