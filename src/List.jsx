@@ -77,12 +77,7 @@ function List() {
             fontFamily: "'Kanit', sans-serif",
           }} type="text" placeholder="ค้นหารายชื่อ" onChange={(e) => setQuery(e.target.value)} />
         </div>
-        <div style={{
-          color: "#BB6969",
-          marginLeft: "auto"
-        }} onClick={handleCancleClick}>
-          ยกเลิก
-        </div>
+     
       </div>
 
       <div style={{
