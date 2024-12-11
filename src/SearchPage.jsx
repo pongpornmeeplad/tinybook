@@ -89,9 +89,7 @@ function AlbumPage() {
   const selectedfirstColor = firstColors[Service] || "#510808"; // Default color
   const selectedsecColor = secColors[Service] || "#831818"; // Default color
   const selectedthirdColor = thirdColors[Service] || "#bb6969"; // Default color
-  if (loading) {
-    return <div>Loading images...</div>;
-  }
+ 
 
   return (
     <div style={{
