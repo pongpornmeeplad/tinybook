@@ -103,49 +103,9 @@ function Page1({ inputValues, setInputValues }) {
     const [addressOption, setAddressOption] = useState('A');
     const [isLiffReady, setIsLiffReady] = useState(false);
 
-    useEffect(() => {
-        const initializeLiff = async () => {
-          try {
-            if (!window.liff) throw new Error('LIFF SDK is not loaded');
-            await window.liff.init({ liffId: '2005857013-rP966d6R' });
-            console.log('window?.liff?.isLoggedIn() :>> ', window?.liff?.isLoggedIn());
-            if (window?.liff?.isLoggedIn()) {
-              const profile = await window.liff.getProfile();
-              
-              setInputValues((prevValues) => ({
-                // ...prevValues,
-                LineId: profile.userId,  // Ensure consistent casing
-                picpic: profile.pictureUrl,
-              }));
-            } else {
-              window.liff.login();
-            }
-            setIsLiffReady(true);
-          } catch (err) {
-            console.error('Error initializing LIFF:', err);
-          }
-        };
     
-        initializeLiff();
-      }, []);
 
 
-  if (!isLiffReady) {
-    return <div style={{
-      width: "100vw",
-      height: "100vh",
-      backgroundColor: "#510808",
-      display: 'flex',
-      flexDirection: 'column',
-      color: 'white',
-      fontFamily: "'Kanit', sans-serif",
-      overflow: 'hidden',
-      position: 'relative',
-      justifyContent: "end",
-      gap: "0.5rem",
-      alignItems: "center",
-  }}>Loading ...</div>;
-    
   }
 
     useEffect(() => {
