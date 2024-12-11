@@ -16,6 +16,9 @@
   font-family: inherit;
   color: gray;
 }
+.gm-style-mtc button {
+  border-radius: 0 !important;
+}
 .ant-input:focus {
   border-radius: 8px;
   border: 1px solid #aa4444;

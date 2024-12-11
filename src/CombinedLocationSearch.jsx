@@ -8,7 +8,7 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import { Input } from "antd"; // Import Ant Design Input component
-
+import './App.css'
 
 const libraries = ["places"]; // Include places library
 const mapContainerStyle = { width: "100%", height: "400px" };
