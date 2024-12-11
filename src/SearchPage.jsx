@@ -147,7 +147,7 @@ function AlbumPage() {
             color: "black",
             borderRadius: "30px",
             boxSizing: "border-box",
-            height: "2rem",
+            height: "3rem",
             border: "none",
             padding: "20px",
             width: "100%",
@@ -240,12 +240,16 @@ function AlbumPage() {
         backgroundColor: selectedsecColor,
         borderRadius: "30px 30px 0px 0px ",
         boxSizing: "border-box",
-        padding: "20px",
+        paddingTop: "20px",
+        paddingLeft: "10px",
+        paddingRight: "10px",
+        gap: '4px',
         overflow: "scroll",
         display: "flex",
         flexDirection: "column",
-        gap: "1rem",
-        maxWidth: "1000px"
+        maxWidth: "1000px",
+        scrollbarWidth: 'none', // for Firefox
+        msOverflowStyle: 'none' // for IE and Edge
       }}>
         {search(users).map((item, index) => (
           <div
@@ -255,15 +259,20 @@ function AlbumPage() {
               gap: "2rem",
               alignItems: "center",
               cursor: "pointer",
+             
+              borderRadius: '40px',
+             padding : '10px'
             }}
             onClick={() => handleProfile(item.id)}
           >
-            <div style={{
+            <div
+            style={{
               width: '4rem',
               height: '4rem',
               borderRadius: '50%',
               border: '5px solid white',
               overflow: 'hidden',
+             
             }}>
               <img src={item.Picpic} alt="Profile" style={{
                 width: '100%',
