@@ -109,7 +109,7 @@ const CombinedLocationSearch = ({
       </Autocomplete>
 
       <GoogleMap
-        // mapContainerStyle={mapContainerStyle}
+        mapContainerStyle={mapContainerStyle}
         center={selectedLatlong}
         zoom={10}
         onClick={isEditable ? handleMapClick : undefined}
@@ -120,17 +120,9 @@ const CombinedLocationSearch = ({
           disableDoubleClickZoom: false,
         }}
       >
-        {selectedLatlong && <Marker position={selectedLatlong} />}
+       <Marker position={selectedLatlong} />
       </GoogleMap>
 
-      {/* <div style={{ marginTop: "20px", color: "black" }}>
-        <h3>ที่อยู่ที่เลือก:</h3> 
-        <p>{workplace}</p>
-        <h3>พิกัดที่เลือก:</h3> 
-        <p>
-          ละติจูด: {selectedLatlong.lat}, ลองจิจูด: {selectedLatlong.lng}
-        </p>
-      </div> */}
 
 
     </div>
