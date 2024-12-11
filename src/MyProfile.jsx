@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line, RiEdit2Line } from "react-icons/ri";
 import { MdOutlineHomeRepairService } from "react-icons/md";
-import { FaRegQuestionCircle, FaRegListAlt } from "react-icons/fa";
-import { getDocs, query, where, collection, updateDoc } from 'firebase/firestore';
+import { FaRegQuestionCircle, FaRegListAlt, FaChevronLeft } from "react-icons/fa";
+import { doc, getDocs, query, where, collection, updateDoc } from 'firebase/firestore';
 import { db } from './Firebase';
 import CombinedLocationSearch from './CombinedLocationSearch';
-
 
 const firstColors = {
     'ทบ.': '#8B0000',
@@ -22,9 +21,7 @@ const secColors = {
     'ทร.': '#0093ff',
     'ทอ.': '#00ecff',
     'ตร.': '#831818'
-
 };
-
 
 const thirdColors = {
     'ทบ.': '#FFA07A',
@@ -32,18 +29,20 @@ const thirdColors = {
     'ทอ.': '#48fff6',
     'ตร.': '#bb6969'
 };
+
 const serviceImg = {
     'ทบ.': 'https://f.ptcdn.info/400/063/000/ppqeh86vhn39NbDw0Lw-o.jpg',
     'ทร.': 'https://cdn.pixabay.com/photo/2024/03/29/17/54/ship-8663314_960_720.jpg',
     'ทอ.': 'https://png.pngtree.com/thumb_back/fh260/background/20230424/pngtree-fighter-jet-being-blown-away-by-the-ocean-waves-image_2507862.jpg',
     'ตร.': 'https://file.chobrod.com/2018/06/23/nkNHHn8K/1-dodge-charger-purs-896b.jpg'
 };
+
 function Profile() {
-    const location = useLocation(); // Get the location object
-    const { Service } = location.state || {}; // Retrieve Service from location sta
+    const navigate = useNavigate();
+    const location = useLocation(); 
+    const { Service } = location.state || {}; 
     const [user, setUser] = useState(null);
     const [showEditButton, setShowEditButton] = useState(false);
-    // Combined state for all the form data and editing toggle
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         Nickname: '',
@@ -58,10 +57,7 @@ function Profile() {
         Latlong: null,
     });
 
-
-
-
-    const selectedService = formData.Service; // Default to 'ทบ.' if not set
+    const selectedService = formData.Service || 'ทบ.'; 
     const selectedFirstColor = firstColors[selectedService];
     const selectedSecColor = secColors[selectedService];
     const selectedThirdColor = thirdColors[selectedService];
@@ -70,10 +66,9 @@ function Profile() {
     useEffect(() => {
         const fetchUserByLineId = async () => {
             try {
-                // Get the LineId from the LIFF profile
                 if (!window.liff) throw new Error('LIFF SDK is not loaded');
                 await window.liff.init({ liffId: '2005857013-rP966d6R' });
-                console.log('window.liff.isLoggedIn()', window.liff.isLoggedIn())
+
                 if (!window?.liff?.isLoggedIn()) {
                     await window.liff.login({ redirectUri: window.location.href });
                 }
@@ -81,22 +76,16 @@ function Profile() {
                 const profile = await window?.liff?.getProfile();
                 const currentLineId = profile?.userId;
 
-                // Query Firestore for a user document where LineId matches the current user's LineId
                 const q = query(collection(db, "users"), where("LineId", "==", currentLineId));
                 const querySnapshot = await getDocs(q);
 
                 if (!querySnapshot.empty) {
-                    // Assuming there is only one document per LineId
                     const userDoc = querySnapshot.docs[0];
                     const userData = userDoc.data();
 
-                    console.log('userData', userData);
                     setUser({ id: userDoc.id, ...userData });
-
-                    // Show the edit button if the LineId matches the user's profile
                     setShowEditButton(true);
 
-                    // Initialize form data with fetched data
                     setFormData({
                         Nickname: userData.Nickname || '',
                         Tel: userData.Tel || '',
@@ -109,6 +98,7 @@ function Profile() {
                         Position: userData.Position || ''
                     });
                 } else {
+                    navigate('/page1');
                     console.error("No such user with this LineId!");
                 }
             } catch (error) {
@@ -117,35 +107,32 @@ function Profile() {
         };
 
         fetchUserByLineId();
-    }, []);
+    }, [navigate]);
 
-    // Toggle edit mode for all sections
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
     };
 
-    // Handle input change for all fields
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // Save all updated information to Firestore
     const handleSave = async () => {
         try {
-            const userDoc = doc(db, "users", id);
-            await updateDoc(userDoc, formData);
-            setUser({ ...user, ...formData }); // Update local user state
-            setIsEditing(false); // Exit edit mode
+            const userDocRef = doc(db, "users", user.id);
+            await updateDoc(userDocRef, formData);
+            setUser({ ...user, ...formData });
+            setIsEditing(false);
         } catch (error) {
             console.error("Error updating user: ", error);
         }
     };
+
     const handleLocationChange = (locationData) => {
         setFormData({
             ...formData,
             Workplace: locationData.workplace,
-            // Address is no longer updated here
             Latlong: locationData.latlong,
         });
     };
@@ -171,7 +158,6 @@ function Profile() {
     return (
         <div style={{
             width: "100vw",
-            // height: "100vh",
             backgroundColor: selectedFirstColor,
             display: 'flex',
             flexDirection: 'column',
@@ -179,8 +165,25 @@ function Profile() {
             fontFamily: "'Kanit', sans-serif",
             overflowY: 'auto',
             alignItems: "center",
-            paddingBottom: '20px'
+            paddingBottom: '20px',
+            position: 'relative'
         }}>
+            {/* Back Button */}
+            <div 
+                style={{
+                    position: 'absolute',
+                    top: '20px',
+                    left: '20px',
+                    cursor: 'pointer',
+                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                    borderRadius: '50%',
+                    padding: '5px'
+                }} 
+                onClick={() => navigate('/Album')}
+            >
+                <FaChevronLeft size={25} color="#FFFFFF" />
+            </div>
+
             {/* Header Section */}
             <div style={{
                 width: "100%",
@@ -209,7 +212,6 @@ function Profile() {
                     }} />
                 </div>
             </div>
-
 
             <div style={{ textAlign: 'center', marginTop: '30px', width: "100%", maxWidth: "1000px" }}>
                 <div style={{ justifyContent: "space-between", alignItems: "center" }}>
@@ -266,9 +268,6 @@ function Profile() {
                                 </div>
                             </div>
 
-
-
-
                             <h2 style={{ margin: '5px 0' }}>
                                 <input
                                     name="Name"
@@ -284,7 +283,6 @@ function Profile() {
                                     value={formData.Position}
                                     onChange={handleChange}
                                     style={{ font: 'inherit', backgroundColor: selectedSecColor, borderRadius: '7px', padding: '5px', border: 'none', width: '80%', fontSize: '1rem', color: '#ffffff', textAlign: 'center', outline: 'none' }}
-
                                     placeholder="Position"
                                 />
                             </p>
@@ -300,33 +298,13 @@ function Profile() {
                                     <span style={{ color: selectedThirdColor }}>
                                         {isEditing ? 'ยกเลิก' : 'แก้ไข'}
                                     </span>
-                                    {isEditing && (
-                                        <div style={buttonContainerStyle}>
-                                            <button onClick={handleSave} style={{
-                                                backgroundColor: selectedThirdColor,
-                                                color: 'white',
-                                                borderRadius: '5px',
-                                                padding: '5px 10px',
-                                                cursor: 'pointer',
-                                                border: 'none',
-                                                fontSize: '1rem'
-                                            }}>
-                                                บันทึก
-                                            </button>
-                                        </div>
-                                    )}
                                 </div>}
                                 <div style={{ margin: '5px 20px', textAlign: "right", width: "97%", marginRight: "3rem" }}>{user.Service}</div>
-
                             </div>
-
                             <h2 style={{ margin: '5px 0' }}>{user.Name}</h2>
                             <p style={{ margin: '5px 0' }}>{user.Position}</p>
                         </div>
                     )}
-
-
-
                 </div>
             </div>
 
@@ -352,7 +330,6 @@ function Profile() {
                     </div>
                     {isEditing ? (
                         <input
-
                             name="Nickname"
                             value={formData.Nickname}
                             onChange={handleChange}
@@ -457,7 +434,6 @@ function Profile() {
                         <span>สถานที่ทำงาน</span>
                     </div>
                     <div style={{ marginTop: "10px", color: "white" }}>
-
                         <CombinedLocationSearch
                             onLocationChange={handleLocationChange}
                             initialLatlong={isEditing ? formData?.Latlong : user?.Latlong}
@@ -466,10 +442,7 @@ function Profile() {
                         />
                     </div>
                 </div>
-
             </div>
-
-
 
             {/* Other Information Section */}
             <div style={{
@@ -563,20 +536,15 @@ function Profile() {
 }
 
 /* Styles */
-
-
 const labelContainerStyle = {
     display: "flex",
     gap: "10px",
     alignItems: "center",
 };
 
-
-
 const buttonContainerStyle = {
     display: "flex",
     justifyContent: "center"
 };
-
 
 export default Profile;
