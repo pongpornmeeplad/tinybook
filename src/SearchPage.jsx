@@ -195,33 +195,36 @@ function AlbumPage() {
           <option value="workplace">ค้นหาที่ทำงาน</option>
         </select> */}
         <select
-  value={searchType}
-  onChange={(e) => setSearchType(e.target.value)}
-  style={{
-    // ทำให้ไม่มีลูกศรเดิม
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    MozAppearance: 'none',
-    
-    borderRadius: '30px',
-    padding: '10px',
-    paddingRight: '35px', // เว้นที่สำหรับไอคอนใหม่
-    outline: 'none',
-    border: 'none',
-    fontFamily: "'Kanit', sans-serif",
-    cursor: 'pointer',
-    backgroundColor: '#fff',
-    color: selectedfirstColor,
-    width: '45%',
-    backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path fill="black" d="M4 5l3 3 3-3"/></svg>')`, // ตัวอย่างลูกศรเล็กๆ
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 10px center', // ปรับตำแหน่งลูกศรตามต้องการ
-    backgroundSize: '14px 14px', // ปรับขนาดลูกศร
-  }}
->
-  <option value="name">ค้นหาชื่อ</option>
-  <option value="workplace">ค้นหาที่ทำงาน</option>
-</select>
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          style={{
+            appearance: 'none',
+            WebkitAppearance: 'none',
+            MozAppearance: 'none',
+            borderRadius: '30px',
+            padding: '10px',
+            paddingRight: '35px',
+            outline: 'none',
+            border: 'none',
+            fontFamily: "'Kanit', sans-serif",
+            cursor: 'pointer',
+            backgroundColor: '#fff',
+            color: selectedfirstColor,
+            width: '45%',
+            backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path fill="black" d="M4 5l3 3 3-3"/></svg>')`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 10px center',
+            backgroundSize: '14px 14px',
+          
+            // เพิ่มเพื่อปรับการแสดงผลขอบให้ไม่มีในทุกเบราว์เซอร์
+            boxShadow: 'none',
+            borderWidth: '0',
+          }}
+          
+        >
+          <option value="name">ค้นหาชื่อ</option>
+          <option value="workplace">ค้นหาที่ทำงาน</option>
+        </select>
 
 
         <div style={{
@@ -254,7 +257,7 @@ function AlbumPage() {
             cursor: "pointer", // Added cursor pointer for better UX
             // overflow: "hidden", // Prevent container from expanding
           }}
-          onClick={() => handleProfile(item.id)} // Pass the specific user's id
+            onClick={() => handleProfile(item.id)} // Pass the specific user's id
           >
             <div style={{
               width: '4rem',
@@ -304,7 +307,7 @@ function AlbumPage() {
               )}
             </div>
           </div>
-          
+
         ))}
 
         <div style={{
