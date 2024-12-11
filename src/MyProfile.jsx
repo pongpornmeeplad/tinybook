@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams,useLocation ,useNavigate} from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { CiFaceSmile } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { RiHome8Line, RiEdit2Line } from "react-icons/ri";
@@ -58,51 +58,60 @@ function Profile() {
         Latlong: null,
     });
 
-    
 
-    
-    const selectedService = formData.Service ; // Default to 'ทบ.' if not set
+
+
+    const selectedService = formData.Service; // Default to 'ทบ.' if not set
     const selectedFirstColor = firstColors[selectedService];
     const selectedSecColor = secColors[selectedService];
     const selectedThirdColor = thirdColors[selectedService];
     const selectedserviceImg = serviceImg[selectedService];
+
     useEffect(() => {
         const fetchUserByLineId = async () => {
             try {
                 // Get the LineId from the LIFF profile
-                const profile = await window.liff.getProfile();
-                const currentLineId = profile?.userId;
-
-                // Query Firestore for a user document where LineId matches the current user's LineId
-                const q = query(collection(db, "users"), where("LineId", "==", currentLineId));
-                const querySnapshot = await getDocs(q);
-
-                if (!querySnapshot.empty) {
-                    // Assuming there is only one document per LineId
-                    const userDoc = querySnapshot.docs[0];
-                    const userData = userDoc.data();
-
-                    console.log('userData', userData);
-                    setUser({ id: userDoc.id, ...userData });
-
-                    // Show the edit button if the LineId matches the user's profile
-                    setShowEditButton(true);
-
-                    // Initialize form data with fetched data
-                    setFormData({
-                        Nickname: userData.Nickname || '',
-                        Tel: userData.Tel || '',
-                        Address: userData.Address || '',
-                        Workplace: userData.Workplace || '',
-                        Business: userData.Business || '',
-                        Detail: userData.Detail || '',
-                        Name: userData.Name || '',
-                        Service: userData.Service || '',
-                        Position: userData.Position || ''
-                    });
-                } else {
-                    console.error("No such user with this LineId!");
+                if (!window.liff) throw new Error('LIFF SDK is not loaded');
+                await window.liff.init({ liffId: '2005857013-rP966d6R' });
+                console.log('window.liff.isLoggedIn()', window.liff.isLoggedIn())
+                if (!window?.liff?.isLoggedIn()) {
+                    await window.liff.login();
                 }
+
+                const profile = await window?.liff?.getProfile();
+                console.log('profile', profile)
+                // const currentLineId = profile?.userId;
+
+                // // Query Firestore for a user document where LineId matches the current user's LineId
+                // const q = query(collection(db, "users"), where("LineId", "==", currentLineId));
+                // const querySnapshot = await getDocs(q);
+
+                // if (!querySnapshot.empty) {
+                //     // Assuming there is only one document per LineId
+                //     const userDoc = querySnapshot.docs[0];
+                //     const userData = userDoc.data();
+
+                //     console.log('userData', userData);
+                //     setUser({ id: userDoc.id, ...userData });
+
+                //     // Show the edit button if the LineId matches the user's profile
+                //     setShowEditButton(true);
+
+                //     // Initialize form data with fetched data
+                //     setFormData({
+                //         Nickname: userData.Nickname || '',
+                //         Tel: userData.Tel || '',
+                //         Address: userData.Address || '',
+                //         Workplace: userData.Workplace || '',
+                //         Business: userData.Business || '',
+                //         Detail: userData.Detail || '',
+                //         Name: userData.Name || '',
+                //         Service: userData.Service || '',
+                //         Position: userData.Position || ''
+                //     });
+                // } else {
+                //     console.error("No such user with this LineId!");
+                // }
             } catch (error) {
                 console.error("Error fetching user by LineId: ", error);
             }
@@ -135,12 +144,12 @@ function Profile() {
     };
     const handleLocationChange = (locationData) => {
         setFormData({
-          ...formData,
-          Workplace: locationData.workplace,
-          // Address is no longer updated here
-          Latlong: locationData.latlong,
+            ...formData,
+            Workplace: locationData.workplace,
+            // Address is no longer updated here
+            Latlong: locationData.latlong,
         });
-      };
+    };
 
     if (!user) {
         return (
@@ -218,22 +227,22 @@ function Profile() {
                                     </span>
                                     {isEditing && (
                                         <div style={buttonContainerStyle}>
-                                        <button onClick={handleSave} style={{
-                                            backgroundColor: selectedThirdColor,
-                                            color: 'white',
-                                            borderRadius: '5px',
-                                            padding: '5px 10px',
-                                            cursor: 'pointer',
-                                            border: 'none',
-                                            fontSize: '1rem'
-                                        }} >
-                                            บันทึก
-                                        </button>
-                                    </div>
+                                            <button onClick={handleSave} style={{
+                                                backgroundColor: selectedThirdColor,
+                                                color: 'white',
+                                                borderRadius: '5px',
+                                                padding: '5px 10px',
+                                                cursor: 'pointer',
+                                                border: 'none',
+                                                fontSize: '1rem'
+                                            }} >
+                                                บันทึก
+                                            </button>
+                                        </div>
                                     )}
                                 </div>
                                 <div style={{ margin: '5px 10px', textAlign: "right", width: "97%", marginRight: "3rem" }}>
-                                <select
+                                    <select
                                         name="Service"
                                         value={formData.Service}
                                         onChange={handleChange}
@@ -289,7 +298,7 @@ function Profile() {
                             }}>
                                 {showEditButton && <div style={{ display: "flex", gap: "10px", cursor: "pointer", alignItems: 'center', marginLeft: "15px" }} onClick={handleEditToggle}>
                                     <RiEdit2Line color={selectedThirdColor} size={20} />
-                                    <span style={{ color: selectedThirdColor}}>
+                                    <span style={{ color: selectedThirdColor }}>
                                         {isEditing ? 'ยกเลิก' : 'แก้ไข'}
                                     </span>
                                     {isEditing && (
@@ -342,7 +351,7 @@ function Profile() {
                         <CiFaceSmile size={20} />
                         <span>ชื่อเล่น</span>
                     </div>
-                   {isEditing ? (
+                    {isEditing ? (
                         <input
 
                             name="Nickname"
@@ -437,31 +446,31 @@ function Profile() {
 
                 {/* Workplace Field */}
                 <div
-          style={{
-            backgroundColor: selectedSecColor,
-            margin: "5px 15px",
-            padding: "10px",
-            borderRadius: "10px",
-          }}
-        >
-          <div style={labelContainerStyle}>
-            <MdOutlineHomeRepairService size={20} />
-            <span>สถานที่ทำงาน</span>
-          </div>
-          <div style={{ marginTop: "10px", color: "white" }}>
-         
-            <CombinedLocationSearch
-              onLocationChange={handleLocationChange}
-              initialLatlong={isEditing ? formData?.Latlong : user?.Latlong}
-              initialWorkplace={isEditing ? formData?.Workplace : user?.Workplace}
-              isEditable={isEditing}
-            />
-          </div>
-        </div>
+                    style={{
+                        backgroundColor: selectedSecColor,
+                        margin: "5px 15px",
+                        padding: "10px",
+                        borderRadius: "10px",
+                    }}
+                >
+                    <div style={labelContainerStyle}>
+                        <MdOutlineHomeRepairService size={20} />
+                        <span>สถานที่ทำงาน</span>
+                    </div>
+                    <div style={{ marginTop: "10px", color: "white" }}>
+
+                        <CombinedLocationSearch
+                            onLocationChange={handleLocationChange}
+                            initialLatlong={isEditing ? formData?.Latlong : user?.Latlong}
+                            initialWorkplace={isEditing ? formData?.Workplace : user?.Workplace}
+                            isEditable={isEditing}
+                        />
+                    </div>
+                </div>
 
             </div>
-            
-            
+
+
 
             {/* Other Information Section */}
             <div style={{

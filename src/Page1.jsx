@@ -9,20 +9,6 @@ import CombinedLocationSearch from './CombinedLocationSearch';
 const { TextArea } = Input;
 const { Search } = Input;
 
-// const provinces = [
-//     'กรุงเทพมหานคร', 'กระบี่', 'กาญจนบุรี', 'กาฬสินธุ์', 'กำแพงเพชร', 'ขอนแก่น',
-//     'จันทบุรี', 'ฉะเชิงเทรา', 'ชลบุรี', 'ชัยนาท', 'ชัยภูมิ', 'ชุมพร', 'เชียงราย',
-//     'เชียงใหม่', 'ตรัง', 'ตราด', 'ตาก', 'นครนายก', 'นครปฐม', 'นครพนม', 'นครราชสีมา',
-//     'นครศรีธรรมราช', 'นครสวรรค์', 'นนทบุรี', 'นราธิวาส', 'น่าน', 'บึงกาฬ', 'บุรีรัมย์',
-//     'ปทุมธานี', 'ประจวบคีรีขันธ์', 'ปราจีนบุรี', 'ปัตตานี', 'พระนครศรีอยุธยา', 'พังงา',
-//     'พัทลุง', 'พิจิตร', 'พิษณุโลก', 'เพชรบุรี', 'เพชรบูรณ์', 'แพร่', 'ภูเก็ต', 'มหาสารคาม',
-//     'มุกดาหาร', 'แม่ฮ่องสอน', 'ยโสธร', 'ยะลา', 'ร้อยเอ็ด', 'ระนอง', 'ระยอง', 'ราชบุรี',
-//     'ลพบุรี', 'ลำปาง', 'ลำพูน', 'เลย', 'ศรีสะเกษ', 'สกลนคร', 'สงขลา', 'สตูล',
-//     'สมุทรปราการ', 'สมุทรสงคราม', 'สมุทรสาคร', 'สระบุรี', 'สระแก้ว', 'สิงห์บุรี',
-//     'สุโขทัย', 'สุพรรณบุรี', 'สุราษฎร์ธานี', 'สุรินทร์', 'หนองคาย', 'หนองบัวลำภู',
-//     'อ่างทอง', 'อุดรธานี', 'อุตรดิตถ์', 'อุทัยธานี', 'อุบลราชธานี', 'อำนาจเจริญ'
-// ];
-
 const provincesData = [
     { name: 'กรุงเทพมหานคร', lat: 13.7563, lng: 100.5018 },
     { name: 'กระบี่', lat: 8.0863, lng: 98.9063 },
@@ -108,12 +94,58 @@ const provincesData = [
 
 
 
+
+
 function Page1({ inputValues, setInputValues }) {
     const navigate = useNavigate();
     const [showWelcome, setShowWelcome] = useState(true);
     const [fadeOut, setFadeOut] = useState(false);
     const [addressOption, setAddressOption] = useState('A');
+    const [isLiffReady, setIsLiffReady] = useState(false);
 
+    useEffect(() => {
+        const initializeLiff = async () => {
+          try {
+            if (!window.liff) throw new Error('LIFF SDK is not loaded');
+            await window.liff.init({ liffId: '2005857013-rP966d6R' });
+            if (window.liff.isLoggedIn()) {
+              const profile = await window.liff.getProfile();
+              
+              setInputValues((prevValues) => ({
+                // ...prevValues,
+                LineId: profile.userId,  // Ensure consistent casing
+                picpic: profile.pictureUrl,
+              }));
+            } else {
+              window.liff.login();
+            }
+            setIsLiffReady(true);
+          } catch (err) {
+            console.error('Error initializing LIFF:', err);
+          }
+        };
+    
+        initializeLiff();
+      }, []);
+
+
+  if (!isLiffReady) {
+    return <div style={{
+      width: "100vw",
+      height: "100vh",
+      backgroundColor: "#510808",
+      display: 'flex',
+      flexDirection: 'column',
+      color: 'white',
+      fontFamily: "'Kanit', sans-serif",
+      overflow: 'hidden',
+      position: 'relative',
+      justifyContent: "end",
+      gap: "0.5rem",
+      alignItems: "center",
+  }}>Loading ...</div>;
+    
+  }
 
     useEffect(() => {
         const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);

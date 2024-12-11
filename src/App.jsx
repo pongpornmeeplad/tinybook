@@ -12,7 +12,6 @@ import SearchPage from './SearchPage'
 import MyProfile from "./MyProfile"
 
 function App() {
-  const [isLiffReady, setIsLiffReady] = useState(false);
   const [inputValues, setInputValues] = useState({
     Service: null,
     Name: '',
@@ -22,49 +21,8 @@ function App() {
     picpic: '',
   });
 
-  useEffect(() => {
-    const initializeLiff = async () => {
-      try {
-        if (!window.liff) throw new Error('LIFF SDK is not loaded');
-        await window.liff.init({ liffId: '2005857013-rP966d6R' });
-        if (window.liff.isLoggedIn()) {
-          const profile = await window.liff.getProfile();
-          console.log('profile', profile);
-          
-          setInputValues((prevValues) => ({
-            ...prevValues,
-            LineId: profile.userId,  // Ensure consistent casing
-            picpic: profile.pictureUrl,
-          }));
-        } else {
-          window.liff.login();
-        }
-        setIsLiffReady(true);
-      } catch (err) {
-        console.error('Error initializing LIFF:', err);
-      }
-    };
 
-    initializeLiff();
-  }, []);
 
-  if (!isLiffReady) {
-    return <div style={{
-      width: "100vw",
-      height: "100vh",
-      backgroundColor: "#510808",
-      display: 'flex',
-      flexDirection: 'column',
-      color: 'white',
-      fontFamily: "'Kanit', sans-serif",
-      overflow: 'hidden',
-      position: 'relative',
-      justifyContent: "end",
-      gap: "0.5rem",
-      alignItems: "center",
-  }}>Loading ...</div>;
-    
-  }
 
   return (
     <Router>
@@ -72,7 +30,7 @@ function App() {
         <Route path="/" element={<Navigate to="/page1" />} />
         <Route
           path="/page1"
-          element={<Page1 inputValues={inputValues} setInputValues={setInputValues} />}
+          element={<Page1 inputValues={inputValues} setInputValues={setInputValues} setIsLiffReady/>}
         />
         <Route
           path="/page2"
