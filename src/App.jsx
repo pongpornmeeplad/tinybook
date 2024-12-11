@@ -30,7 +30,7 @@ function App() {
         <Route path="/" element={<Navigate to="/page1" />} />
         <Route
           path="/page1"
-          element={<Page1 inputValues={inputValues} setInputValues={setInputValues} setIsLiffReady/>}
+          element={<Page1 inputValues={inputValues} setInputValues={setInputValues} />}
         />
         <Route
           path="/page2"
