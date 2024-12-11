@@ -177,7 +177,8 @@ function Profile() {
                     cursor: 'pointer',
                     backgroundColor: 'rgba(255, 255, 255, 0.3)',
                     borderRadius: '50%',
-                    padding: '5px'
+                    padding: '5px',
+                    zIndex: 9999 
                 }} 
                 onClick={() => navigate('/Album')}
             >
