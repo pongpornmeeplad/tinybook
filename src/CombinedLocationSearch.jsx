@@ -22,7 +22,7 @@ const CombinedLocationSearch = ({
 }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDDvLgwZXq5b1KoaJxrCOLo-ah_2M5pH7Y", // Replace with your API key
-    
+    libraries,
   });
 
   const [autocomplete, setAutocomplete] = useState(null);
