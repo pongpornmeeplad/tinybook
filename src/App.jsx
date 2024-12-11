@@ -37,7 +37,7 @@ function App() {
             picpic: profile.pictureUrl,
           }));
         } else {
-          window.liff.login();
+          window.liff.login({ redirectUri: window.location.href });
         }
         setIsLiffReady(true);
       } catch (err) {
