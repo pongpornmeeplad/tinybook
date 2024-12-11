@@ -101,7 +101,6 @@ function Page1({ inputValues, setInputValues }) {
     const [showWelcome, setShowWelcome] = useState(true);
     const [fadeOut, setFadeOut] = useState(false);
     const [addressOption, setAddressOption] = useState('A');
-    const [isLiffReady, setIsLiffReady] = useState(false);
 
     
 

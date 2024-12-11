@@ -20,6 +20,8 @@ function App() {
     LineId: '',
     picpic: '',
   });
+  const [isLiffReady, setIsLiffReady] = useState(false);
+
   useEffect(() => {
     const initializeLiff = async () => {
       try {
@@ -28,7 +30,7 @@ function App() {
         console.log('window?.liff?.isLoggedIn() :>> ', window?.liff?.isLoggedIn());
         if (window?.liff?.isLoggedIn()) {
           const profile = await window.liff.getProfile();
-          
+
           setInputValues((prevValues) => ({
             // ...prevValues,
             LineId: profile.userId,  // Ensure consistent casing
@@ -47,21 +49,19 @@ function App() {
   }, []);
   if (!isLiffReady) {
     return <div style={{
+    
+      backgroundColor: "#510808",
       width: "100vw",
       height: "100vh",
-      backgroundColor: "#510808",
-      display: 'flex',
-      flexDirection: 'column',
-      color: 'white',
-      fontFamily: "'Kanit', sans-serif",
-      overflow: 'hidden',
-      position: 'relative',
-      justifyContent: "end",
-      gap: "0.5rem",
+      display: "flex",
+      justifyContent: "center",
       alignItems: "center",
-  }}>Loading ...</div>;
-}
-    
+      color: "white",
+      fontFamily: "'Kanit', sans-serif",
+      fontSize: "1.5rem"
+    }}>Loading ...</div>;
+  }
+
 
 
 
