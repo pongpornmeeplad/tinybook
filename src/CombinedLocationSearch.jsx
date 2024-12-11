@@ -109,15 +109,15 @@ const CombinedLocationSearch = ({
       </Autocomplete>
 
       <GoogleMap
-        mapContainerStyle={mapContainerStyle}
+        // mapContainerStyle={mapContainerStyle}
         center={selectedLatlong}
         zoom={10}
         onClick={isEditable ? handleMapClick : undefined}
         options={{
           draggable: isEditable,
-          zoomControl: isEditable,
-          scrollwheel: isEditable,
-          disableDoubleClickZoom: !isEditable,
+          zoomControl: true,
+          scrollwheel: true,
+          disableDoubleClickZoom: false,
         }}
       >
         {selectedLatlong && <Marker position={selectedLatlong} />}
