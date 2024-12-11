@@ -75,7 +75,7 @@ function Profile() {
                 await window.liff.init({ liffId: '2005857013-rP966d6R' });
                 console.log('window.liff.isLoggedIn()', window.liff.isLoggedIn())
                 if (!window?.liff?.isLoggedIn()) {
-                    await window.liff.login();
+                    await window.liff.login({ redirectUri: window.location.href });
                 }
 
                 const profile = await window?.liff?.getProfile();
