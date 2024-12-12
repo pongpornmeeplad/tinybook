@@ -374,40 +374,51 @@ function Profile() {
         </div>
 
         {/* Tel Field */}
-        <div style={{
-          backgroundColor: selectedSecColor,
-          display: "flex",
-          justifyContent: "space-between",
-          margin: "5px 15px",
-          padding: "10px",
-          borderRadius: "10px",
-          alignItems: "center"
-        }} >
-          <div style={labelContainerStyle}>
-            <BsTelephone size={20} />
-            <span>เบอร์โทร</span>
-          </div>
-          {isEditing ? (
-            <input
-              name="Tel"
-              value={formData.Tel}
-              onChange={handleChange}
-              style={{
-                backgroundColor: selectedSecColor,
-                border: 'none',
-                width: '50%',
-                fontSize: '1rem',
-                color: 'white',
-                textAlign: 'right',
-                outline: 'none',
-                font: 'inherit'
-              }}
-              type="number"
-            />
-          ) : (
-            <div>{user.Tel || '-'}</div>
-          )}
-        </div>
+     {/* Tel Field */}
+<div style={{
+  backgroundColor: selectedSecColor,
+  display: "flex",
+  justifyContent: "space-between",
+  margin: "5px 15px",
+  padding: "10px",
+  borderRadius: "10px",
+  alignItems: "center"
+}} >
+  <div style={labelContainerStyle}>
+    <BsTelephone size={20} />
+    <span>เบอร์โทร</span>
+  </div>
+  {isEditing ? (
+    <input
+      name="Tel"
+      value={formData.Tel}
+      onChange={handleChange}
+      style={{
+        backgroundColor: selectedSecColor,
+        border: 'none',
+        width: '50%',
+        fontSize: '1rem',
+        color: 'white',
+        textAlign: 'right',
+        outline: 'none',
+        font: 'inherit'
+      }}
+      type="tel" // Use type="tel" for numeric keyboard on mobile
+      pattern="[0-9]*"
+    />
+  ) : (
+    <div>
+      {user.Tel ? (
+        <a href={`tel:${user.Tel}`} style={{ color: '#ffffff', textDecoration: 'none' }}>
+          {user.Tel}
+        </a>
+      ) : (
+        '-'
+      )}
+    </div>
+  )}
+</div>
+
 
         {/* Address Field */}
         <div style={{
