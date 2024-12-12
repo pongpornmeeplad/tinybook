@@ -11,11 +11,19 @@
 .ant-select-focused .ant-select-selector {
   border-color: #aa4444 !important;
 }
-
+.ant-select :hover {
+  border-color : #aa4444 !important;
+  box-shadow: none !important;
+}
+.ant-select :
+.ant-input:hover {
+  border-color: #aa4444 !important; /* Replace with your desired border color */
+}
 .ant-input {
   font-family: inherit;
   color: gray;
 }
+
 .gm-style-mtc button {
   border-radius: 0 !important;
 }

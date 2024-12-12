@@ -214,7 +214,7 @@ function Page2({ inputValues, setInputValues }) {
                             marginBottom: "0.2rem",
                         }}>ตำแหน่ง สังกัด</div>
                         <Input
-                            variant='filled'
+                            variant='outlined'
                             type="text"
                             placeholder='ผบ......'
                             value={inputValues.field1}
@@ -241,7 +241,7 @@ function Page2({ inputValues, setInputValues }) {
                             marginBottom: "0.2rem",
                         }}>ธุรกิจส่วนตัว</div>
                         <Input
-                            variant='filled'
+                            variant='outlined'
                             type="text"
                             placeholder='ร้านอาหาร...'
                             value={inputValues.field3}
@@ -258,7 +258,7 @@ function Page2({ inputValues, setInputValues }) {
                             marginBottom: "0.2rem",
                         }}>อยากบอกอะไรกับเพื่อน</div>
                         <TextArea
-                            variant='filled'
+                            variant='outlined'
                             type="text"
                             placeholder='........'
                             value={inputValues.field4}

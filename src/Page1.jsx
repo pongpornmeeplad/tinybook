@@ -270,7 +270,7 @@ function Page1({ inputValues, setInputValues }) {
                                 }}>เหล่า</div>
                                 <Select
                                     style={{ width: "100%" }}
-                                    variant='filled'
+                                    variant='outlined'
                                     size='large'
                                     placeholder='เลือกเหล่า'
                                     value={inputValues.Service}
@@ -291,7 +291,7 @@ function Page1({ inputValues, setInputValues }) {
                                     marginBottom: "0.2rem"
                                 }}>ยศ - ชื่อ - สกุล</div>
                                 <Input
-                                    variant='filled'
+                                    variant='outlined'
                                     placeholder='ร.ท.รักชาติ ยิ่งชีพ'
                                     value={inputValues.Name}
                                     onChange={(e) => handleInputChange(e, 'Name')}
@@ -306,7 +306,7 @@ function Page1({ inputValues, setInputValues }) {
                                     marginBottom: "0.2rem"
                                 }}>ชื่อเล่น/ฉายา</div>
                                 <Input
-                                    variant='filled'
+                                    variant='outlined'
                                     placeholder='ปาล์ม'
                                     value={inputValues.Nickname}
                                     onChange={(e) => handleInputChange(e, 'Nickname')}
@@ -321,7 +321,7 @@ function Page1({ inputValues, setInputValues }) {
                                     marginBottom: "0.2rem"
                                 }}>เบอร์โทรศัพท์</div>
                                 <Input
-                                    variant='filled'
+                                    variant='outlined'
                                     type='number'
                                     placeholder='098XXXXXXX'
                                     value={inputValues.Tel}
@@ -347,6 +347,7 @@ function Page1({ inputValues, setInputValues }) {
                                 {addressOption === 'A' ? (
                                     <>
                                     <Select
+                                
                                         placeholder='เลือกจังหวัด'
                                         style={{ width: '100%' }}
                                         value={inputValues.Address}
