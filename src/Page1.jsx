@@ -102,10 +102,10 @@ function Page1({ inputValues, setInputValues }) {
     const [fadeOut, setFadeOut] = useState(false);
     const [addressOption, setAddressOption] = useState('A');
 
-    
 
 
-  
+
+
 
     useEffect(() => {
         const fadeOutTimer = setTimeout(() => setFadeOut(true), 1000);
@@ -272,7 +272,7 @@ function Page1({ inputValues, setInputValues }) {
                                     style={{ width: "100%" }}
                                     variant='outlined'
                                     size='large'
-                                    placeholder='เลือกเหล่า'
+                                    placeholder='เลือกเหล่าเตรียมทหาร'
                                     value={inputValues.Service}
                                     onChange={(value) => setInputValues({ ...inputValues, Service: value })}
                                     options={[
@@ -307,7 +307,7 @@ function Page1({ inputValues, setInputValues }) {
                                 }}>ชื่อเล่น/ฉายา</div>
                                 <Input
                                     variant='outlined'
-                                    placeholder='ปาล์ม'
+                                    placeholder='ปาล์ม/บัง'
                                     value={inputValues.Nickname}
                                     onChange={(e) => handleInputChange(e, 'Nickname')}
                                     size='large'
@@ -319,11 +319,13 @@ function Page1({ inputValues, setInputValues }) {
                                     color: selectedfirstColor,
                                     fontSize: "1.2rem",
                                     marginBottom: "0.2rem"
-                                }}>เบอร์โทรศัพท์</div>
+                                }}>{'เบอร์โทรศัพท์ '}<span
+                                style={{ color: 'grey', fontSize: 15 }}
+                                >{'(สามารถใส่ได้มากกว่าหนึ่งเบอร์)'}</span></div>
                                 <Input
                                     variant='outlined'
-                                    type='number'
-                                    placeholder='098XXXXXXX'
+                                    type='text'
+                                    placeholder='098XXXXXXX, 087XXXXXXX'
                                     value={inputValues.Tel}
                                     onChange={(e) => handleInputChange(e, 'Tel')}
                                     size='large'
@@ -346,32 +348,32 @@ function Page1({ inputValues, setInputValues }) {
                                 </Radio.Group> */}
                                 {addressOption === 'A' ? (
                                     <>
-                                    <Select
-                                
-                                        placeholder='เลือกจังหวัด'
-                                        style={{ width: '100%' }}
-                                        value={inputValues.Address}
-                                        onChange={(value) => {
-                                            // ค้นหาพิกัดจากจังหวัดที่เลือก
-                                            const selectedProvince = provincesData.find(province => province.name === value);
+                                        <Select
 
-                                            // อัปเดต inputValues พร้อม Latlong
-                                            setInputValues({
-                                                ...inputValues,
-                                                Address: value,
-                                                Latlong: selectedProvince ? { lat: selectedProvince.lat, lng: selectedProvince.lng } : null
-                                            });
-                                        }}
-                                        size='large'
-                                    >
-                                        {provincesData.map((province) => (
-                                            <Select.Option key={province.name} value={province.name}>
-                                                {province.name}
-                                            </Select.Option>
-                                        ))}
-                                    </Select>
+                                            placeholder='เลือกจังหวัด'
+                                            style={{ width: '100%' }}
+                                            value={inputValues.Address}
+                                            onChange={(value) => {
+                                                // ค้นหาพิกัดจากจังหวัดที่เลือก
+                                                const selectedProvince = provincesData.find(province => province.name === value);
+
+                                                // อัปเดต inputValues พร้อม Latlong
+                                                setInputValues({
+                                                    ...inputValues,
+                                                    Address: value,
+                                                    Latlong: selectedProvince ? { lat: selectedProvince.lat, lng: selectedProvince.lng } : null
+                                                });
+                                            }}
+                                            size='large'
+                                        >
+                                            {provincesData.map((province) => (
+                                                <Select.Option key={province.name} value={province.name}>
+                                                    {province.name}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
                                     </>
-                                    
+
 
                                 ) : (
                                     <>

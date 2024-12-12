@@ -216,7 +216,7 @@ function Page2({ inputValues, setInputValues }) {
                         <Input
                             variant='outlined'
                             type="text"
-                            placeholder='ผบ......'
+                            placeholder='ผู้บังคับกองร้อยอาวุธเบา'
                             value={inputValues.field1}
                             onChange={(e) => handleInputChange(e, 'field1')}
                             size='large'
@@ -260,7 +260,7 @@ function Page2({ inputValues, setInputValues }) {
                         <TextArea
                             variant='outlined'
                             type="text"
-                            placeholder='........'
+                            placeholder='คิดถึงเพื่อนๆรุ่น 48 ทุกนาย...'
                             value={inputValues.field4}
                             onChange={(e) => handleInputChange(e, 'field4')}
                             size='large'

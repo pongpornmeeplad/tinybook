@@ -10,12 +10,20 @@
 /* theme.css */
 .ant-select-focused .ant-select-selector {
   border-color: #aa4444 !important;
+  box-shadow: none !important;
+
 }
 .ant-select :hover {
   border-color : #aa4444 !important;
   box-shadow: none !important;
+  
 }
-.ant-select :
+.ant-input:focus {
+  font-family: inherit;
+  color: gray;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
 .ant-input:hover {
   border-color: #aa4444 !important; /* Replace with your desired border color */
 }
