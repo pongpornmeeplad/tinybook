@@ -39,8 +39,8 @@ const serviceImg = {
 
 function Profile() {
     const navigate = useNavigate();
-    const location = useLocation(); 
-    const { Service } = location.state || {}; 
+    const location = useLocation();
+    const { Service } = location.state || {};
     const [user, setUser] = useState(null);
     const [showEditButton, setShowEditButton] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -57,7 +57,7 @@ function Profile() {
         Latlong: null,
     });
 
-    const selectedService = formData.Service || 'ทบ.'; 
+    const selectedService = formData.Service || 'ทบ.';
     const selectedFirstColor = firstColors[selectedService];
     const selectedSecColor = secColors[selectedService];
     const selectedThirdColor = thirdColors[selectedService];
@@ -169,15 +169,15 @@ function Profile() {
             position: 'relative'
         }}>
             {/* Back Button */}
-            <div 
+            <div
                 style={{
                     position: 'absolute',
                     top: '20px',
                     left: '20px',
                     cursor: 'pointer',
                     padding: '5px',
-                    zIndex: 9999 
-                }} 
+                    zIndex: 9999
+                }}
                 onClick={() => navigate('/Album')}
             >
                 <FaChevronLeft size={25} color="#FFFFFF" />
@@ -349,6 +349,7 @@ function Profile() {
                 </div>
 
                 {/* Tel Field */}
+                {/* Tel Field */}
                 <div style={{
                     backgroundColor: selectedSecColor,
                     display: "flex",
@@ -377,12 +378,22 @@ function Profile() {
                                 outline: 'none',
                                 font: 'inherit'
                             }}
-                            type="number"
+                            type="tel" // Use type="tel" for numeric keyboard on mobile
+                            pattern="[0-9]*"
                         />
                     ) : (
-                        <div >{user.Tel || '-'}</div>
+                        <div>
+                            {user.Tel ? (
+                                <a href={`tel:${user.Tel}`} style={{ color: '#ffffff', textDecoration: 'none' }}>
+                                    {user.Tel}
+                                </a>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
                     )}
                 </div>
+
 
                 {/* Address Field */}
                 <div style={{
