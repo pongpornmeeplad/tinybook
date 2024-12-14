@@ -26,6 +26,12 @@ const thirdColors = {
   'ทอ.': '#48fff6',
   'ตร.': '#bb6969'
 };
+const serviceTextColors = {
+  'ทบ.': '#FFA07A', // Light Salmon
+  'ทร.': '#00c5ff', // Light Blue
+  'ทอ.': '#48fff6', // Light Cyan
+  'ตร.': '#bb6969'  // Light Brown
+};
 
 function AlbumPage() {
   const [query, setQuery] = useState("");
@@ -268,7 +274,10 @@ function AlbumPage() {
         scrollbarWidth: 'none', // for Firefox
         msOverflowStyle: 'none' // for IE and Edge
       }}>
-        {search(users).map((item, index) => (
+        {search(users).map((item, index) => {
+          const Service = item.Service || '';
+          const serviceColor = serviceTextColors[item.Service] || "#510808";
+          return (
           <div
             key={index}
             style={{
@@ -328,8 +337,10 @@ function AlbumPage() {
                 }}>{item?.Workplace}</div>
               )}
             </div>
+            <div style={{ fontSize: 15, color: 'white', alignSelf: "center", backgroundColor: serviceColor, paddingLeft: 8, paddingRight: 8, borderRadius: 10, paddingTop: 4, paddingBottom: 4 }}>{Service}</div>
+
           </div>
-        ))}
+        )})}
 
         <div style={{
           display: "flex",
