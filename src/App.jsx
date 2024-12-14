@@ -22,45 +22,45 @@ function App() {
   });
   const [isLiffReady, setIsLiffReady] = useState(false);
 
-  useEffect(() => {
-    const initializeLiff = async () => {
-      try {
-        if (!window.liff) throw new Error('LIFF SDK is not loaded');
-        await window.liff.init({ liffId: '2005857013-rP966d6R' });
-        console.log('window?.liff?.isLoggedIn() :>> ', window?.liff?.isLoggedIn());
-        if (window?.liff?.isLoggedIn()) {
-          const profile = await window.liff.getProfile();
+  // useEffect(() => {
+  //   const initializeLiff = async () => {
+  //     try {
+  //       if (!window.liff) throw new Error('LIFF SDK is not loaded');
+  //       await window.liff.init({ liffId: '2005857013-rP966d6R' });
+  //       console.log('window?.liff?.isLoggedIn() :>> ', window?.liff?.isLoggedIn());
+  //       if (window?.liff?.isLoggedIn()) {
+  //         const profile = await window.liff.getProfile();
 
-          setInputValues((prevValues) => ({
-            // ...prevValues,
-            LineId: profile.userId,  // Ensure consistent casing
-            picpic: profile.pictureUrl,
-          }));
-        } else {
-          window.liff.login({ redirectUri: window.location.href });
-        }
-        setIsLiffReady(true);
-      } catch (err) {
-        console.error('Error initializing LIFF:', err);
-      }
-    };
+  //         setInputValues((prevValues) => ({
+  //           // ...prevValues,
+  //           LineId: profile.userId,  // Ensure consistent casing
+  //           picpic: profile.pictureUrl,
+  //         }));
+  //       } else {
+  //         window.liff.login({ redirectUri: window.location.href });
+  //       }
+  //       setIsLiffReady(true);
+  //     } catch (err) {
+  //       console.error('Error initializing LIFF:', err);
+  //     }
+  //   };
 
-    initializeLiff();
-  }, []);
-  if (!isLiffReady) {
-    return <div style={{
+  //   initializeLiff();
+  // }, []);
+  // if (!isLiffReady) {
+  //   return <div style={{
     
-      backgroundColor: "#510808",
-      width: "100vw",
-      height: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      color: "white",
-      fontFamily: "'Kanit', sans-serif",
-      fontSize: "1.5rem"
-    }}>Loading ...</div>;
-  }
+  //     backgroundColor: "#510808",
+  //     width: "100vw",
+  //     height: "100vh",
+  //     display: "flex",
+  //     justifyContent: "center",
+  //     alignItems: "center",
+  //     color: "white",
+  //     fontFamily: "'Kanit', sans-serif",
+  //     fontSize: "1.5rem"
+  //   }}>Loading ...</div>;
+  // }
 
 
 

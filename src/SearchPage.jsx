@@ -108,24 +108,24 @@ function AlbumPage() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  useEffect(() => {
-    const fetchUserByLineId = async () => {
-        try {
-            if (!window.liff) throw new Error('LIFF SDK is not loaded');
-            await window.liff.init({ liffId: '2005857013-rP966d6R' });
+//   useEffect(() => {
+//     const fetchUserByLineId = async () => {
+//         try {
+//             if (!window.liff) throw new Error('LIFF SDK is not loaded');
+//             await window.liff.init({ liffId: '2005857013-rP966d6R' });
 
-            if (!window?.liff?.isLoggedIn()) {
-                await window.liff.login({ redirectUri: window.location.href });
-            }
+//             if (!window?.liff?.isLoggedIn()) {
+//                 await window.liff.login({ redirectUri: window.location.href });
+//             }
 
           
-        } catch (error) {
-            console.error("Error fetching user by LineId: ", error);
-        }
-    };
+//         } catch (error) {
+//             console.error("Error fetching user by LineId: ", error);
+//         }
+//     };
 
-    fetchUserByLineId();
-}, [navigate]);
+//     fetchUserByLineId();
+// }, [navigate]);
   return (
     <div style={{
       width: "100vw",

@@ -66,6 +66,7 @@ function All() {
         <div style={{
             width: "100vw",
             height: "100vh",
+            overflowY: 'hidden',
             backgroundColor: selectedfirstColor,
             display: 'flex',
             flexDirection: 'column',
@@ -112,7 +113,7 @@ function All() {
                 overflowY: "scroll",
                 overflowX: "hidden"
             }}>
-                {users.map((item) => {
+                {users?.map((item) => {
                     const Service = item.Service || ''
                     const serviceColor = serviceTextColors[Service] || '#FFFFFF'; // Fallback to white
 
