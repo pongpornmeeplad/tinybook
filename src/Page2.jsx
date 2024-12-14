@@ -72,6 +72,8 @@ function Page2({ inputValues, setInputValues }) {
             { key: 'Address', label: 'ที่อยู่' },
             { key: 'field1', label: 'ตำแหน่ง สังกัด' },
             { key: 'Workplace', label: 'สถานที่ทำงาน' },
+            { key: 'field3', label: 'ธุรกิจส่วนตัว' },
+            { key: 'field4', label: 'อยากบอกอะไรกับเพื่อน' },
         ];
 
         // Check for missing required fields
