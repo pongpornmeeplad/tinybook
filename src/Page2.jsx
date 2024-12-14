@@ -258,11 +258,11 @@ function Page2({ inputValues, setInputValues }) {
                             color: selectedfirstColor,
                             fontSize: "1.2rem",
                             marginBottom: "0.2rem",
-                        }}>อยากบอกอะไรกับเพื่อน</div>
+                        }}>รายละเอียดเพิ่มเติม</div>
                         <TextArea
                             variant='outlined'
                             type="text"
-                            placeholder='คิดถึงเพื่อนๆรุ่น 48 ทุกนาย...'
+                            placeholder='อยากบอกอะไรให้เพื่อนๆรู้'
                             value={inputValues.field4}
                             onChange={(e) => handleInputChange(e, 'field4')}
                             size='large'

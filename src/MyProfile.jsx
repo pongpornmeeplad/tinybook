@@ -518,7 +518,7 @@ function Profile() {
                 }}>
                     <div style={labelContainerStyle}>
                         <FaRegListAlt size={20} />
-                        <span>รายละเอียด</span>
+                        <span>รายละเอียดเพิ่มเติม</span>
                     </div>
                     {isEditing ? (
                         <input
