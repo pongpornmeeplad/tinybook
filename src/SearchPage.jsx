@@ -195,44 +195,33 @@ function AlbumPage() {
           <option value="workplace">ค้นหาที่ทำงาน</option>
         </select> */}
         <select
-  value={searchType}
-  onChange={(e) => setSearchType(e.target.value)}
-  style={{
-    // ทำให้ไม่มีลูกศรเดิม
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    MozAppearance: 'none',
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          style={{
+            // ทำให้ไม่มีลูกศรเดิม
+            appearance: 'none',
+            WebkitAppearance: 'none',
+            MozAppearance: 'none',
 
-    // ปรับให้ไม่มีขอบ
-    border: 'none',
-    outline: 'none',
-    boxShadow: 'none',
-
-    // รูปร่างและขนาด
-    borderRadius: '30px',
-    padding: '10px 35px 10px 10px', // padding ขวาเพื่อเว้นที่สำหรับไอคอน
-    fontFamily: "'Kanit', sans-serif",
-    cursor: 'pointer',
-    backgroundColor: '#fff',
-    color: selectedfirstColor,
-    width: '45%',
-    height: '50px', // ปรับความสูงตามต้องการ
-    lineHeight: '30px', // ปรับความสูงของบรรทัดให้สอดคล้อง
-
-    // ลูกศรที่กำหนดเอง
-    backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path fill="black" d="M4 5l3 3 3-3"/></svg>')`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 15px center', // ปรับตำแหน่งลูกศรให้สวยงาม
-    backgroundSize: '14px 14px',
-
-    // เพิ่มการเปลี่ยนแปลงเมื่อโฟกัส (ถ้าต้องการ)
-    transition: 'background-color 0.3s ease',
-  }}
->
-  <option value="name">ค้นหาชื่อ</option>
-  <option value="workplace">ค้นหาที่ทำงาน</option>
-</select>
-
+            borderRadius: '30px',
+            padding: '10px',
+            paddingRight: '35px', // เว้นที่สำหรับไอคอนใหม่
+            outline: 'none',
+            border: 'none',
+            fontFamily: "'Kanit', sans-serif",
+            cursor: 'pointer',
+            backgroundColor: '#fff',
+            color: selectedfirstColor,
+            width: '45%',
+            backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path fill="black" d="M4 5l3 3 3-3"/></svg>')`, // ตัวอย่างลูกศรเล็กๆ
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 10px center', // ปรับตำแหน่งลูกศรตามต้องการ
+            backgroundSize: '14px 14px', // ปรับขนาดลูกศร
+          }}
+        >
+          <option value="name">ค้นหาชื่อ</option>
+          <option value="workplace">ค้นหาที่ทำงาน</option>
+        </select>
 
 
         <div style={{

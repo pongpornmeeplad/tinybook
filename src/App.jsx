@@ -10,6 +10,7 @@ import All from './All';
 import Profile from './Profile';
 import SearchPage from './SearchPage'
 import MyProfile from "./MyProfile"
+import FriendsMap from './FriendsMap';
 
 function App() {
   const [isLiffReady, setIsLiffReady] = useState(false);
@@ -22,49 +23,49 @@ function App() {
     picpic: '',
   });
 
-  useEffect(() => {
-    const initializeLiff = async () => {
-      try {
-        if (!window.liff) throw new Error('LIFF SDK is not loaded');
-        await window.liff.init({ liffId: '2005857013-rP966d6R' });
-        if (window.liff.isLoggedIn()) {
-          const profile = await window.liff.getProfile();
-          console.log('profile', profile);
+  // useEffect(() => {
+  //   const initializeLiff = async () => {
+  //     try {
+  //       if (!window.liff) throw new Error('LIFF SDK is not loaded');
+  //       await window.liff.init({ liffId: '2005857013-rP966d6R' });
+  //       if (window.liff.isLoggedIn()) {
+  //         const profile = await window.liff.getProfile();
+  //         console.log('profile', profile);
           
-          setInputValues((prevValues) => ({
-            ...prevValues,
-            LineId: profile.userId,  // Ensure consistent casing
-            picpic: profile.pictureUrl,
-          }));
-        } else {
-          window.liff.login();
-        }
-        setIsLiffReady(true);
-      } catch (err) {
-        console.error('Error initializing LIFF:', err);
-      }
-    };
+  //         setInputValues((prevValues) => ({
+  //           ...prevValues,
+  //           LineId: profile.userId,  // Ensure consistent casing
+  //           picpic: profile.pictureUrl,
+  //         }));
+  //       } else {
+  //         window.liff.login();
+  //       }
+  //       setIsLiffReady(true);
+  //     } catch (err) {
+  //       console.error('Error initializing LIFF:', err);
+  //     }
+  //   };
 
-    initializeLiff();
-  }, []);
+  //   initializeLiff();
+  // }, []);
 
-  if (!isLiffReady) {
-    return <div style={{
-      width: "100vw",
-      height: "100vh",
-      backgroundColor: "#510808",
-      display: 'flex',
-      flexDirection: 'column',
-      color: 'white',
-      fontFamily: "'Kanit', sans-serif",
-      overflow: 'hidden',
-      position: 'relative',
-      justifyContent: "end",
-      gap: "0.5rem",
-      alignItems: "center",
-  }}>Loading ...</div>;
+  // if (!isLiffReady) {
+  //   return <div style={{
+  //     width: "100vw",
+  //     height: "100vh",
+  //     backgroundColor: "#510808",
+  //     display: 'flex',
+  //     flexDirection: 'column',
+  //     color: 'white',
+  //     fontFamily: "'Kanit', sans-serif",
+  //     overflow: 'hidden',
+  //     position: 'relative',
+  //     justifyContent: "end",
+  //     gap: "0.5rem",
+  //     alignItems: "center",
+  // }}>Loading ...</div>;
     
-  }
+  // }
 
   return (
     <Router>
@@ -85,6 +86,7 @@ function App() {
         {/* Dynamic route for Profile based on LineId */}
         <Route path="/Profile/:id" element={<Profile />} />
         <Route path="/myProfile" element={<MyProfile />} />
+        <Route path="/FriendsMap" element={<FriendsMap />} />
 
       </Routes>
     </Router>
